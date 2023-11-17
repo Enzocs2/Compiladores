@@ -8,40 +8,45 @@ CHAR '.'
 */  
 
 %%
-= {printf("Token de atribuicao identificado");}
-input {printf("Token de entrada identificado");}
-print {printf("Token de saida identificado");}
-if {printf("Token de condicional identificado");}
-else {printf("Token de desvio condicional identificado");}
-elseif {printf("Token de desvio aninhado identificado");}
-for {printf("Token de laco identificado");}
+= {printf("ATRIBUICAO");}
+input {printf("ENTRADA");}
+print {printf("SAIDA");}
+if {printf("CONDICIONAL");}
+else {printf("DESVIOCONDICIONAL");}
+elseif {printf("DESVIOANINHADO");}
+for {printf("LACO");}
 
 
-[<] {printf("Token menor identificado");} /*Mudei pra ter token de <, =, >, !*/
-> {printf("Token maior identificado");}
-! {printf("Token not identificado");}
+[<] {printf("MENOR");} /*Mudei pra ter token de <, =, >, !*/
+> {printf("MAIOR");}
+! {printf("NOT");}
 
 
-[0-9]+[.][0-9]+ {printf("Real identificado");}
-[0-9]+ {printf("Inteiro identificado");}
-'.' {printf("Char identificado");}
+[0-9]+[.][0-9]+ {printf("NUMEROREAL");}
+[0-9]+ {printf("NUMEROINTEIRO");}
+'.' {printf("CHARACTERE");}
 
-and {printf("Token and identificado");}
-or {printf("Token or identificado");}
+and {printf("AND");}
+or {printf("OR");}
 
-[+] {printf("Token soma identificado");}
-- {printf("Token subtracao identificado");}
-[*] {printf("Token multiplicacao identificado");}
-[/] {printf("Token divisao identificado");}
-% {printf("Token mod identificado");}
+[.] {printf("PONTOFINAL");}
+[:] {printf("DOISPONTOS");}
+[(] {printf("ABREPARENTESES");}
+[)] {printf("FECHAPARENTESES");}
 
-{ {printf("Token inicioBloco identificado");}
-} {printf("Token fimBloco identificado");}
+[+] {printf("SOMA");}
+- {printf("SUBTRACAO");}
+[*] {printf("MULTIPLICACAO");}
+[/] {printf("DIVISAO");}
+% {printf("MOD");}
 
-inicio {printf("Token inicio identificado");}
-interio {printf("Token inteiro identificado");}
-character {printf("Token char identificado");}
-real {printf("Token real identificado");}
+[{] {printf("INICIOBLOCO");}
+[}] {printf("FIMBLOCO");}
+
+inicio {printf("INICIO");}
+int {printf("INT");}
+char {printf("CHAR");}
+real {printf("REAL");}
 
 [a-z_][a-zA-Z0-9_]* {printf("Variavel identificado");}
 
