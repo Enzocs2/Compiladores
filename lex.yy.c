@@ -368,8 +368,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 32
-#define YY_END_OF_BUFFER 33
+#define YY_NUM_RULES 33
+#define YY_END_OF_BUFFER 34
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -379,13 +379,13 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[68] =
     {   0,
-        0,    0,   33,   32,   10,   24,   32,   18,   19,   22,
-       20,   21,   16,   23,   12,   17,    8,    1,    9,   31,
-       31,   31,   31,   31,   31,   31,   31,   31,   25,   26,
-        0,    0,   12,   31,   31,   31,   31,   31,    4,   31,
-       15,   31,   31,   13,   11,   14,   31,   31,    7,   31,
-       31,   28,   31,   31,   29,    5,   31,   31,   31,   30,
-       31,   31,    2,    3,    6,   27,    0
+        0,    0,   34,   33,   10,   25,   14,   19,   20,   23,
+       21,   22,   17,   24,   12,   18,    8,    1,    9,   32,
+       32,   32,   32,   32,   32,   32,   32,   32,   26,   27,
+        0,    0,   12,   32,   32,   32,   32,   32,    4,   32,
+       16,   32,   32,   13,   11,   15,   32,   32,    7,   32,
+       32,   29,   32,   32,   30,    5,   32,   32,   32,   31,
+       32,   32,    2,    3,    6,   28,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -498,15 +498,17 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "teste.l"
-#line 2 "teste.l"
+#line 1 ".\\teste.l"
+#line 2 ".\\teste.l"
+
+#include "teste.tab.h"
 
 /*
 INT [0-9]+
 REAL [0-9]+'.'[0-9]+
 CHAR '.'
 */  
-#line 510 "lex.yy.c"
+#line 512 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -693,9 +695,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 10 "teste.l"
+#line 12 ".\\teste.l"
 
-#line 699 "lex.yy.c"
+#line 701 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -780,165 +782,170 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "teste.l"
-{printf("ATRIBUICAO");}
+#line 13 ".\\teste.l"
+{return ATRIBUICAO;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "teste.l"
-{printf("ENTRADA");}
+#line 14 ".\\teste.l"
+{return ENTRADA;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "teste.l"
-{printf("SAIDA");}
+#line 15 ".\\teste.l"
+{return SAIDA;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "teste.l"
-{printf("CONDICIONAL");}
+#line 16 ".\\teste.l"
+{return CONDICIONAL;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "teste.l"
-{printf("DESVIOCONDICIONAL");}
+#line 17 ".\\teste.l"
+{return DESVIOCONDICIONAL;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "teste.l"
-{printf("DESVIOANINHADO");}
+#line 18 ".\\teste.l"
+{return DESVIOANINHADO;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "teste.l"
-{printf("LACO");}
+#line 19 ".\\teste.l"
+{return LACO;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 20 "teste.l"
-{printf("MENOR");} /*Mudei pra ter token de <, =, >, !*/
+#line 22 ".\\teste.l"
+{return MENOR;} /*Mudei pra ter token de <, =, >, !*/
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 21 "teste.l"
-{printf("MAIOR");}
+#line 23 ".\\teste.l"
+{return MAIOR;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 22 "teste.l"
-{printf("NOT");}
+#line 24 ".\\teste.l"
+{return NOT;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "teste.l"
-{printf("NUMEROREAL");}
+#line 27 ".\\teste.l"
+{return NUMEROREAL;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 26 "teste.l"
-{printf("NUMEROINTEIRO");}
+#line 28 ".\\teste.l"
+{return NUMEROINTEIRO;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 27 "teste.l"
-{printf("CHARACTERE");}
+#line 29 ".\\teste.l"
+{return CHARACTERE;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 29 "teste.l"
-{printf("AND");}
+#line 30 ".\\teste.l"
+{return CHARACTERE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 30 "teste.l"
-{printf("OR");}
+#line 32 ".\\teste.l"
+{return AND;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 32 "teste.l"
-{printf("PONTOFINAL");}
+#line 33 ".\\teste.l"
+{return OR;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 33 "teste.l"
-{printf("DOISPONTOS");}
+#line 35 ".\\teste.l"
+{return PONTOFINAL;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 34 "teste.l"
-{printf("ABREPARENTESES");}
+#line 36 ".\\teste.l"
+{return DOISPONTOS;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 35 "teste.l"
-{printf("FECHAPARENTESES");}
+#line 37 ".\\teste.l"
+{return ABREPARENTESES;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "teste.l"
-{printf("SOMA");}
+#line 38 ".\\teste.l"
+{return FECHAPARENTESES;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "teste.l"
-{printf("SUBTRACAO");}
+#line 40 ".\\teste.l"
+{return SOMA;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "teste.l"
-{printf("MULTIPLICACAO");}
+#line 41 ".\\teste.l"
+{return SUBTRACAO;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 40 "teste.l"
-{printf("DIVISAO");}
+#line 42 ".\\teste.l"
+{return MULTIPLICACAO;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 41 "teste.l"
-{printf("MOD");}
+#line 43 ".\\teste.l"
+{return DIVISAO;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 43 "teste.l"
-{printf("INICIOBLOCO");}
+#line 44 ".\\teste.l"
+{return MOD;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 44 "teste.l"
-{printf("FIMBLOCO");}
+#line 46 ".\\teste.l"
+{return INICIOBLOCO;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 46 "teste.l"
-{printf("INICIO");}
+#line 47 ".\\teste.l"
+{return FIMBLOCO;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 47 "teste.l"
-{printf("INT");}
+#line 49 ".\\teste.l"
+{return INICIO;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 48 "teste.l"
-{printf("CHAR");}
+#line 50 ".\\teste.l"
+{return INT;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 49 "teste.l"
-{printf("REAL");}
+#line 51 ".\\teste.l"
+{return CHAR;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 51 "teste.l"
-{printf("Variavel identificado");}
+#line 52 ".\\teste.l"
+{return REAL;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 53 "teste.l"
+#line 54 ".\\teste.l"
+{return ID;}
+	YY_BREAK
+case 33:
+YY_RULE_SETUP
+#line 56 ".\\teste.l"
 ECHO;
 	YY_BREAK
-#line 942 "lex.yy.c"
+#line 949 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1936,7 +1943,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 53 "teste.l"
+#line 56 ".\\teste.l"
 
 
 
