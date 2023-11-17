@@ -1,13 +1,17 @@
 %{
 
 #include "teste.tab.h"
+#include <stdlib.h>
 
-%}
 /*
 INT [0-9]+
 REAL [0-9]+'.'[0-9]+
 CHAR '.'
-*/  
+
+\n {return EOL;}
+*/
+
+%}
 
 %%
 = {return ATRIBUICAO;}
@@ -24,8 +28,10 @@ for {return LACO;}
 ! {return NOT;}
 
 
-[0-9]+[.][0-9]+ {return NUMEROREAL;}
-[0-9]+ {return NUMEROINTEIRO;}
+[0-9]+[.][0-9]+ {   yylval = atof(yytext);
+                    return NUMEROREAL;}
+[0-9]+ {    yylval = atoi(yytext);
+            return NUMEROINTEIRO;}
 '.' {return CHARACTERE;}
 [''] {return CHARACTERE;}
 
@@ -43,32 +49,17 @@ or {return OR;}
 "/" {return DIVISAO;}
 % {return MOD;}
 
-<<<<<<< Updated upstream
 "{" {return INICIOBLOCO;}
 "}" {return FIMBLOCO;}
-=======
-inicio {printf("Token inicio identificado");}
-int {printf("Token inteiro identificado");}
-char {printf("Token char identificado");}
-real {printf("Token real identificado");}
->>>>>>> Stashed changes
 
 inicio {return INICIO;}
 int {return INT;}
 char {return CHAR;}
 real {return REAL;}
 
-[a-z_][a-zA-Z0-9_]* {return ID;}
+[a-z|A-Z][a-z|A-Z|0-9]* {return ID;}
 
 %%
-
-/*
-
-
-
-
-
-*/
 
 int yywrap(void){}
   

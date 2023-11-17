@@ -2,6 +2,7 @@
 
 int yylex();
 int yyerror(char *s);
+int sym[500];
 
 %}
 
@@ -44,15 +45,34 @@ int yyerror(char *s);
 %token REAL
 
 %token ID
+%left '+' '-'
+%left '*' '/'
 
 %%
 
-input: ATRIBUICAO;
+program:
+program statement '\n'
+|
+;
 
+statement:
+expr { printf("%d\n", $1); }
+| ID '=' expr { sym[$1] = $3; }
+;
+
+expr:
+    NUMEROINTEIRO
+    | ID { $$ = sym[$1]; }
+    | expr SOMA expr { $$ = $1 + $3; }
+    | expr SUBTRACAO expr { $$ = $1 - $3; }
+    | expr MULTIPLICACAO expr { $$ = $1 * $3; }
+    | expr DIVISAO expr { $$ = $1 / $3; }
+    | '(' expr ')' { $$ = $2; }
+    ;
 %%
 
 int yyerror(char *s){
-    printf("ERROR: %s\n", s);
+    printf(stderr, "%s\n", s);
 
     return 0;
 }
