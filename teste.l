@@ -43,8 +43,15 @@ or {return OR;}
 "/" {return DIVISAO;}
 % {return MOD;}
 
+<<<<<<< Updated upstream
 "{" {return INICIOBLOCO;}
 "}" {return FIMBLOCO;}
+=======
+inicio {printf("Token inicio identificado");}
+int {printf("Token inteiro identificado");}
+char {printf("Token char identificado");}
+real {printf("Token real identificado");}
+>>>>>>> Stashed changes
 
 inicio {return INICIO;}
 int {return INT;}
