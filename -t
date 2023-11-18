@@ -79,11 +79,11 @@
 
 
 /* Line 189 of yacc.c  */
-#line 83 "teste.tab.c"
+#line 83 "-t"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 
 /* Enabling verbose error messages.  */
@@ -156,7 +156,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 160 "teste.tab.c"
+#line 160 "-t"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -168,7 +168,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 172 "teste.tab.c"
+#line 172 "-t"
 
 #ifdef short
 # undef short
@@ -1382,55 +1382,55 @@ yyreduce:
 
 /* Line 1464 of yacc.c  */
 #line 71 "teste.y"
-    { printf("resultado: %d\n", (yyvsp[(1) - (2)].iValue)); ;}
+    { printf("%d", (yyvsp[(1) - (2)].iValue)); ;}
     break;
 
   case 6:
 
 /* Line 1464 of yacc.c  */
 #line 75 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (1)].iValue); printf("Numero %d\n", (yyvsp[(1) - (1)].iValue));;}
+    {printf("Numero %d", (yyvsp[(1) - (1)].iValue)); (yyval.iValue) = (yyvsp[(1) - (1)].iValue);;}
     break;
 
   case 7:
 
 /* Line 1464 of yacc.c  */
 #line 76 "teste.y"
-    {  (yyval.iValue) = (yyvsp[(1) - (3)].iValue) + (yyvsp[(3) - (3)].iValue); printf("%d + %d = %d\n", (yyvsp[(1) - (3)].iValue), (yyvsp[(3) - (3)].iValue), (yyval.iValue)); ;}
+    { printf("soma"); (yyval.iValue) = (yyvsp[(1) - (3)].iValue) + (yyvsp[(3) - (3)].iValue); ;}
     break;
 
   case 8:
 
 /* Line 1464 of yacc.c  */
 #line 77 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (3)].iValue) - (yyvsp[(3) - (3)].iValue); ;}
+    { printf("AQUI"); (yyval.iValue) = (yyvsp[(1) - (3)].iValue) - (yyvsp[(3) - (3)].iValue); ;}
     break;
 
   case 9:
 
 /* Line 1464 of yacc.c  */
 #line 78 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (3)].iValue) * (yyvsp[(3) - (3)].iValue); ;}
+    { printf("AQUI"); (yyval.iValue) = (yyvsp[(1) - (3)].iValue) * (yyvsp[(3) - (3)].iValue); ;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
 #line 79 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (3)].iValue) / (yyvsp[(3) - (3)].iValue); ;}
+    { printf("AQUI"); (yyval.iValue) = (yyvsp[(1) - (3)].iValue) / (yyvsp[(3) - (3)].iValue); ;}
     break;
 
   case 11:
 
 /* Line 1464 of yacc.c  */
 #line 80 "teste.y"
-    { (yyval.iValue) = (yyvsp[(2) - (3)].iValue); ;}
+    { printf("AQUI"); (yyval.iValue) = (yyvsp[(2) - (3)].iValue); ;}
     break;
 
 
 
 /* Line 1464 of yacc.c  */
-#line 1434 "teste.tab.c"
+#line 1434 "-t"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

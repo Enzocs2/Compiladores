@@ -38,37 +38,18 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     ENTRADA = 258,
-     ATRIBUICAO = 259,
-     SAIDA = 260,
-     CONDICIONAL = 261,
-     DESVIOCONDICIONAL = 262,
-     DESVIOANINHADO = 263,
-     LACO = 264,
-     MENOR = 265,
-     MAIOR = 266,
-     NOT = 267,
-     NUMEROREAL = 268,
-     NUMEROINTEIRO = 269,
-     CHARACTERE = 270,
-     AND = 271,
-     OR = 272,
-     PONTOFINAL = 273,
-     DOISPONTOS = 274,
-     ABREPARENTESES = 275,
-     FECHAPARENTESES = 276,
-     SOMA = 277,
-     SUBTRACAO = 278,
-     MULTIPLICACAO = 279,
-     DIVISAO = 280,
-     MOD = 281,
-     INICIOBLOCO = 282,
-     FIMBLOCO = 283,
-     INICIO = 284,
-     INT = 285,
-     CHAR = 286,
-     REAL = 287,
-     ID = 288
+     INTEGER = 258,
+     VARIABLE = 259,
+     WHILE = 260,
+     IF = 261,
+     PRINT = 262,
+     IFX = 263,
+     ELSE = 264,
+     NE = 265,
+     EQ = 266,
+     LE = 267,
+     GE = 268,
+     UMINUS = 269
    };
 #endif
 
@@ -79,16 +60,16 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 12 "teste.y"
+#line 17 "parse.y"
 
     int iValue; /* integer value */
-    char* sIndex; /* symbol table index */
-    //nodeType nPtr; /* node pointer */
+    char sIndex; /* symbol table index */
+    nodeType *nPtr; /* node pointer */
 
 
 
 /* Line 1685 of yacc.c  */
-#line 92 "teste.tab.h"
+#line 73 "parse.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

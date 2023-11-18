@@ -1,10 +1,19 @@
-%{
 
-int yylex();
-int yyerror(char *s);
-int sym[500];
+%{
+#include <stdio.h>
+#include <stdlib.h>
+    extern FILE *yyin;
+    int yylex();
+    int yyerror(char *s);
+    char* sym[500];
 
 %}
+
+%union {
+    int iValue; /* integer value */
+    char* sIndex; /* symbol table index */
+    //nodeType nPtr; /* node pointer */
+};
 
 %token ENTRADA
 %token ATRIBUICAO
@@ -19,7 +28,7 @@ int sym[500];
 %token NOT
 
 %token NUMEROREAL
-%token NUMEROINTEIRO
+%token <iValue> NUMEROINTEIRO
 %token CHARACTERE
 
 %token AND
@@ -44,41 +53,42 @@ int sym[500];
 %token CHAR
 %token REAL
 
-%token ID
-%left '+' '-'
-%left '*' '/'
+%token <sIndex> ID
+
+%left SOMA SUBTRACAO
+%left MULTIPLICACAO DIVISAO
+
+%type <iValue> expr
 
 %%
 
-program:
-program statement '\n'
-|
-;
+input:
+    |input line
+    ;
 
-statement:
-expr { printf("%d\n", $1); }
-| ID '=' expr { sym[$1] = $3; }
-;
+line:
+    '\n'
+    |expr '\n'  { printf("resultado: %d\n", $1); }
+    ;
 
 expr:
-    NUMEROINTEIRO
-    | ID { $$ = sym[$1]; }
-    | expr SOMA expr { $$ = $1 + $3; }
+    NUMEROINTEIRO { $$ = $1;}
+    | expr SOMA expr {  $$ = $1 + $3; printf("%d + %d = %d\n", $1, $3, $$); }
     | expr SUBTRACAO expr { $$ = $1 - $3; }
     | expr MULTIPLICACAO expr { $$ = $1 * $3; }
     | expr DIVISAO expr { $$ = $1 / $3; }
-    | '(' expr ')' { $$ = $2; }
+    | ABREPARENTESES expr FECHAPARENTESES { $$ = $2; }
     ;
 %%
 
-int yyerror(char *s){
-    printf(stderr, "%s\n", s);
-
+int yyerror(char *s) {
+    fprintf(stderr, "%s\n", s);
     return 0;
 }
 
-int main(){
+int main(int argc, char* argv[]){
     yyparse();
-
     return 0;
 }
+
+

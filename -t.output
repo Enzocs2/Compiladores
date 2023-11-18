@@ -1,0 +1,289 @@
+Terminals unused in grammar
+
+   ENTRADA
+   ATRIBUICAO
+   SAIDA
+   CONDICIONAL
+   DESVIOCONDICIONAL
+   DESVIOANINHADO
+   LACO
+   MENOR
+   MAIOR
+   NOT
+   NUMEROREAL
+   CHARACTERE
+   AND
+   OR
+   PONTOFINAL
+   DOISPONTOS
+   MOD
+   INICIOBLOCO
+   FIMBLOCO
+   INICIO
+   INT
+   CHAR
+   REAL
+   ID
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: /* empty */
+    2      | input line
+
+    3 line: '\n'
+    4     | expr '\n'
+
+    5 expr: NUMEROINTEIRO
+    6     | expr SOMA expr
+    7     | expr SUBTRACAO expr
+    8     | expr MULTIPLICACAO expr
+    9     | expr DIVISAO expr
+   10     | ABREPARENTESES expr FECHAPARENTESES
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'\n' (10) 3 4
+error (256)
+ENTRADA (258)
+ATRIBUICAO (259)
+SAIDA (260)
+CONDICIONAL (261)
+DESVIOCONDICIONAL (262)
+DESVIOANINHADO (263)
+LACO (264)
+MENOR (265)
+MAIOR (266)
+NOT (267)
+NUMEROREAL (268)
+NUMEROINTEIRO (269) 5
+CHARACTERE (270)
+AND (271)
+OR (272)
+PONTOFINAL (273)
+DOISPONTOS (274)
+ABREPARENTESES (275) 10
+FECHAPARENTESES (276) 10
+SOMA (277) 6
+SUBTRACAO (278) 7
+MULTIPLICACAO (279) 8
+DIVISAO (280) 9
+MOD (281)
+INICIOBLOCO (282)
+FIMBLOCO (283)
+INICIO (284)
+INT (285)
+CHAR (286)
+REAL (287)
+ID (288)
+
+
+Nonterminals, with rules where they appear
+
+$accept (35)
+    on left: 0
+input (36)
+    on left: 1 2, on right: 0 2
+line (37)
+    on left: 3 4, on right: 2
+expr (38)
+    on left: 5 6 7 8 9 10, on right: 4 6 7 8 9 10
+
+
+state 0
+
+    0 $accept: . input $end
+
+    $default  reduce using rule 1 (input)
+
+    input  go to state 1
+
+
+state 1
+
+    0 $accept: input . $end
+    2 input: input . line
+
+    $end            shift, and go to state 2
+    NUMEROINTEIRO   shift, and go to state 3
+    ABREPARENTESES  shift, and go to state 4
+    '\n'            shift, and go to state 5
+
+    line  go to state 6
+    expr  go to state 7
+
+
+state 2
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+state 3
+
+    5 expr: NUMEROINTEIRO .
+
+    $default  reduce using rule 5 (expr)
+
+
+state 4
+
+   10 expr: ABREPARENTESES . expr FECHAPARENTESES
+
+    NUMEROINTEIRO   shift, and go to state 3
+    ABREPARENTESES  shift, and go to state 4
+
+    expr  go to state 8
+
+
+state 5
+
+    3 line: '\n' .
+
+    $default  reduce using rule 3 (line)
+
+
+state 6
+
+    2 input: input line .
+
+    $default  reduce using rule 2 (input)
+
+
+state 7
+
+    4 line: expr . '\n'
+    6 expr: expr . SOMA expr
+    7     | expr . SUBTRACAO expr
+    8     | expr . MULTIPLICACAO expr
+    9     | expr . DIVISAO expr
+
+    SOMA           shift, and go to state 9
+    SUBTRACAO      shift, and go to state 10
+    MULTIPLICACAO  shift, and go to state 11
+    DIVISAO        shift, and go to state 12
+    '\n'           shift, and go to state 13
+
+
+state 8
+
+    6 expr: expr . SOMA expr
+    7     | expr . SUBTRACAO expr
+    8     | expr . MULTIPLICACAO expr
+    9     | expr . DIVISAO expr
+   10     | ABREPARENTESES expr . FECHAPARENTESES
+
+    FECHAPARENTESES  shift, and go to state 14
+    SOMA             shift, and go to state 9
+    SUBTRACAO        shift, and go to state 10
+    MULTIPLICACAO    shift, and go to state 11
+    DIVISAO          shift, and go to state 12
+
+
+state 9
+
+    6 expr: expr SOMA . expr
+
+    NUMEROINTEIRO   shift, and go to state 3
+    ABREPARENTESES  shift, and go to state 4
+
+    expr  go to state 15
+
+
+state 10
+
+    7 expr: expr SUBTRACAO . expr
+
+    NUMEROINTEIRO   shift, and go to state 3
+    ABREPARENTESES  shift, and go to state 4
+
+    expr  go to state 16
+
+
+state 11
+
+    8 expr: expr MULTIPLICACAO . expr
+
+    NUMEROINTEIRO   shift, and go to state 3
+    ABREPARENTESES  shift, and go to state 4
+
+    expr  go to state 17
+
+
+state 12
+
+    9 expr: expr DIVISAO . expr
+
+    NUMEROINTEIRO   shift, and go to state 3
+    ABREPARENTESES  shift, and go to state 4
+
+    expr  go to state 18
+
+
+state 13
+
+    4 line: expr '\n' .
+
+    $default  reduce using rule 4 (line)
+
+
+state 14
+
+   10 expr: ABREPARENTESES expr FECHAPARENTESES .
+
+    $default  reduce using rule 10 (expr)
+
+
+state 15
+
+    6 expr: expr . SOMA expr
+    6     | expr SOMA expr .
+    7     | expr . SUBTRACAO expr
+    8     | expr . MULTIPLICACAO expr
+    9     | expr . DIVISAO expr
+
+    MULTIPLICACAO  shift, and go to state 11
+    DIVISAO        shift, and go to state 12
+
+    $default  reduce using rule 6 (expr)
+
+
+state 16
+
+    6 expr: expr . SOMA expr
+    7     | expr . SUBTRACAO expr
+    7     | expr SUBTRACAO expr .
+    8     | expr . MULTIPLICACAO expr
+    9     | expr . DIVISAO expr
+
+    MULTIPLICACAO  shift, and go to state 11
+    DIVISAO        shift, and go to state 12
+
+    $default  reduce using rule 7 (expr)
+
+
+state 17
+
+    6 expr: expr . SOMA expr
+    7     | expr . SUBTRACAO expr
+    8     | expr . MULTIPLICACAO expr
+    8     | expr MULTIPLICACAO expr .
+    9     | expr . DIVISAO expr
+
+    $default  reduce using rule 8 (expr)
+
+
+state 18
+
+    6 expr: expr . SOMA expr
+    7     | expr . SUBTRACAO expr
+    8     | expr . MULTIPLICACAO expr
+    9     | expr . DIVISAO expr
+    9     | expr DIVISAO expr .
+
+    $default  reduce using rule 9 (expr)

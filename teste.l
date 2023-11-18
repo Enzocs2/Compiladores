@@ -3,17 +3,21 @@
 #include "teste.tab.h"
 #include <stdlib.h>
 
+
 /*
 INT [0-9]+
 REAL [0-9]+'.'[0-9]+
 CHAR '.'
 
-\n {return EOL;}
+
 */
 
 %}
 
 %%
+[\n]        { return *yytext; }
+[ \t]           ; // ignore whitespace
+
 = {return ATRIBUICAO;}
 input {return ENTRADA;}
 print {return SAIDA;}
@@ -28,9 +32,8 @@ for {return LACO;}
 ! {return NOT;}
 
 
-[0-9]+[.][0-9]+ {   yylval = atof(yytext);
-                    return NUMEROREAL;}
-[0-9]+ {    yylval = atoi(yytext);
+[0-9]+[.][0-9]+ { return NUMEROREAL;}
+(-)?[0-9]+ {    yylval.iValue = atoi(yytext);
             return NUMEROINTEIRO;}
 '.' {return CHARACTERE;}
 [''] {return CHARACTERE;}
@@ -57,16 +60,11 @@ int {return INT;}
 char {return CHAR;}
 real {return REAL;}
 
-[a-z|A-Z][a-z|A-Z|0-9]* {return ID;}
+[a-z]([a-z]|[A-Z]|[0-9])* {   yylval.sIndex = strdup(yytext);
+              return ID;}
 
 %%
 
-int yywrap(void){}
-  
-int main()
-{   
-    // The function that starts the analysis
-    yylex();
-
-    return 0;
+int yywrap(void){
+    return 1;    
 }
