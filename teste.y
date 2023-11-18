@@ -1,19 +1,46 @@
-
 %{
-#include <stdio.h>
-#include <stdlib.h>
-    extern FILE *yyin;
-    int yylex();
-    int yyerror(char *s);
-    char* sym[500];
+#include<unordered_map>
+
+typedef struct{
+    char id[30];
+    int n;
+}numeroInteiro;
+
+typedef struct{
+    char id[30];
+    double n;
+}numeroReal;
+
+typedef struct{
+    char id[30];
+    char c;
+}letras;
+
+typedef union{
+
+    numeroInteiro numInteiro;
+    numeroReal numReal;
+    letras letra;
+
+}variavel;
+
+extern FILE *yyin;
+int yylex();
+int yyerror(char *s);
+
+tr1::unordered_map<variavel.id,variavel> varTable;
 
 %}
 
 %union {
-    int iValue; /* integer value */
-    char* sIndex; /* symbol table index */
+    int inteiro; /* integer value */
+    double real; /* symbol table index */
+    char caractere;
+    variavel var;
     //nodeType nPtr; /* node pointer */
 };
+
+
 
 %token ENTRADA
 %token ATRIBUICAO
@@ -27,9 +54,9 @@
 %token MAIOR
 %token NOT
 
-%token NUMEROREAL
-%token <iValue> NUMEROINTEIRO
-%token CHARACTERE
+%token <real> NUMEROREAL
+%token <inteiro> NUMEROINTEIRO
+%token <caractere> CHARACTERE
 
 %token AND
 %token OR
@@ -53,12 +80,17 @@
 %token CHAR
 %token REAL
 
-%token <sIndex> ID
+%token <var> ID
+
+%left OR
+%left AND
 
 %left SOMA SUBTRACAO
 %left MULTIPLICACAO DIVISAO
 
-%type <iValue> expr
+
+%type <inteiro> exprInt
+%type <real> exprReal
 
 %%
 
@@ -68,17 +100,31 @@ input:
 
 line:
     '\n'
-    |expr '\n'  { printf("resultado: %d\n", $1); }
+    |exprInt '\n'  { printf("resultado: %d\n", $1); }
     ;
 
-expr:
-    NUMEROINTEIRO { $$ = $1;}
-    | expr SOMA expr {  $$ = $1 + $3; printf("%d + %d = %d\n", $1, $3, $$); }
-    | expr SUBTRACAO expr { $$ = $1 - $3; }
-    | expr MULTIPLICACAO expr { $$ = $1 * $3; }
-    | expr DIVISAO expr { $$ = $1 / $3; }
-    | ABREPARENTESES expr FECHAPARENTESES { $$ = $2; }
+calcInt: ID ATRIBUICAO exprInt {varTable[$1] = $3.variavel.numInteiro.n}
+    |exprInt
     ;
+
+exprInt:
+    NUMEROINTEIRO { $$ = $1;}
+    | exprInt SOMA exprInt {  $$ = $1 + $3; printf("%d + %d = %d\n", $1, $3, $$); }
+    | exprInt SUBTRACAO exprInt { $$ = $1 - $3; }
+    | exprInt MULTIPLICACAO exprInt { $$ = $1 * $3; }
+    | exprInt DIVISAO exprInt { $$ = $1 / $3; }
+    | ABREPARENTESES exprInt FECHAPARENTESES { $$ = $2; }
+    ;
+
+exprReal:
+    NUMEROINTEIRO { $$ = $1;}
+    | exprReal SOMA exprReal {  $$ = $1 + $3; }
+    | exprReal SUBTRACAO exprReal { $$ = $1 - $3; }
+    | exprReal MULTIPLICACAO exprReal { $$ = $1 * $3; }
+    | exprReal DIVISAO exprReal { $$ = $1 / $3; }
+    | ABREPARENTESES exprReal FECHAPARENTESES { $$ = $2; }
+    ;
+
 %%
 
 int yyerror(char *s) {

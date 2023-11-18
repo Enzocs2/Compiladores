@@ -1,3 +1,9 @@
+Nonterminals useless in grammar
+
+   calcInt
+   exprReal
+
+
 Terminals unused in grammar
 
    ENTRADA
@@ -26,6 +32,19 @@ Terminals unused in grammar
    ID
 
 
+Rules useless in grammar
+
+   11 calcInt: ID ATRIBUICAO exprInt
+   12        | exprInt
+
+   13 exprReal: NUMEROINTEIRO
+   14         | exprReal SOMA exprReal
+   15         | exprReal SUBTRACAO exprReal
+   16         | exprReal MULTIPLICACAO exprReal
+   17         | exprReal DIVISAO exprReal
+   18         | ABREPARENTESES exprReal FECHAPARENTESES
+
+
 Grammar
 
     0 $accept: input $end
@@ -34,14 +53,14 @@ Grammar
     2      | input line
 
     3 line: '\n'
-    4     | expr '\n'
+    4     | exprInt '\n'
 
-    5 expr: NUMEROINTEIRO
-    6     | expr SOMA expr
-    7     | expr SUBTRACAO expr
-    8     | expr MULTIPLICACAO expr
-    9     | expr DIVISAO expr
-   10     | ABREPARENTESES expr FECHAPARENTESES
+    5 exprInt: NUMEROINTEIRO
+    6        | exprInt SOMA exprInt
+    7        | exprInt SUBTRACAO exprInt
+    8        | exprInt MULTIPLICACAO exprInt
+    9        | exprInt DIVISAO exprInt
+   10        | ABREPARENTESES exprInt FECHAPARENTESES
 
 
 Terminals, with rules where they appear
@@ -90,7 +109,7 @@ input (36)
     on left: 1 2, on right: 0 2
 line (37)
     on left: 3 4, on right: 2
-expr (38)
+exprInt (38)
     on left: 5 6 7 8 9 10, on right: 4 6 7 8 9 10
 
 
@@ -113,8 +132,8 @@ state 1
     ABREPARENTESES  shift, and go to state 4
     '\n'            shift, and go to state 5
 
-    line  go to state 6
-    expr  go to state 7
+    line     go to state 6
+    exprInt  go to state 7
 
 
 state 2
@@ -126,19 +145,19 @@ state 2
 
 state 3
 
-    5 expr: NUMEROINTEIRO .
+    5 exprInt: NUMEROINTEIRO .
 
-    $default  reduce using rule 5 (expr)
+    $default  reduce using rule 5 (exprInt)
 
 
 state 4
 
-   10 expr: ABREPARENTESES . expr FECHAPARENTESES
+   10 exprInt: ABREPARENTESES . exprInt FECHAPARENTESES
 
     NUMEROINTEIRO   shift, and go to state 3
     ABREPARENTESES  shift, and go to state 4
 
-    expr  go to state 8
+    exprInt  go to state 8
 
 
 state 5
@@ -157,11 +176,11 @@ state 6
 
 state 7
 
-    4 line: expr . '\n'
-    6 expr: expr . SOMA expr
-    7     | expr . SUBTRACAO expr
-    8     | expr . MULTIPLICACAO expr
-    9     | expr . DIVISAO expr
+    4 line: exprInt . '\n'
+    6 exprInt: exprInt . SOMA exprInt
+    7        | exprInt . SUBTRACAO exprInt
+    8        | exprInt . MULTIPLICACAO exprInt
+    9        | exprInt . DIVISAO exprInt
 
     SOMA           shift, and go to state 9
     SUBTRACAO      shift, and go to state 10
@@ -172,11 +191,11 @@ state 7
 
 state 8
 
-    6 expr: expr . SOMA expr
-    7     | expr . SUBTRACAO expr
-    8     | expr . MULTIPLICACAO expr
-    9     | expr . DIVISAO expr
-   10     | ABREPARENTESES expr . FECHAPARENTESES
+    6 exprInt: exprInt . SOMA exprInt
+    7        | exprInt . SUBTRACAO exprInt
+    8        | exprInt . MULTIPLICACAO exprInt
+    9        | exprInt . DIVISAO exprInt
+   10        | ABREPARENTESES exprInt . FECHAPARENTESES
 
     FECHAPARENTESES  shift, and go to state 14
     SOMA             shift, and go to state 9
@@ -187,103 +206,103 @@ state 8
 
 state 9
 
-    6 expr: expr SOMA . expr
+    6 exprInt: exprInt SOMA . exprInt
 
     NUMEROINTEIRO   shift, and go to state 3
     ABREPARENTESES  shift, and go to state 4
 
-    expr  go to state 15
+    exprInt  go to state 15
 
 
 state 10
 
-    7 expr: expr SUBTRACAO . expr
+    7 exprInt: exprInt SUBTRACAO . exprInt
 
     NUMEROINTEIRO   shift, and go to state 3
     ABREPARENTESES  shift, and go to state 4
 
-    expr  go to state 16
+    exprInt  go to state 16
 
 
 state 11
 
-    8 expr: expr MULTIPLICACAO . expr
+    8 exprInt: exprInt MULTIPLICACAO . exprInt
 
     NUMEROINTEIRO   shift, and go to state 3
     ABREPARENTESES  shift, and go to state 4
 
-    expr  go to state 17
+    exprInt  go to state 17
 
 
 state 12
 
-    9 expr: expr DIVISAO . expr
+    9 exprInt: exprInt DIVISAO . exprInt
 
     NUMEROINTEIRO   shift, and go to state 3
     ABREPARENTESES  shift, and go to state 4
 
-    expr  go to state 18
+    exprInt  go to state 18
 
 
 state 13
 
-    4 line: expr '\n' .
+    4 line: exprInt '\n' .
 
     $default  reduce using rule 4 (line)
 
 
 state 14
 
-   10 expr: ABREPARENTESES expr FECHAPARENTESES .
+   10 exprInt: ABREPARENTESES exprInt FECHAPARENTESES .
 
-    $default  reduce using rule 10 (expr)
+    $default  reduce using rule 10 (exprInt)
 
 
 state 15
 
-    6 expr: expr . SOMA expr
-    6     | expr SOMA expr .
-    7     | expr . SUBTRACAO expr
-    8     | expr . MULTIPLICACAO expr
-    9     | expr . DIVISAO expr
+    6 exprInt: exprInt . SOMA exprInt
+    6        | exprInt SOMA exprInt .
+    7        | exprInt . SUBTRACAO exprInt
+    8        | exprInt . MULTIPLICACAO exprInt
+    9        | exprInt . DIVISAO exprInt
 
     MULTIPLICACAO  shift, and go to state 11
     DIVISAO        shift, and go to state 12
 
-    $default  reduce using rule 6 (expr)
+    $default  reduce using rule 6 (exprInt)
 
 
 state 16
 
-    6 expr: expr . SOMA expr
-    7     | expr . SUBTRACAO expr
-    7     | expr SUBTRACAO expr .
-    8     | expr . MULTIPLICACAO expr
-    9     | expr . DIVISAO expr
+    6 exprInt: exprInt . SOMA exprInt
+    7        | exprInt . SUBTRACAO exprInt
+    7        | exprInt SUBTRACAO exprInt .
+    8        | exprInt . MULTIPLICACAO exprInt
+    9        | exprInt . DIVISAO exprInt
 
     MULTIPLICACAO  shift, and go to state 11
     DIVISAO        shift, and go to state 12
 
-    $default  reduce using rule 7 (expr)
+    $default  reduce using rule 7 (exprInt)
 
 
 state 17
 
-    6 expr: expr . SOMA expr
-    7     | expr . SUBTRACAO expr
-    8     | expr . MULTIPLICACAO expr
-    8     | expr MULTIPLICACAO expr .
-    9     | expr . DIVISAO expr
+    6 exprInt: exprInt . SOMA exprInt
+    7        | exprInt . SUBTRACAO exprInt
+    8        | exprInt . MULTIPLICACAO exprInt
+    8        | exprInt MULTIPLICACAO exprInt .
+    9        | exprInt . DIVISAO exprInt
 
-    $default  reduce using rule 8 (expr)
+    $default  reduce using rule 8 (exprInt)
 
 
 state 18
 
-    6 expr: expr . SOMA expr
-    7     | expr . SUBTRACAO expr
-    8     | expr . MULTIPLICACAO expr
-    9     | expr . DIVISAO expr
-    9     | expr DIVISAO expr .
+    6 exprInt: exprInt . SOMA exprInt
+    7        | exprInt . SUBTRACAO exprInt
+    8        | exprInt . MULTIPLICACAO exprInt
+    9        | exprInt . DIVISAO exprInt
+    9        | exprInt DIVISAO exprInt .
 
-    $default  reduce using rule 9 (expr)
+    $default  reduce using rule 9 (exprInt)

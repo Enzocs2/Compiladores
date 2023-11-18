@@ -79,16 +79,18 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 12 "teste.y"
+#line 37 "teste.y"
 
-    int iValue; /* integer value */
-    char* sIndex; /* symbol table index */
+    int inteiro; /* integer value */
+    double real; /* symbol table index */
+    char caractere;
+    variavel var;
     //nodeType nPtr; /* node pointer */
 
 
 
 /* Line 1685 of yacc.c  */
-#line 92 "teste.tab.h"
+#line 94 "teste.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

@@ -67,19 +67,45 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 2 "teste.y"
+#line 1 "teste.y"
 
 #include <stdio.h>
 #include <stdlib.h>
-    extern FILE *yyin;
-    int yylex();
-    int yyerror(char *s);
-    int *sym[500];
+#include <unordered_map> 
+
+typedef struct{
+    char id[30];
+    int n;
+}numeroInteiro;
+
+typedef struct{
+    char id[30];
+    double n;
+}numeroReal;
+
+typedef struct{
+    char id[30];
+    char c;
+}letras;
+
+typedef union{
+
+    numeroInteiro numInteiro;
+    numeroReal numReal;
+    letras letra;
+
+}variavel;
+
+extern FILE *yyin;
+int yylex();
+int yyerror(char *s);
+
+unordered_map<variavel.id,variavel> varTable;
 
 
 
 /* Line 189 of yacc.c  */
-#line 83 "teste.tab.c"
+#line 109 "teste.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -147,16 +173,18 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 12 "teste.y"
+#line 37 "teste.y"
 
-    int iValue; /* integer value */
-    char* sIndex; /* symbol table index */
+    int inteiro; /* integer value */
+    double real; /* symbol table index */
+    char caractere;
+    variavel var;
     //nodeType nPtr; /* node pointer */
 
 
 
 /* Line 214 of yacc.c  */
-#line 160 "teste.tab.c"
+#line 188 "teste.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -168,7 +196,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 172 "teste.tab.c"
+#line 200 "teste.tab.c"
 
 #ifdef short
 # undef short
@@ -456,8 +484,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    65,    65,    66,    70,    71,    75,    76,    77,    78,
-      79,    80
+       0,    99,    99,   100,   104,   105,   113,   114,   115,   116,
+     117,   118
 };
 #endif
 
@@ -472,7 +500,7 @@ static const char *const yytname[] =
   "PONTOFINAL", "DOISPONTOS", "ABREPARENTESES", "FECHAPARENTESES", "SOMA",
   "SUBTRACAO", "MULTIPLICACAO", "DIVISAO", "MOD", "INICIOBLOCO",
   "FIMBLOCO", "INICIO", "INT", "CHAR", "REAL", "ID", "'\\n'", "$accept",
-  "input", "line", "expr", 0
+  "input", "line", "exprInt", 0
 };
 #endif
 
@@ -1381,56 +1409,56 @@ yyreduce:
         case 5:
 
 /* Line 1464 of yacc.c  */
-#line 71 "teste.y"
-    { printf("resultado: %d\n", (yyvsp[(1) - (2)].iValue)); ;}
+#line 105 "teste.y"
+    { printf("resultado: %d\n", (yyvsp[(1) - (2)].inteiro)); ;}
     break;
 
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 75 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (1)].iValue); printf("Numero %d\n", (yyvsp[(1) - (1)].iValue));;}
+#line 113 "teste.y"
+    { (yyval.inteiro) = (yyvsp[(1) - (1)].inteiro);;}
     break;
 
   case 7:
 
 /* Line 1464 of yacc.c  */
-#line 76 "teste.y"
-    {  (yyval.iValue) = (yyvsp[(1) - (3)].iValue) + (yyvsp[(3) - (3)].iValue); printf("%d + %d = %d\n", (yyvsp[(1) - (3)].iValue), (yyvsp[(3) - (3)].iValue), (yyval.iValue)); ;}
+#line 114 "teste.y"
+    {  (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) + (yyvsp[(3) - (3)].inteiro); printf("%d + %d = %d\n", (yyvsp[(1) - (3)].inteiro), (yyvsp[(3) - (3)].inteiro), (yyval.inteiro)); ;}
     break;
 
   case 8:
 
 /* Line 1464 of yacc.c  */
-#line 77 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (3)].iValue) - (yyvsp[(3) - (3)].iValue); ;}
+#line 115 "teste.y"
+    { (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) - (yyvsp[(3) - (3)].inteiro); ;}
     break;
 
   case 9:
 
 /* Line 1464 of yacc.c  */
-#line 78 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (3)].iValue) * (yyvsp[(3) - (3)].iValue); ;}
+#line 116 "teste.y"
+    { (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) * (yyvsp[(3) - (3)].inteiro); ;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
-#line 79 "teste.y"
-    { (yyval.iValue) = (yyvsp[(1) - (3)].iValue) / (yyvsp[(3) - (3)].iValue); ;}
+#line 117 "teste.y"
+    { (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) / (yyvsp[(3) - (3)].inteiro); ;}
     break;
 
   case 11:
 
 /* Line 1464 of yacc.c  */
-#line 80 "teste.y"
-    { (yyval.iValue) = (yyvsp[(2) - (3)].iValue); ;}
+#line 118 "teste.y"
+    { (yyval.inteiro) = (yyvsp[(2) - (3)].inteiro); ;}
     break;
 
 
 
 /* Line 1464 of yacc.c  */
-#line 1434 "teste.tab.c"
+#line 1462 "teste.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1642,7 +1670,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 82 "teste.y"
+#line 130 "teste.y"
 
 
 int yyerror(char *s) {

@@ -33,7 +33,7 @@ for {return LACO;}
 
 
 [0-9]+[.][0-9]+ { return NUMEROREAL;}
-(-)?[0-9]+ {    yylval.iValue = atoi(yytext);
+(-)?[0-9]+ {    yylval.variavel.numInteiro.n = atoi(yytext);
             return NUMEROINTEIRO;}
 '.' {return CHARACTERE;}
 [''] {return CHARACTERE;}
@@ -60,7 +60,7 @@ int {return INT;}
 char {return CHAR;}
 real {return REAL;}
 
-[a-z]([a-z]|[A-Z]|[0-9])* {   yylval.sIndex = strdup(yytext);
+[a-z_]([a-z_]|[A-Z]|[0-9])* {   yylval.sIndex = strdup(yytext);
               return ID;}
 
 %%
