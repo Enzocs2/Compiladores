@@ -1,5 +1,9 @@
 %{
-#include<unordered_map>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#DEFINE MAXTABLE 30
 
 typedef struct{
     char id[30];
@@ -24,11 +28,48 @@ typedef union{
 
 }variavel;
 
+typedef union{
+    variavel v;
+    int tipo; //letra = 3 numReal = 2 numInteiro = 1
+}var
+
 extern FILE *yyin;
 int yylex();
 int yyerror(char *s);
 
-tr1::unordered_map<variavel.id,variavel> varTable;
+numeroInteiro intTable[MAXTABLE];
+numeroReal realTable[MAXTABLE];
+letras letraTable[MAXTABLE];
+
+double lookupIntVariable(char id[30]) {
+	int i = 0;
+    for (i = 0; i <= MAXTABLE; i++) {
+        if (strcmp(intTable[i].id, id) == 0) {
+            return intTable[i].n;
+        }
+    }
+    fprintf(stderr, "Error: Variable %s not found\n", var);
+    exit(EXIT_FAILURE);
+}
+
+void update_variable(char var[20], double value) {
+	int i = 0;
+    for (i = 0; i <= variable_count; i++) {
+        if (strcmp(variables[i].name, var) == 0) {
+            variables[i].value = value;
+            return;
+        }
+    }
+    if (variable_count < MAX_VARIABLES) {
+        strcpy(variables[variable_count].name, var);
+        variables[variable_count].value = value;
+        variable_count += 1;
+		return;
+    } else {
+        fprintf(stderr, "Error: Maximum number of variables reached\n");
+        exit(EXIT_FAILURE);
+    }
+}
 
 %}
 
@@ -103,7 +144,7 @@ line:
     |exprInt '\n'  { printf("resultado: %d\n", $1); }
     ;
 
-calcInt: ID ATRIBUICAO exprInt {varTable[$1] = $3.variavel.numInteiro.n}
+calcInt: ID ATRIBUICAO exprInt {intTable[$1] = $3.variavel.numInteiro.n}
     |exprInt
     ;
 

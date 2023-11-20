@@ -69,9 +69,9 @@
 /* Line 189 of yacc.c  */
 #line 1 "teste.y"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unordered_map> 
+#include<unordered_map>
+
+using namespace std;
 
 typedef struct{
     char id[30];
@@ -100,7 +100,7 @@ extern FILE *yyin;
 int yylex();
 int yyerror(char *s);
 
-unordered_map<variavel.id,variavel> varTable;
+unordered_map<int,int> varTable;
 
 
 
