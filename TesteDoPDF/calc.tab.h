@@ -38,18 +38,16 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     INTEGER = 258,
-     VARIABLE = 259,
-     WHILE = 260,
-     IF = 261,
-     PRINT = 262,
-     IFX = 263,
-     ELSE = 264,
-     NE = 265,
-     EQ = 266,
-     LE = 267,
-     GE = 268,
-     UMINUS = 269
+     SUBTRACAO = 258,
+     SOMA = 259,
+     DIVISAO = 260,
+     MULTIPLICACAO = 261,
+     FECHAPARENTESES = 262,
+     ABREPARENTESES = 263,
+     ATRIBUICAO = 264,
+     NAME = 265,
+     NUMBER = 266,
+     UMINUS = 267
    };
 #endif
 
@@ -60,16 +58,15 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 17 "parse.y"
+#line 9 "calc.y"
 
-    int iValue; /* integer value */
-    char sIndex; /* symbol table index */
-    nodeType *nPtr; /* node pointer */
+	double dval;
+	struct symtab *symp;
 
 
 
 /* Line 1685 of yacc.c  */
-#line 73 "parse.tab.h"
+#line 70 "calc.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

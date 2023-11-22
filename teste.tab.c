@@ -67,11 +67,13 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 1 "teste.y"
+#line 2 "teste.y"
 
-#include<unordered_map>
 
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAXTABLE 100
 
 typedef struct{
     char id[30];
@@ -96,16 +98,52 @@ typedef union{
 
 }variavel;
 
+
 extern FILE *yyin;
 int yylex();
 int yyerror(char *s);
 
-unordered_map<int,int> varTable;
+int intCount=0;
+numeroInteiro intTable[MAXTABLE];
+int realCount=0;
+numeroReal realTable[MAXTABLE];
+int letraCount=0;
+letras letraTable[MAXTABLE];
+
+double lookupIntVariable(char id[30]) {
+	int i = 0;
+    for (i = 0; i <= MAXTABLE; i++) {
+        if (strcmp(intTable[i].id, id) == 0) {
+            return intTable[i].n;
+        }
+    }
+    fprintf(stderr, "Error: Variable not found\n");
+    exit(EXIT_FAILURE);
+}
+
+void update_Intvariable(char var[20], int n) {
+	int i = 0;
+    for (i = 0; i <= intCount; i++) {
+        if (strcmp(intTable[i].id, var) == 0) {
+            intTable[i].n = n;
+            return;
+        }
+    }
+    if (intCount < MAXTABLE) {
+        strcpy(intTable[intCount].name, var);
+        intTable[intCount].n = n;
+        intCount += 1;
+		return;
+    } else {
+        fprintf(stderr, "Error: Maximum number of variables reached\n");
+        exit(EXIT_FAILURE);
+    }
+}
 
 
 
 /* Line 189 of yacc.c  */
-#line 109 "teste.tab.c"
+#line 147 "teste.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -173,18 +211,20 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 37 "teste.y"
+#line 76 "teste.y"
 
-    int inteiro; /* integer value */
-    double real; /* symbol table index */
+    int inteiro;
+    double real;
     char caractere;
-    variavel var;
+    struct numeroInteiro numInteiro;
+    struct numeroReal numReal;
+    struct letras letra;
     //nodeType nPtr; /* node pointer */
 
 
 
 /* Line 214 of yacc.c  */
-#line 188 "teste.tab.c"
+#line 228 "teste.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -196,7 +236,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 200 "teste.tab.c"
+#line 240 "teste.tab.c"
 
 #ifdef short
 # undef short
@@ -484,8 +524,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    99,    99,   100,   104,   105,   113,   114,   115,   116,
-     117,   118
+       0,   138,   138,   139,   143,   144,   152,   153,   154,   155,
+     156,   157
 };
 #endif
 
@@ -1409,56 +1449,56 @@ yyreduce:
         case 5:
 
 /* Line 1464 of yacc.c  */
-#line 105 "teste.y"
+#line 144 "teste.y"
     { printf("resultado: %d\n", (yyvsp[(1) - (2)].inteiro)); ;}
     break;
 
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 113 "teste.y"
+#line 152 "teste.y"
     { (yyval.inteiro) = (yyvsp[(1) - (1)].inteiro);;}
     break;
 
   case 7:
 
 /* Line 1464 of yacc.c  */
-#line 114 "teste.y"
+#line 153 "teste.y"
     {  (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) + (yyvsp[(3) - (3)].inteiro); printf("%d + %d = %d\n", (yyvsp[(1) - (3)].inteiro), (yyvsp[(3) - (3)].inteiro), (yyval.inteiro)); ;}
     break;
 
   case 8:
 
 /* Line 1464 of yacc.c  */
-#line 115 "teste.y"
+#line 154 "teste.y"
     { (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) - (yyvsp[(3) - (3)].inteiro); ;}
     break;
 
   case 9:
 
 /* Line 1464 of yacc.c  */
-#line 116 "teste.y"
+#line 155 "teste.y"
     { (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) * (yyvsp[(3) - (3)].inteiro); ;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
-#line 117 "teste.y"
+#line 156 "teste.y"
     { (yyval.inteiro) = (yyvsp[(1) - (3)].inteiro) / (yyvsp[(3) - (3)].inteiro); ;}
     break;
 
   case 11:
 
 /* Line 1464 of yacc.c  */
-#line 118 "teste.y"
+#line 157 "teste.y"
     { (yyval.inteiro) = (yyvsp[(2) - (3)].inteiro); ;}
     break;
 
 
 
 /* Line 1464 of yacc.c  */
-#line 1462 "teste.tab.c"
+#line 1502 "teste.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1670,7 +1710,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 130 "teste.y"
+#line 169 "teste.y"
 
 
 int yyerror(char *s) {

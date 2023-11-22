@@ -1,9 +1,10 @@
+
 %{
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#DEFINE MAXTABLE 30
+#include <string.h>
+#define MAXTABLE 100
 
 typedef struct{
     char id[30];
@@ -28,17 +29,16 @@ typedef union{
 
 }variavel;
 
-typedef union{
-    variavel v;
-    int tipo; //letra = 3 numReal = 2 numInteiro = 1
-}var
 
 extern FILE *yyin;
 int yylex();
 int yyerror(char *s);
 
+int intCount=0;
 numeroInteiro intTable[MAXTABLE];
+int realCount=0;
 numeroReal realTable[MAXTABLE];
+int letraCount=0;
 letras letraTable[MAXTABLE];
 
 double lookupIntVariable(char id[30]) {
@@ -48,22 +48,22 @@ double lookupIntVariable(char id[30]) {
             return intTable[i].n;
         }
     }
-    fprintf(stderr, "Error: Variable %s not found\n", var);
+    fprintf(stderr, "Error: Variable not found\n");
     exit(EXIT_FAILURE);
 }
 
-void update_variable(char var[20], double value) {
+void update_Intvariable(char var[20], int n) {
 	int i = 0;
-    for (i = 0; i <= variable_count; i++) {
-        if (strcmp(variables[i].name, var) == 0) {
-            variables[i].value = value;
+    for (i = 0; i <= intCount; i++) {
+        if (strcmp(intTable[i].id, var) == 0) {
+            intTable[i].n = n;
             return;
         }
     }
-    if (variable_count < MAX_VARIABLES) {
-        strcpy(variables[variable_count].name, var);
-        variables[variable_count].value = value;
-        variable_count += 1;
+    if (intCount < MAXTABLE) {
+        strcpy(intTable[intCount].name, var);
+        intTable[intCount].n = n;
+        intCount += 1;
 		return;
     } else {
         fprintf(stderr, "Error: Maximum number of variables reached\n");
@@ -74,14 +74,14 @@ void update_variable(char var[20], double value) {
 %}
 
 %union {
-    int inteiro; /* integer value */
-    double real; /* symbol table index */
+    int inteiro;
+    double real;
     char caractere;
-    variavel var;
+    struct numeroInteiro numInteiro;
+    struct numeroReal numReal;
+    struct letras letra;
     //nodeType nPtr; /* node pointer */
-};
-
-
+}
 
 %token ENTRADA
 %token ATRIBUICAO
