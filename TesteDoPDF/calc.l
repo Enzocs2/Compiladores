@@ -6,6 +6,10 @@
 
 %%
 
+"int" {return INT;}
+"char" {return CHAR;}
+"real" {return REAL;} 
+
 "+" {return SOMA;}
 "-" {return SUBTRACAO;}
 "/" {return DIVISAO;}

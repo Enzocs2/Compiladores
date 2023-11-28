@@ -45,9 +45,10 @@
      FECHAPARENTESES = 262,
      ABREPARENTESES = 263,
      ATRIBUICAO = 264,
-     NAME = 265,
-     NUMBER = 266,
-     UMINUS = 267
+     INT = 265,
+     NAME = 266,
+     NUMBER = 267,
+     UMINUS = 268
    };
 #endif
 
@@ -66,7 +67,7 @@ typedef union YYSTYPE
 
 
 /* Line 1685 of yacc.c  */
-#line 70 "calc.tab.h"
+#line 71 "calc.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

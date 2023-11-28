@@ -6,7 +6,9 @@
 
 struct symtab {
 	char *name;
-	double value;
+	double dvalue;
+	int ivalue;
+	char cvalue;
 } symtab[NSYMS];
 
 struct symtab *symlook();
