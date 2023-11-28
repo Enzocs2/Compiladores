@@ -1,0 +1,446 @@
+Nonterminals useless in grammar
+
+   lista_param
+
+
+Terminals unused in grammar
+
+   COMMA
+   GQ
+   '-'
+   '+'
+   '*'
+   '/'
+   '%'
+
+
+Rules useless in grammar
+
+   19 lista_param: exp
+   20            | exp COMMA lista_param
+
+
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: lista_comando
+
+    2 lista_comando: comando SEMICOLON
+    3              | comando SEMICOLON lista_comando
+
+    4 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK
+
+    5 ident: IDENT
+
+    6 exp: NUM
+
+    7 atribuicao: ident '=' exp
+
+    8 comando: atribuicao
+    9        | bloco
+   10        | if_comando
+   11        | while_comando
+
+   12 comparacao: igualdade
+   13           | diferenca
+
+   14 igualdade: exp EQ exp
+
+   15 diferenca: exp NE exp
+
+   16 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
+   17           | IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
+
+   18 while_comando: WHILE OPEN_BRACE comparacao CLOSE_BRACE bloco
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'%' (37)
+'*' (42)
+'+' (43)
+'-' (45)
+'/' (47)
+'=' (61) 7
+error (256)
+IF (258) 16 17
+ELSE (259) 17
+WHILE (260) 18
+IDENT (261) 5
+NUM (262) 6
+OPEN_BRACE (263) 16 17 18
+CLOSE_BRACE (264) 16 17 18
+OPEN_BLOCK (265) 4
+CLOSE_BLOCK (266) 4
+SEMICOLON (267) 2 3
+COMMA (268)
+EQ (269) 14
+GQ (270)
+NE (271) 15
+
+
+Nonterminals, with rules where they appear
+
+$accept (23)
+    on left: 0
+programa (24)
+    on left: 1, on right: 0
+lista_comando (25)
+    on left: 2 3, on right: 1 3 4
+bloco (26)
+    on left: 4, on right: 9 16 17 18
+ident (27)
+    on left: 5, on right: 7
+exp (28)
+    on left: 6, on right: 7 14 15
+atribuicao (29)
+    on left: 7, on right: 8
+comando (30)
+    on left: 8 9 10 11, on right: 2 3
+comparacao (31)
+    on left: 12 13, on right: 16 17 18
+igualdade (32)
+    on left: 14, on right: 12
+diferenca (33)
+    on left: 15, on right: 13
+if_comando (34)
+    on left: 16 17, on right: 10
+while_comando (35)
+    on left: 18, on right: 11
+
+
+state 0
+
+    0 $accept: . programa $end
+
+    IF          shift, and go to state 1
+    WHILE       shift, and go to state 2
+    IDENT       shift, and go to state 3
+    OPEN_BLOCK  shift, and go to state 4
+
+    programa       go to state 5
+    lista_comando  go to state 6
+    bloco          go to state 7
+    ident          go to state 8
+    atribuicao     go to state 9
+    comando        go to state 10
+    if_comando     go to state 11
+    while_comando  go to state 12
+
+
+state 1
+
+   16 if_comando: IF . OPEN_BRACE comparacao CLOSE_BRACE bloco
+   17           | IF . OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
+
+    OPEN_BRACE  shift, and go to state 13
+
+
+state 2
+
+   18 while_comando: WHILE . OPEN_BRACE comparacao CLOSE_BRACE bloco
+
+    OPEN_BRACE  shift, and go to state 14
+
+
+state 3
+
+    5 ident: IDENT .
+
+    $default  reduce using rule 5 (ident)
+
+
+state 4
+
+    4 bloco: OPEN_BLOCK . lista_comando CLOSE_BLOCK
+
+    IF          shift, and go to state 1
+    WHILE       shift, and go to state 2
+    IDENT       shift, and go to state 3
+    OPEN_BLOCK  shift, and go to state 4
+
+    lista_comando  go to state 15
+    bloco          go to state 7
+    ident          go to state 8
+    atribuicao     go to state 9
+    comando        go to state 10
+    if_comando     go to state 11
+    while_comando  go to state 12
+
+
+state 5
+
+    0 $accept: programa . $end
+
+    $end  shift, and go to state 16
+
+
+state 6
+
+    1 programa: lista_comando .
+
+    $default  reduce using rule 1 (programa)
+
+
+state 7
+
+    9 comando: bloco .
+
+    $default  reduce using rule 9 (comando)
+
+
+state 8
+
+    7 atribuicao: ident . '=' exp
+
+    '='  shift, and go to state 17
+
+
+state 9
+
+    8 comando: atribuicao .
+
+    $default  reduce using rule 8 (comando)
+
+
+state 10
+
+    2 lista_comando: comando . SEMICOLON
+    3              | comando . SEMICOLON lista_comando
+
+    SEMICOLON  shift, and go to state 18
+
+
+state 11
+
+   10 comando: if_comando .
+
+    $default  reduce using rule 10 (comando)
+
+
+state 12
+
+   11 comando: while_comando .
+
+    $default  reduce using rule 11 (comando)
+
+
+state 13
+
+   16 if_comando: IF OPEN_BRACE . comparacao CLOSE_BRACE bloco
+   17           | IF OPEN_BRACE . comparacao CLOSE_BRACE bloco ELSE bloco
+
+    NUM  shift, and go to state 19
+
+    exp         go to state 20
+    comparacao  go to state 21
+    igualdade   go to state 22
+    diferenca   go to state 23
+
+
+state 14
+
+   18 while_comando: WHILE OPEN_BRACE . comparacao CLOSE_BRACE bloco
+
+    NUM  shift, and go to state 19
+
+    exp         go to state 20
+    comparacao  go to state 24
+    igualdade   go to state 22
+    diferenca   go to state 23
+
+
+state 15
+
+    4 bloco: OPEN_BLOCK lista_comando . CLOSE_BLOCK
+
+    CLOSE_BLOCK  shift, and go to state 25
+
+
+state 16
+
+    0 $accept: programa $end .
+
+    $default  accept
+
+
+state 17
+
+    7 atribuicao: ident '=' . exp
+
+    NUM  shift, and go to state 19
+
+    exp  go to state 26
+
+
+state 18
+
+    2 lista_comando: comando SEMICOLON .
+    3              | comando SEMICOLON . lista_comando
+
+    IF          shift, and go to state 1
+    WHILE       shift, and go to state 2
+    IDENT       shift, and go to state 3
+    OPEN_BLOCK  shift, and go to state 4
+
+    $default  reduce using rule 2 (lista_comando)
+
+    lista_comando  go to state 27
+    bloco          go to state 7
+    ident          go to state 8
+    atribuicao     go to state 9
+    comando        go to state 10
+    if_comando     go to state 11
+    while_comando  go to state 12
+
+
+state 19
+
+    6 exp: NUM .
+
+    $default  reduce using rule 6 (exp)
+
+
+state 20
+
+   14 igualdade: exp . EQ exp
+   15 diferenca: exp . NE exp
+
+    EQ  shift, and go to state 28
+    NE  shift, and go to state 29
+
+
+state 21
+
+   16 if_comando: IF OPEN_BRACE comparacao . CLOSE_BRACE bloco
+   17           | IF OPEN_BRACE comparacao . CLOSE_BRACE bloco ELSE bloco
+
+    CLOSE_BRACE  shift, and go to state 30
+
+
+state 22
+
+   12 comparacao: igualdade .
+
+    $default  reduce using rule 12 (comparacao)
+
+
+state 23
+
+   13 comparacao: diferenca .
+
+    $default  reduce using rule 13 (comparacao)
+
+
+state 24
+
+   18 while_comando: WHILE OPEN_BRACE comparacao . CLOSE_BRACE bloco
+
+    CLOSE_BRACE  shift, and go to state 31
+
+
+state 25
+
+    4 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK .
+
+    $default  reduce using rule 4 (bloco)
+
+
+state 26
+
+    7 atribuicao: ident '=' exp .
+
+    $default  reduce using rule 7 (atribuicao)
+
+
+state 27
+
+    3 lista_comando: comando SEMICOLON lista_comando .
+
+    $default  reduce using rule 3 (lista_comando)
+
+
+state 28
+
+   14 igualdade: exp EQ . exp
+
+    NUM  shift, and go to state 19
+
+    exp  go to state 32
+
+
+state 29
+
+   15 diferenca: exp NE . exp
+
+    NUM  shift, and go to state 19
+
+    exp  go to state 33
+
+
+state 30
+
+   16 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE . bloco
+   17           | IF OPEN_BRACE comparacao CLOSE_BRACE . bloco ELSE bloco
+
+    OPEN_BLOCK  shift, and go to state 4
+
+    bloco  go to state 34
+
+
+state 31
+
+   18 while_comando: WHILE OPEN_BRACE comparacao CLOSE_BRACE . bloco
+
+    OPEN_BLOCK  shift, and go to state 4
+
+    bloco  go to state 35
+
+
+state 32
+
+   14 igualdade: exp EQ exp .
+
+    $default  reduce using rule 14 (igualdade)
+
+
+state 33
+
+   15 diferenca: exp NE exp .
+
+    $default  reduce using rule 15 (diferenca)
+
+
+state 34
+
+   16 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco .
+   17           | IF OPEN_BRACE comparacao CLOSE_BRACE bloco . ELSE bloco
+
+    ELSE  shift, and go to state 36
+
+    $default  reduce using rule 16 (if_comando)
+
+
+state 35
+
+   18 while_comando: WHILE OPEN_BRACE comparacao CLOSE_BRACE bloco .
+
+    $default  reduce using rule 18 (while_comando)
+
+
+state 36
+
+   17 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE . bloco
+
+    OPEN_BLOCK  shift, and go to state 4
+
+    bloco  go to state 37
+
+
+state 37
+
+   17 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco .
+
+    $default  reduce using rule 17 (if_comando)

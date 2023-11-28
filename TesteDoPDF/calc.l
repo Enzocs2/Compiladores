@@ -18,10 +18,15 @@
 "(" {return ABREPARENTESES;}
 ")" {return FECHAPARENTESES;}
 
-([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) {
+(-|\+){1}[0-9]+ {
 		yylval.dval = atof(yytext);
-		return NUMBER;
+		return NUMBERREAL;
 	}
+
+([0-9]+|([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?) {
+		yylval.dval = atoi(yytext);
+		return NUMBERINT;
+	}	
 
 [ \t]	;		 /* ignore white space */
 
