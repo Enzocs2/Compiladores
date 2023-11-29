@@ -10,13 +10,16 @@
 %}
 
 %%
+[\n]        { return *yytext; }
+[ \t]           ; // ignore whitespace
+
 "if"         { return IF; } 
 
 "else"       { return ELSE; } 
 
 "while"      { return WHILE; } 
  
- "int"       { return INT; }
+"int"       { return INT; }
 
 [-+]?[0-9]+("."[0-9]*)?([eE]"-"?[0-9]*)? { yylval.pont->val = atof(yytext);
                                            return NUM;

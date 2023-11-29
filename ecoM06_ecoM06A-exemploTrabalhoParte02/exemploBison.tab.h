@@ -43,15 +43,16 @@
      WHILE = 260,
      IDENT = 261,
      NUM = 262,
-     OPEN_BRACE = 263,
-     CLOSE_BRACE = 264,
-     OPEN_BLOCK = 265,
-     CLOSE_BLOCK = 266,
-     SEMICOLON = 267,
-     COMMA = 268,
-     EQ = 269,
-     GQ = 270,
-     NE = 271
+     INT = 263,
+     OPEN_BRACE = 264,
+     CLOSE_BRACE = 265,
+     OPEN_BLOCK = 266,
+     CLOSE_BLOCK = 267,
+     SEMICOLON = 268,
+     COMMA = 269,
+     EQ = 270,
+     GQ = 271,
+     NE = 272
    };
 #endif
 
@@ -62,14 +63,14 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 27 "exemploBison.y"
+#line 26 "exemploBison.y"
 
   No *pont;
 
 
 
 /* Line 1685 of yacc.c  */
-#line 73 "exemploBison.tab.h"
+#line 74 "exemploBison.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
