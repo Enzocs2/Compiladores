@@ -3,6 +3,9 @@
 #include<math.h>
 
 int main(int argc, char *argv[]){
-double a=1+1+1*14;
+double a=0.0015;
+double b=a+3.14;
+
+printf("%d", b);
 
 }

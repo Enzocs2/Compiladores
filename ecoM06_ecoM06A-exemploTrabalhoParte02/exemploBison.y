@@ -10,7 +10,7 @@
 #include "var_aleatorio.h"
 #include "lista_var.h"
 
-
+int i =0;
 /* prototipo */
 
 void yyerror(char *s);
@@ -31,17 +31,22 @@ char *var_nome;
 %token <pont> IF
 %token <pont> ELSE
 %token <pont> WHILE 
-%token <pont> IDENT
-%token <pont> NUM
+%token <pont> ID
+%token <pont> NUMINTEIRO
+%token <pont> NUMREAL
+%token <pont> STRING
+%token <pont> EOL
 
 %token <pont> INT
+%token <pont> REAL
+%token <pont> CHAR
+
 
 %token <pont> OPEN_BRACE
 %token <pont> CLOSE_BRACE
 %token <pont> OPEN_BLOCK
 %token <pont> CLOSE_BLOCK
 
-%token <pont> SEMICOLON 
 %token <pont> COMMA
 
 %token <pont> EQ /* == */ 
@@ -58,14 +63,12 @@ char *var_nome;
 %type <pont> igualdade
 %type <pont> if_comando
 %type <pont> while_comando
-%type <pont> lista_param
 %type <pont> diferenca
 %type <pont> exp
 %type <pont> soma
 %type <pont> subtracao
 %type <pont> divisao
 %type <pont> multiplicacao
-
 %right '='
 %left  '-' '+'
 %left  '*' '/'
@@ -74,53 +77,69 @@ char *var_nome;
 /* Declaracao BISON - regras de gramatica */
 %%
 
-programa: lista_comando { root = $1; $1->prox = NULL } 
+programa: lista_comando { root = $1; } 
 
-lista_comando: comando SEMICOLON { $1->prox = 0;
-                                   $$ = $1;
-                                 }
-             | comando SEMICOLON lista_comando { $1->prox = $3;
+lista_comando: comando EOL lista_comando { $1->prox = $3;
 	                                         $$ = $1;
 	                                       }
+              |comando EOL { $1->prox = 0;
+                                   $$ = $1;
+                                 }                                         
 
 
 bloco:  OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $1; } 
 
-ident: IDENT        { $$ = (No*)malloc(sizeof(No));
-          $$->token = IDENT;
+ident: ID        { $$ = (No*)malloc(sizeof(No));
+          $$->token = ID;
 		      strcpy($$->nome, yylval.pont->nome);
 		      $$->esq = NULL;
 		      $$->dir = NULL;
           $$->prox = NULL;
                     }  
 
-exp: NUM { $$ = (No*)malloc(sizeof(No));
-    $$->token = NUM;
-    $$->val = $1->val;
-    $$->esq = NULL;
-		$$->dir = NULL;
-    $$->prox = NULL;
+exp: NUMREAL { $$ = (No*)malloc(sizeof(No));
+      $$->token = NUMREAL;
+      $$->rval = $1->rval;
+      $$->esq = NULL;
+      $$->dir = NULL;
+      $$->prox = NULL;
     }
+    | NUMINTEIRO { $$ = (No*)malloc(sizeof(No));
+      $$->token = NUMINTEIRO;
+      $$->ival = $1->ival;
+      $$->esq = NULL;
+      $$->dir = NULL;
+      $$->prox = NULL;
+    }
+    | ident
     | soma
     | subtracao
     | divisao
     | multiplicacao
     ;
 
-atribuicao: ident '=' exp { $$ = (No*)malloc(sizeof(No));
+atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No));
 			    $$->token = '=';
-			    $$->esq = $1;
-			    $$->dir = $3;
+          $$->type = REAL;
+			    $$->esq = $2;
+			    $$->dir = $4;
           $$->prox = NULL;
                           }
-  
-lista_param:  exp { $$ = $1; }
-           |  exp COMMA lista_param { $$ = (No*)malloc(sizeof(No));
-	            $$->token = COMMA;
-				      $$->esq = $1;
-				      $$->dir = $3;
-              $$->prox = NULL;
-            } 
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No));
+			    $$->token = '=';
+          $$->type = INT;
+			    $$->esq = $2;
+			    $$->dir = $4;
+          $$->prox = NULL;
+                          }
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No));
+			    $$->token = '=';
+          $$->type = CHAR;
+			    $$->esq = $2;
+			    $$->dir = $4;
+          $$->prox = NULL;
+                          }
+          ;
 
 comando:  atribuicao
         | bloco
@@ -208,35 +227,42 @@ void yyerror(char *s) {
 }
 
 void imprima(No *root){
-  printf("%d\n", root->token);
+  i++;
+  printf("vez: %d\n", i);
+  printf("token: %d\n", root->token);
   if(root == NULL){
     printf("null\n");
   }
   if (root != NULL){
     
     switch(root->token){
-      case NUM:
-        fprintf(saida,"%g", root->val);
-        //return;
+      case NUMREAL:
+        fprintf(saida,"%g", root->rval);
+        break;
+      
+      case NUMINTEIRO:
+        fprintf(saida,"%d", root->ival);
         break;
 
-      case IDENT:
+      case STRING:
+        fprintf(saida,"%s", root->string);
+        break;
+
+      case ID:
         fprintf(saida,"%s", root->nome);
         printf("%s", root->nome);
-        //return;
         break;
 
       case '=':
         if (insere_var(root->esq->nome) == 0){
-          fprintf(saida,"double ");
+          if(root->type==INT){fprintf(saida,"int ");}
+          if(root->type==REAL){fprintf(saida,"double ");}
+          if(root->type==CHAR){fprintf(saida,"char* ");}
         }
         imprima(root->esq);
-        printf("=");
         fprintf(saida,"=");
-
         imprima(root->dir);
         fprintf(saida,";\n");
-        //return;
         break;
         
       case '+':
@@ -244,7 +270,6 @@ void imprima(No *root){
         imprima(root->esq);
         fprintf(saida,"+");
         imprima(root->dir);
-        //return;
         break;
 
       case '-':
@@ -252,7 +277,6 @@ void imprima(No *root){
         imprima(root->esq);
         fprintf(saida,"-");
         imprima(root->dir);
-        //return;
         break;
 
       case '*':
@@ -260,7 +284,6 @@ void imprima(No *root){
         imprima(root->esq);
         fprintf(saida,"*");
         imprima(root->dir);
-        return;
         break;  
 
       case '/':
@@ -268,14 +291,12 @@ void imprima(No *root){
         imprima(root->esq);
         fprintf(saida,"/");
         imprima(root->dir);
-        //return;
         break;  
 
       case EQ:
         imprima(root->esq);
         fprintf(saida,"==");
         imprima(root->dir);
-        //return;
         break;
         
       case IF:
@@ -294,7 +315,6 @@ void imprima(No *root){
         fprintf(saida," }\n");
         }
         else fprintf(saida,"\n");
-        return;
         break;
         
       case WHILE:
@@ -314,7 +334,6 @@ void imprima(No *root){
         fprintf(saida," %s--;", var_nome);
         fprintf(saida,"\n }\n");
         fprintf(saida,"\n }\n");
-        //return;
         break;
 
     default: 
@@ -322,9 +341,9 @@ void imprima(No *root){
     }
     
     if (root->prox != NULL) {
+      printf("aqui\n");
       imprima(root->prox);
     }
-    printf("aqui");
     return;
   }
 }

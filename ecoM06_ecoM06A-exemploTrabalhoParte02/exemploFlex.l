@@ -10,7 +10,7 @@
 %}
 
 %%
-[\n]        { return *yytext; }
+[\n]        { return EOL; }
 [ \t]           ; // ignore whitespace
 
 "if"         { return IF; } 
@@ -21,11 +21,23 @@
  
 "int"       { return INT; }
 
-[-+]?[0-9]+("."[0-9]*)?([eE]"-"?[0-9]*)? { yylval.pont->val = atof(yytext);
-                                           return NUM;
+"real"       { return REAL; }
+
+"char"       { return CHAR; }
+
+[-|+]?[0-9]+(\.[0-9]+) { yylval.pont->rval = atof(yytext);
+                                           return NUMREAL;
                                          }
+
+[-|+]?[0-9]+ { yylval.pont->ival = atoi(yytext);
+                                           return NUMINTEIRO;
+                                         }
+'.*' { strncpy(yylval.pont->string, yytext, 256);
+                                           return STRING;
+                                         }                                         
+
 [a-zA-Z][a-zA-z0-9]* { strncpy(yylval.pont->nome, yytext, 256);
-                       return IDENT;
+                       return ID;
                      }
 
 "=="   { return EQ; }
@@ -34,12 +46,10 @@
 ")"    { return CLOSE_BRACE; }
 "{"    { return OPEN_BLOCK; }
 "}"    { return CLOSE_BLOCK; }
-";"    { return SEMICOLON; }
 ","    { return COMMA; }
 
 "="|"+"|"-"|"*"|"/"|"%" { return *yytext; }
 
-[ \t\n]  /* Ignora */
 .      { return *yytext; }
 
 %% 

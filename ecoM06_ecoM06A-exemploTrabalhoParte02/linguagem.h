@@ -5,7 +5,10 @@
 
 struct No {
   int token;
-  double val;
+  int type;
+  double rval;
+  int ival;
+  char string[256];
   char nome[256];
 
   struct No *esq, *dir, *prox, *lookahead, *lookahead1, *lookahead2;

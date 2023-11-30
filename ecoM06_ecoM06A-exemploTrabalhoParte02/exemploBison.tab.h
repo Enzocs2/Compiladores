@@ -41,18 +41,22 @@
      IF = 258,
      ELSE = 259,
      WHILE = 260,
-     IDENT = 261,
-     NUM = 262,
-     INT = 263,
-     OPEN_BRACE = 264,
-     CLOSE_BRACE = 265,
-     OPEN_BLOCK = 266,
-     CLOSE_BLOCK = 267,
-     SEMICOLON = 268,
-     COMMA = 269,
-     EQ = 270,
-     GQ = 271,
-     NE = 272
+     ID = 261,
+     NUMINTEIRO = 262,
+     NUMREAL = 263,
+     STRING = 264,
+     EOL = 265,
+     INT = 266,
+     REAL = 267,
+     CHAR = 268,
+     OPEN_BRACE = 269,
+     CLOSE_BRACE = 270,
+     OPEN_BLOCK = 271,
+     CLOSE_BLOCK = 272,
+     COMMA = 273,
+     EQ = 274,
+     GQ = 275,
+     NE = 276
    };
 #endif
 
@@ -70,7 +74,7 @@ typedef union YYSTYPE
 
 
 /* Line 1685 of yacc.c  */
-#line 74 "exemploBison.tab.h"
+#line 78 "exemploBison.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
