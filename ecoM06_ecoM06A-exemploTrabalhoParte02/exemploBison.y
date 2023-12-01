@@ -9,7 +9,6 @@
 #include "var_aleatorio.h"
 #include "lista_var.h"
 
-int i =0;
 /* prototipo */
 
 void yyerror(char *s);
@@ -86,7 +85,7 @@ lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\
                                  }                                         
 
 
-bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $1; printf("bloco\n"); } 
+bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; printf("bloco\n"); } 
 
 ident: ID        { $$ = (No*)malloc(sizeof(No)); printf("ident\n");
           $$->token = ID;
@@ -234,7 +233,8 @@ void yyerror(char *s) {
 }
 
 void imprima(No *root){
-  printf("token: %s\n", root->token);
+  printf("oi");
+  printf("token: %d\n", root->token);
   if(root == NULL){
     printf("null\n");
   }
@@ -392,7 +392,7 @@ int main(int argc, char *argv[]){
   fprintf(saida,"#include<math.h>\n");
   fprintf(saida,"\nint main(int argc, char *argv[]){\n");
   cria_lista();
-  //imprima(root);
+  imprima(root);
   fprintf(saida,"\n}\n");
 
   fclose(entrada);

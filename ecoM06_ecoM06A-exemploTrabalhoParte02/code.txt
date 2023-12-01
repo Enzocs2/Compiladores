@@ -1,3 +1,5 @@
-if(1==1){
-    int a = 2;
+int a = 0;
+int b = 1;
+if(b==a){
+int a = 0;
 };
