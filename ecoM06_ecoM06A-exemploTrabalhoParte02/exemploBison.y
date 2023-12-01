@@ -87,7 +87,7 @@ lista_comando: comando EOL lista_comando { $1->prox = $3;
                                  }                                         
 
 
-bloco:  OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $1; } 
+bloco: OPEN_BLOCK EOL lista_comando EOL CLOSE_BLOCK { $$ = $1; } 
 
 ident: ID        { $$ = (No*)malloc(sizeof(No));
           $$->token = ID;
@@ -107,6 +107,13 @@ exp: NUMREAL { $$ = (No*)malloc(sizeof(No));
     | NUMINTEIRO { $$ = (No*)malloc(sizeof(No));
       $$->token = NUMINTEIRO;
       $$->ival = $1->ival;
+      $$->esq = NULL;
+      $$->dir = NULL;
+      $$->prox = NULL;
+    }
+    | STRING { $$ = (No*)malloc(sizeof(No));
+      $$->token = STRING;
+      strcpy($$->string, $1->string);
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
@@ -194,7 +201,7 @@ diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No));
           $$->prox = NULL;
                           }
 
-if_comando:  IF OPEN_BRACE comparacao CLOSE_BRACE bloco
+if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
                 { $$ = (No*)malloc(sizeof(No));
 		  $$->token = IF;
 		  $$->lookahead = $3;
@@ -227,8 +234,6 @@ void yyerror(char *s) {
 }
 
 void imprima(No *root){
-  i++;
-  printf("vez: %d\n", i);
   printf("token: %d\n", root->token);
   if(root == NULL){
     printf("null\n");
@@ -254,6 +259,7 @@ void imprima(No *root){
         break;
 
       case '=':
+        printf("aqui\n");
         if (insere_var(root->esq->nome) == 0){
           if(root->type==INT){fprintf(saida,"int ");}
           if(root->type==REAL){fprintf(saida,"double ");}

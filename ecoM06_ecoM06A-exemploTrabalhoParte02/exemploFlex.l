@@ -32,7 +32,7 @@
 [-|+]?[0-9]+ { yylval.pont->ival = atoi(yytext);
                                            return NUMINTEIRO;
                                          }
-'.*' { strncpy(yylval.pont->string, yytext, 256);
+\".*\" { strncpy(yylval.pont->string, yytext, 256);
                                            return STRING;
                                          }                                         
 
