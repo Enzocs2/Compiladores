@@ -10,14 +10,14 @@
 %}
 
 %%
-[\n]        { return EOL; }
+[\n]        {}
 [ \t]           ; // ignore whitespace
 
-"if"         { return IF; } 
+"if"         { return IF; printf("if\n"); } 
 
-"else"       { return ELSE; } 
+"else"       { return ELSE; printf("else\n"); } 
 
-"while"      { return WHILE; } 
+"while"      { return WHILE; printf("while\n"); } 
  
 "int"       { return INT; }
 
@@ -25,11 +25,11 @@
 
 "char"       { return CHAR; }
 
-[-|+]?[0-9]+(\.[0-9]+) { yylval.pont->rval = atof(yytext);
+[-|+]?[0-9]+(\.[0-9]+) { yylval.pont->rval = atof(yytext);  printf("numeroreal\n");
                                            return NUMREAL;
                                          }
 
-[-|+]?[0-9]+ { yylval.pont->ival = atoi(yytext);
+[-|+]?[0-9]+ { yylval.pont->ival = atoi(yytext); printf("numerointeiro\n");
                                            return NUMINTEIRO;
                                          }
 \".*\" { strncpy(yylval.pont->string, yytext, 256);
@@ -47,6 +47,7 @@
 "{"    { return OPEN_BLOCK; }
 "}"    { return CLOSE_BLOCK; }
 ","    { return COMMA; }
+";"    { return EOL; }
 
 "="|"+"|"-"|"*"|"/"|"%" { return *yytext; }
 

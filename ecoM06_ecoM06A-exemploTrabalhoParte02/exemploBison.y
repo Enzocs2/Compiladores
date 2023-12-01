@@ -1,5 +1,4 @@
 /* Definicao da Linguagem */
-
 %{
 #include<stdio.h>
 #include<math.h> 
@@ -77,19 +76,19 @@ char *var_nome;
 /* Declaracao BISON - regras de gramatica */
 %%
 
-programa: lista_comando { root = $1; } 
+programa: lista_comando { root = $1; printf("root\n");} 
 
-lista_comando: comando EOL lista_comando { $1->prox = $3;
+lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\n");
 	                                         $$ = $1;
 	                                       }
-              |comando EOL { $1->prox = 0;
+              |comando EOL { $1->prox = 0; printf("lista_comando\n");
                                    $$ = $1;
                                  }                                         
 
 
-bloco: OPEN_BLOCK EOL lista_comando EOL CLOSE_BLOCK { $$ = $1; } 
+bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $1; printf("bloco\n"); } 
 
-ident: ID        { $$ = (No*)malloc(sizeof(No));
+ident: ID        { $$ = (No*)malloc(sizeof(No)); printf("ident\n");
           $$->token = ID;
 		      strcpy($$->nome, yylval.pont->nome);
 		      $$->esq = NULL;
@@ -97,49 +96,49 @@ ident: ID        { $$ = (No*)malloc(sizeof(No));
           $$->prox = NULL;
                     }  
 
-exp: NUMREAL { $$ = (No*)malloc(sizeof(No));
+exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->token = NUMREAL;
       $$->rval = $1->rval;
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | NUMINTEIRO { $$ = (No*)malloc(sizeof(No));
+    | NUMINTEIRO { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->token = NUMINTEIRO;
       $$->ival = $1->ival;
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | STRING { $$ = (No*)malloc(sizeof(No));
+    | STRING { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->token = STRING;
       strcpy($$->string, $1->string);
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | ident
-    | soma
-    | subtracao
-    | divisao
-    | multiplicacao
+    | ident {printf("exp\n");}
+    | soma {printf("exp\n");}
+    | subtracao {printf("exp\n");}
+    | divisao {printf("exp\n");}
+    | multiplicacao {printf("exp\n");}
     ;
 
-atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No));
+atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    $$->token = '=';
           $$->type = REAL;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No));
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    $$->token = '=';
           $$->type = INT;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No));
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    $$->token = '=';
           $$->type = CHAR;
 			    $$->esq = $2;
@@ -148,14 +147,14 @@ atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No));
                           }
           ;
 
-comando:  atribuicao
-        | bloco
-        | if_comando
-        | while_comando
+comando: atribuicao {printf("comando\n");}
+        | bloco {printf("comando\n");}
+        | if_comando {printf("comando\n");}
+        | while_comando {printf("comando\n");}
 ;
 
-comparacao: igualdade
-          | diferenca
+comparacao: igualdade {printf("comparacao\n");}
+          | diferenca {printf("comparacao\n");}
 ;
 
 soma: exp '+' exp { $$ = (No*)malloc(sizeof(No));
@@ -187,14 +186,14 @@ multiplicacao: exp '*' exp { $$ = (No*)malloc(sizeof(No));
       }
 
 
-igualdade: exp EQ exp     { $$ = (No*)malloc(sizeof(No));
+igualdade: exp EQ exp     { $$ = (No*)malloc(sizeof(No)); printf("igualdade\n");
                             $$->token = EQ;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No));
+diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
                             $$->token = NE;
 			    $$->esq = $1;
 			    $$->dir = $3;
@@ -202,7 +201,7 @@ diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No));
                           }
 
 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
-                { $$ = (No*)malloc(sizeof(No));
+                { $$ = (No*)malloc(sizeof(No)); printf("IF\n");
 		  $$->token = IF;
 		  $$->lookahead = $3;
 		  $$->esq = $5;
@@ -210,16 +209,17 @@ if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
       $$->prox = NULL;
                 }
            | IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
-                { $$ = (No*)malloc(sizeof(No));
+                { $$ = (No*)malloc(sizeof(No)); printf("if else\n");
 		  $$->token = IF;
 		  $$->lookahead = $3;
 		  $$->esq = $5;
 		  $$->dir = $7;
       $$->prox = NULL;
                 }
+           ;
 
 while_comando:  WHILE OPEN_BRACE comparacao CLOSE_BRACE bloco
-                     { $$ = (No*)malloc(sizeof(No));
+                     { $$ = (No*)malloc(sizeof(No)); printf("while\n");
 		       $$->token = WHILE;
 		       $$->lookahead = $3;
 		       $$->esq = $5;
@@ -234,7 +234,7 @@ void yyerror(char *s) {
 }
 
 void imprima(No *root){
-  printf("token: %d\n", root->token);
+  printf("token: %s\n", root->token);
   if(root == NULL){
     printf("null\n");
   }
@@ -259,7 +259,6 @@ void imprima(No *root){
         break;
 
       case '=':
-        printf("aqui\n");
         if (insere_var(root->esq->nome) == 0){
           if(root->type==INT){fprintf(saida,"int ");}
           if(root->type==REAL){fprintf(saida,"double ");}
@@ -300,17 +299,19 @@ void imprima(No *root){
         break;  
 
       case EQ:
+        printf("fimEQ\n");
         imprima(root->esq);
         fprintf(saida,"==");
         imprima(root->dir);
         break;
         
       case IF:
+        printf("IF\n");
         fprintf(saida," \nif ");
         fprintf(saida,"(");
         imprima(root->lookahead);
         fprintf(saida,")");
-        fprintf(saida," {\n");
+        fprintf(saida," {\n"); printf("aquiiii\n");
         imprima(root->esq);
         fprintf(saida," }");
         
@@ -391,7 +392,7 @@ int main(int argc, char *argv[]){
   fprintf(saida,"#include<math.h>\n");
   fprintf(saida,"\nint main(int argc, char *argv[]){\n");
   cria_lista();
-  imprima(root);
+  //imprima(root);
   fprintf(saida,"\n}\n");
 
   fclose(entrada);

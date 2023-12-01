@@ -66,15 +66,11 @@
 typedef union YYSTYPE
 {
 
-/* Line 1685 of yacc.c  */
-#line 25 "exemploBison.y"
 
   No *pont;
 
 
 
-/* Line 1685 of yacc.c  */
-#line 78 "exemploBison.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
