@@ -40,23 +40,31 @@
    enum yytokentype {
      IF = 258,
      ELSE = 259,
-     WHILE = 260,
+     FOR = 260,
      ID = 261,
      NUMINTEIRO = 262,
      NUMREAL = 263,
      STRING = 264,
      EOL = 265,
-     INT = 266,
-     REAL = 267,
-     CHAR = 268,
-     OPEN_BRACE = 269,
-     CLOSE_BRACE = 270,
-     OPEN_BLOCK = 271,
-     CLOSE_BLOCK = 272,
-     COMMA = 273,
-     EQ = 274,
-     GQ = 275,
-     NE = 276
+     MAIORIGUAL = 266,
+     MENORIGUAL = 267,
+     MENOR = 268,
+     MAIOR = 269,
+     AND = 270,
+     OR = 271,
+     NOT = 272,
+     MOD = 273,
+     INT = 274,
+     REAL = 275,
+     CHAR = 276,
+     OPEN_BRACE = 277,
+     CLOSE_BRACE = 278,
+     OPEN_BLOCK = 279,
+     CLOSE_BLOCK = 280,
+     COMMA = 281,
+     EQ = 282,
+     GQ = 283,
+     NE = 284
    };
 #endif
 
@@ -74,7 +82,7 @@ typedef union YYSTYPE
 
 
 /* Line 1685 of yacc.c  */
-#line 78 "exemploBison.tab.h"
+#line 86 "exemploBison.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

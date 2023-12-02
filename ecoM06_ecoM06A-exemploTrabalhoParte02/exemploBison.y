@@ -28,12 +28,20 @@ char *var_nome;
 /* Tipos de tokens */
 %token <pont> IF
 %token <pont> ELSE
-%token <pont> WHILE 
+%token <pont> FOR
 %token <pont> ID
 %token <pont> NUMINTEIRO
 %token <pont> NUMREAL
 %token <pont> STRING
 %token <pont> EOL
+%token <pont> MAIORIGUAL
+%token <pont> MENORIGUAL
+%token <pont> MENOR
+%token <pont> MAIOR
+%token <pont> AND
+%token <pont> OR
+%token <pont> NOT
+%token <pont> MOD
 
 %token <pont> INT
 %token <pont> REAL
@@ -60,13 +68,22 @@ char *var_nome;
 %type <pont> comparacao
 %type <pont> igualdade
 %type <pont> if_comando
-%type <pont> while_comando
+%type <pont> for_comando
 %type <pont> diferenca
 %type <pont> exp
 %type <pont> soma
 %type <pont> subtracao
 %type <pont> divisao
 %type <pont> multiplicacao
+%type <pont> restoDiv
+%type <pont> compMaior
+%type <pont> compMenor
+%type <pont> compMaiorIgual
+%type <pont> compMenorIgual
+%type <pont> compOr
+%type <pont> compAnd
+%type <pont> compNot
+
 %right '='
 %left  '-' '+'
 %left  '*' '/'
@@ -82,7 +99,13 @@ lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\
 	                                       }
               |comando EOL { $1->prox = 0; printf("lista_comando\n");
                                    $$ = $1;
-                                 }                                         
+                                 }
+              |if_comando lista_comando{ $1->prox = $2; printf("lista_comanda\n");
+	                                         $$ = $1;
+	                                       }
+              |if_comando{ $1->prox = 0; printf("lista_comanda\n");
+	                                         $$ = $1;
+	                                       }                                          
 
 
 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; printf("bloco\n"); } 
@@ -116,11 +139,12 @@ exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | ident {printf("exp\n");}
+    | ident {printf("expIdent\n");}
     | soma {printf("exp\n");}
     | subtracao {printf("exp\n");}
     | divisao {printf("exp\n");}
     | multiplicacao {printf("exp\n");}
+    | restoDiv
     ;
 
 atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
@@ -149,11 +173,18 @@ atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuica
 comando: atribuicao {printf("comando\n");}
         | bloco {printf("comando\n");}
         | if_comando {printf("comando\n");}
-        | while_comando {printf("comando\n");}
+        | for_comando {printf("comando\n");}
 ;
 
 comparacao: igualdade {printf("comparacao\n");}
           | diferenca {printf("comparacao\n");}
+          | compMaior {printf("comparacao\n");}
+          | compMenor {printf("comparacao\n");}
+          | compMaiorIgual {printf("comparacao\n");}
+          | compMenorIgual {printf("comparacao\n");}
+          | compAnd
+          | compOr
+          | compNot
 ;
 
 soma: exp '+' exp { $$ = (No*)malloc(sizeof(No));
@@ -184,6 +215,13 @@ multiplicacao: exp '*' exp { $$ = (No*)malloc(sizeof(No));
           $$->prox = NULL;
       }
 
+restoDiv: exp MOD exp { $$ = (No*)malloc(sizeof(No));
+          $$->token = MOD;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+      }      
+
 
 igualdade: exp EQ exp     { $$ = (No*)malloc(sizeof(No)); printf("igualdade\n");
                             $$->token = EQ;
@@ -198,6 +236,55 @@ diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
+
+compMaiorIgual: exp MAIORIGUAL exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = MAIORIGUAL;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+                          }
+
+compMenorIgual: exp MENORIGUAL exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = MENORIGUAL;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+                          }
+
+compMenor: exp MENOR exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = MENOR;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+                          }
+
+compMaior: exp MAIOR exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = MAIOR;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+                          }                                                                                                        
+
+compAnd: exp AND exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = AND;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+                          }
+
+compOr: exp OR exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = OR;
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+                          } 
+
+compNot: NOT exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            $$->token = NOT;
+			    $$->esq = NULL;
+			    $$->dir = $2;
+          $$->prox = NULL;
+                          }                                                       
 
 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
                 { $$ = (No*)malloc(sizeof(No)); printf("IF\n");
@@ -217,14 +304,16 @@ if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
                 }
            ;
 
-while_comando:  WHILE OPEN_BRACE comparacao CLOSE_BRACE bloco
-                     { $$ = (No*)malloc(sizeof(No)); printf("while\n");
-		       $$->token = WHILE;
+for_comando:  FOR OPEN_BRACE atribuicao comparacao EOL atribuicao CLOSE_BRACE bloco
+                     { $$ = (No*)malloc(sizeof(No)); printf("for\n");
+		       $$->token = FOR;
 		       $$->lookahead = $3;
-		       $$->esq = $5;
-		       $$->dir = NULL;
+		       $$->lookahead1 = $4;
+		       $$->lookahead2 = $5;
+           $$->dir = $7;
            $$->prox = NULL;
                      }
+          ;
 
 %%
 
@@ -233,7 +322,6 @@ void yyerror(char *s) {
 }
 
 void imprima(No *root){
-  printf("oi");
   printf("token: %d\n", root->token);
   if(root == NULL){
     printf("null\n");
@@ -298,22 +386,74 @@ void imprima(No *root){
         imprima(root->dir);
         break;  
 
+      case MOD:
+        printf("%d", root->token);
+        imprima(root->esq);
+        fprintf(saida,"%%");
+        imprima(root->dir);
+        break; 
+
       case EQ:
-        printf("fimEQ\n");
         imprima(root->esq);
         fprintf(saida,"==");
         imprima(root->dir);
         break;
+
+      case NE:
+        imprima(root->esq);
+        fprintf(saida,"!=");
+        imprima(root->dir);
+        break;  
+
+      case MAIOR:
+        imprima(root->esq);
+        fprintf(saida,">");
+        imprima(root->dir);
+        break; 
+
+      case MENOR:
+        imprima(root->esq);
+        fprintf(saida,"<");
+        imprima(root->dir);
+        break;
         
+      case MENORIGUAL:
+        imprima(root->esq);
+        fprintf(saida,"<=");
+        imprima(root->dir);
+        break; 
+
+      case MAIORIGUAL:
+        imprima(root->esq);
+        fprintf(saida,">=");
+        imprima(root->dir);
+        break;
+
+      case OR:
+        imprima(root->esq);
+        fprintf(saida,"||");
+        imprima(root->dir);
+        break;
+
+      case AND:
+        imprima(root->esq);
+        fprintf(saida,"&&");
+        imprima(root->dir);
+        break;
+
+      case NOT:
+        fprintf(saida,"!");
+        imprima(root->dir);
+        break;                    
+
       case IF:
-        printf("IF\n");
         fprintf(saida," \nif ");
         fprintf(saida,"(");
         imprima(root->lookahead);
         fprintf(saida,")");
-        fprintf(saida," {\n"); printf("aquiiii\n");
+        fprintf(saida," {\n");
         imprima(root->esq);
-        fprintf(saida," }");
+        fprintf(saida,"}");
         
         if(root->dir != NULL){
         fprintf(saida,"\n else");
@@ -324,23 +464,15 @@ void imprima(No *root){
         else fprintf(saida,"\n");
         break;
         
-      case WHILE:
-        fprintf(saida," if (rank == 0){");
+      case FOR:
+        fprintf(saida,"while (");
         var_nome = nome();
-        fprintf(saida,"\ndouble %s = ", var_nome);
-        fprintf(saida,"Var(");
         imprima(root->lookahead);
-        fprintf(saida,");\n");
-        fprintf(saida," MPI_Bcast(&%s, 1, MPI_DOUBLE, 0, simCom);\n\n", var_nome);
-        fprintf(saida," while ");
-        fprintf(saida,"(");
-        fprintf(saida,"%s > 0", var_nome);
-        fprintf(saida,")");
-        fprintf(saida," {\n ");
-        imprima(root->esq);
-        fprintf(saida," %s--;", var_nome);
-        fprintf(saida,"\n }\n");
-        fprintf(saida,"\n }\n");
+        imprima(root->lookahead1);
+        imprima(root->lookahead2);
+        fprintf(saida,"){\n");
+        imprima(root->dir);
+        fprintf(saida,"}");
         break;
 
     default: 

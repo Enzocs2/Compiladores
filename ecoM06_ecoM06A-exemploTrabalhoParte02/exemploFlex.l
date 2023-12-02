@@ -17,7 +17,7 @@
 
 "else"       { return ELSE; printf("else\n"); } 
 
-"while"      { return WHILE; printf("while\n"); } 
+"for"      { return FOR; printf("while\n"); } 
  
 "int"       { return INT; }
 
@@ -25,11 +25,14 @@
 
 "char"       { return CHAR; }
 
-[-|+]?[0-9]+(\.[0-9]+) { yylval.pont->rval = atof(yytext);  printf("numeroreal\n");
+"and"  { return AND; }
+"or"   { return OR; }
+
+[-|+]?[0-9]+(\.[0-9]+) { yylval.pont->rval = atof(yytext);
                                            return NUMREAL;
                                          }
 
-[-|+]?[0-9]+ { yylval.pont->ival = atoi(yytext); printf("numerointeiro\n");
+[-|+]?[0-9]+ { yylval.pont->ival = atoi(yytext);
                                            return NUMINTEIRO;
                                          }
 \".*\" { strncpy(yylval.pont->string, yytext, 256);
@@ -40,8 +43,14 @@
                        return ID;
                      }
 
+"%"    { return MOD; }
+"!"    { return NOT; }
 "=="   { return EQ; }
 "!="   { return NE; }
+"<="   { return MENORIGUAL; }
+">="   { return MAIORIGUAL; }
+"<"    { return MENOR; }
+">"    { return MAIOR; }
 "("    { return OPEN_BRACE; }
 ")"    { return CLOSE_BRACE; }
 "{"    { return OPEN_BLOCK; }

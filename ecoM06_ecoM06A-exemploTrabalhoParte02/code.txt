@@ -1,5 +1,3 @@
-int a = 0;
-int b = 1;
-if(b==a){
-int a = 0;
-};
+for(int i=0; i<10; int i=2;){
+    int a = 1;
+}
