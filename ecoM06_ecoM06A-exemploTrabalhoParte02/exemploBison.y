@@ -83,6 +83,7 @@ char *var_nome;
 %type <pont> compOr
 %type <pont> compAnd
 %type <pont> compNot
+%type <pont> paradaFor
 
 %right '='
 %left  '-' '+'
@@ -105,7 +106,10 @@ lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\
 	                                       }
               |if_comando{ $1->prox = 0; printf("lista_comanda\n");
 	                                         $$ = $1;
-	                                       }                                          
+	                                       }  
+              |for_comando{ $1->prox = 0; printf("lista_comanda\n");
+	                                         $$ = $1;
+	                                       }                                                                                  
 
 
 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; printf("bloco\n"); } 
@@ -139,12 +143,12 @@ exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | ident {printf("expIdent\n");}
     | soma {printf("exp\n");}
     | subtracao {printf("exp\n");}
     | divisao {printf("exp\n");}
     | multiplicacao {printf("exp\n");}
     | restoDiv
+    | ident {printf("expIdent\n");}
     ;
 
 atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
@@ -154,7 +158,7 @@ atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuica
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
 			    $$->token = '=';
           $$->type = INT;
 			    $$->esq = $2;
@@ -304,13 +308,36 @@ if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
                 }
            ;
 
-for_comando:  FOR OPEN_BRACE atribuicao comparacao EOL atribuicao CLOSE_BRACE bloco
+paradaFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+			    $$->token = '=';
+          $$->type = REAL;
+			    $$->esq = $2;
+			    $$->dir = $4;
+          $$->prox = NULL;
+                          }
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
+			    $$->token = '=';
+          $$->type = INT;
+			    $$->esq = $2;
+			    $$->dir = $4;
+          $$->prox = NULL;
+                          }
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+			    $$->token = '=';
+          $$->type = CHAR;
+			    $$->esq = $2;
+			    $$->dir = $4;
+          $$->prox = NULL;
+                          }
+          ;
+
+for_comando:  FOR OPEN_BRACE atribuicao EOL comparacao EOL paradaFor CLOSE_BRACE bloco
                      { $$ = (No*)malloc(sizeof(No)); printf("for\n");
 		       $$->token = FOR;
 		       $$->lookahead = $3;
-		       $$->lookahead1 = $4;
-		       $$->lookahead2 = $5;
-           $$->dir = $7;
+		       $$->lookahead1 = $5;
+		       $$->lookahead2 = $7;
+           $$->dir = $9;
            $$->prox = NULL;
                      }
           ;
@@ -465,10 +492,14 @@ void imprima(No *root){
         break;
         
       case FOR:
-        fprintf(saida,"while (");
+        fprintf(saida,"for (");
         var_nome = nome();
+        printf("la0:%d\n", root->lookahead->token);
         imprima(root->lookahead);
+        printf("la1:%d\n", root->lookahead1->token);
         imprima(root->lookahead1);
+        fprintf(saida,"; ");
+        printf("la2:%d\n", root->lookahead2->token);
         imprima(root->lookahead2);
         fprintf(saida,"){\n");
         imprima(root->dir);
@@ -480,7 +511,6 @@ void imprima(No *root){
     }
     
     if (root->prox != NULL) {
-      printf("aqui\n");
       imprima(root->prox);
     }
     return;
