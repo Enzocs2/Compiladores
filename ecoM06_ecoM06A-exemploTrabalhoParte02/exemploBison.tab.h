@@ -38,33 +38,34 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     IF = 258,
-     ELSE = 259,
-     FOR = 260,
-     ID = 261,
-     NUMINTEIRO = 262,
-     NUMREAL = 263,
-     STRING = 264,
-     EOL = 265,
-     MAIORIGUAL = 266,
-     MENORIGUAL = 267,
-     MENOR = 268,
-     MAIOR = 269,
-     AND = 270,
-     OR = 271,
-     NOT = 272,
-     MOD = 273,
-     INT = 274,
-     REAL = 275,
-     CHAR = 276,
-     OPEN_BRACE = 277,
-     CLOSE_BRACE = 278,
-     OPEN_BLOCK = 279,
-     CLOSE_BLOCK = 280,
-     COMMA = 281,
-     EQ = 282,
-     GQ = 283,
-     NE = 284
+     PRINT = 258,
+     INPUT = 259,
+     IF = 260,
+     ELSE = 261,
+     FOR = 262,
+     ID = 263,
+     NUMINTEIRO = 264,
+     NUMREAL = 265,
+     STRING = 266,
+     EOL = 267,
+     MAIORIGUAL = 268,
+     MENORIGUAL = 269,
+     MENOR = 270,
+     MAIOR = 271,
+     AND = 272,
+     OR = 273,
+     NOT = 274,
+     PARADAFOR = 275,
+     ATRIBUICAOFOR = 276,
+     INT = 277,
+     REAL = 278,
+     CHAR = 279,
+     OPEN_BRACE = 280,
+     CLOSE_BRACE = 281,
+     OPEN_BLOCK = 282,
+     CLOSE_BLOCK = 283,
+     EQ = 284,
+     NE = 285
    };
 #endif
 
@@ -82,7 +83,7 @@ typedef union YYSTYPE
 
 
 /* Line 1685 of yacc.c  */
-#line 86 "exemploBison.tab.h"
+#line 87 "exemploBison.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

@@ -1,15 +1,22 @@
+Nonterminals useless in grammar
+
+   comandoPrint
+   comandoInput
+
+
 Terminals unused in grammar
 
-   COMMA
-   GQ
-   '%'
+   PRINT
+   INPUT
+   PARADAFOR
+   ATRIBUICAOFOR
 
 
-State 76 conflicts: 5 shift/reduce
-State 79 conflicts: 1 shift/reduce
-State 80 conflicts: 1 shift/reduce
-State 81 conflicts: 1 shift/reduce
-State 82 conflicts: 1 shift/reduce
+Rules useless in grammar
+
+   54 comandoPrint: PRINT OPEN_BRACE
+
+   55 comandoInput: INPUT OPEN_BLOCK
 
 
 Grammar
@@ -23,166 +30,161 @@ Grammar
     4              | if_comando lista_comando
     5              | if_comando
     6              | for_comando
+    7              | for_comando lista_comando
+    8              | atribuicao EOL lista_comando
+    9              | atribuicao
 
-    7 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK
+   10 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK
 
-    8 ident: ID
+   11 ident: ID
 
-    9 exp: NUMREAL
-   10    | NUMINTEIRO
-   11    | STRING
-   12    | soma
-   13    | subtracao
-   14    | divisao
-   15    | multiplicacao
-   16    | restoDiv
-   17    | ident
+   12 exp: NUMREAL
+   13    | NUMINTEIRO
+   14    | STRING
+   15    | exp '+' exp
+   16    | exp '-' exp
+   17    | exp '/' exp
+   18    | exp '*' exp
+   19    | exp '%' exp
+   20    | ident
 
-   18 atribuicao: REAL ident '=' exp
-   19           | INT ident '=' exp
-   20           | CHAR ident '=' exp
+   21 comando: bloco
+   22        | if_comando
+   23        | for_comando
 
-   21 comando: atribuicao
-   22        | bloco
-   23        | if_comando
-   24        | for_comando
+   24 atribuicao: REAL ident '=' exp
+   25           | INT ident '=' exp
+   26           | CHAR ident '=' exp
 
-   25 comparacao: igualdade
-   26           | diferenca
-   27           | compMaior
-   28           | compMenor
-   29           | compMaiorIgual
-   30           | compMenorIgual
-   31           | compAnd
-   32           | compOr
-   33           | compNot
+   27 comparacao: igualdade
+   28           | diferenca
+   29           | compMaior
+   30           | compMenor
+   31           | compMaiorIgual
+   32           | compMenorIgual
+   33           | compAnd
+   34           | compOr
+   35           | compNot
 
-   34 soma: exp '+' exp
+   36 igualdade: exp EQ exp
 
-   35 subtracao: exp '-' exp
+   37 diferenca: exp NE exp
 
-   36 divisao: exp '/' exp
+   38 compMaiorIgual: exp MAIORIGUAL exp
 
-   37 multiplicacao: exp '*' exp
+   39 compMenorIgual: exp MENORIGUAL exp
 
-   38 restoDiv: exp MOD exp
+   40 compMenor: exp MENOR exp
 
-   39 igualdade: exp EQ exp
+   41 compMaior: exp MAIOR exp
 
-   40 diferenca: exp NE exp
+   42 compAnd: exp AND exp
 
-   41 compMaiorIgual: exp MAIORIGUAL exp
+   43 compOr: exp OR exp
 
-   42 compMenorIgual: exp MENORIGUAL exp
+   44 compNot: NOT exp
 
-   43 compMenor: exp MENOR exp
+   45 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
+   46           | IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
 
-   44 compMaior: exp MAIOR exp
+   47 paradaFor: REAL ident '=' exp
+   48          | INT ident '=' exp
+   49          | CHAR ident '=' exp
 
-   45 compAnd: exp AND exp
+   50 atribuicaoFor: REAL ident '=' exp
+   51              | INT ident '=' exp
+   52              | CHAR ident '=' exp
 
-   46 compOr: exp OR exp
-
-   47 compNot: NOT exp
-
-   48 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
-   49           | IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
-
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL comparacao EOL atribuicao CLOSE_BRACE bloco
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BRACE bloco
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-'%' (37)
-'*' (42) 37
-'+' (43) 34
-'-' (45) 35
-'/' (47) 36
-'=' (61) 18 19 20
+'%' (37) 19
+'*' (42) 18
+'+' (43) 15
+'-' (45) 16
+'/' (47) 17
+'=' (61) 24 25 26 47 48 49 50 51 52
 error (256)
-IF (258) 48 49
-ELSE (259) 49
-FOR (260) 50
-ID (261) 8
-NUMINTEIRO (262) 10
-NUMREAL (263) 9
-STRING (264) 11
-EOL (265) 2 3 50
-MAIORIGUAL (266) 41
-MENORIGUAL (267) 42
-MENOR (268) 43
-MAIOR (269) 44
-AND (270) 45
-OR (271) 46
-NOT (272) 47
-MOD (273) 38
-INT (274) 19
-REAL (275) 18
-CHAR (276) 20
-OPEN_BRACE (277) 48 49 50
-CLOSE_BRACE (278) 48 49 50
-OPEN_BLOCK (279) 7
-CLOSE_BLOCK (280) 7
-COMMA (281)
-EQ (282) 39
-GQ (283)
-NE (284) 40
+PRINT (258)
+INPUT (259)
+IF (260) 45 46
+ELSE (261) 46
+FOR (262) 53
+ID (263) 11
+NUMINTEIRO (264) 13
+NUMREAL (265) 12
+STRING (266) 14
+EOL (267) 2 3 8 53
+MAIORIGUAL (268) 38
+MENORIGUAL (269) 39
+MENOR (270) 40
+MAIOR (271) 41
+AND (272) 42
+OR (273) 43
+NOT (274) 44
+PARADAFOR (275)
+ATRIBUICAOFOR (276)
+INT (277) 25 48 51
+REAL (278) 24 47 50
+CHAR (279) 26 49 52
+OPEN_BRACE (280) 45 46 53
+CLOSE_BRACE (281) 45 46 53
+OPEN_BLOCK (282) 10
+CLOSE_BLOCK (283) 10
+EQ (284) 36
+NE (285) 37
 
 
 Nonterminals, with rules where they appear
 
-$accept (36)
+$accept (37)
     on left: 0
-programa (37)
+programa (38)
     on left: 1, on right: 0
-lista_comando (38)
-    on left: 2 3 4 5 6, on right: 1 2 4 7
-bloco (39)
-    on left: 7, on right: 22 48 49 50
-ident (40)
-    on left: 8, on right: 17 18 19 20
-exp (41)
-    on left: 9 10 11 12 13 14 15 16 17, on right: 18 19 20 34 35 36
-    37 38 39 40 41 42 43 44 45 46 47
-atribuicao (42)
-    on left: 18 19 20, on right: 21 50
+lista_comando (39)
+    on left: 2 3 4 5 6 7 8 9, on right: 1 2 4 7 8 10
+bloco (40)
+    on left: 10, on right: 21 45 46 53
+ident (41)
+    on left: 11, on right: 20 24 25 26 47 48 49 50 51 52
+exp (42)
+    on left: 12 13 14 15 16 17 18 19 20, on right: 15 16 17 18 19 24
+    25 26 36 37 38 39 40 41 42 43 44 47 48 49 50 51 52
 comando (43)
-    on left: 21 22 23 24, on right: 2 3
-comparacao (44)
-    on left: 25 26 27 28 29 30 31 32 33, on right: 48 49 50
-soma (45)
-    on left: 34, on right: 12
-subtracao (46)
-    on left: 35, on right: 13
-divisao (47)
-    on left: 36, on right: 14
-multiplicacao (48)
-    on left: 37, on right: 15
-restoDiv (49)
-    on left: 38, on right: 16
-igualdade (50)
-    on left: 39, on right: 25
-diferenca (51)
-    on left: 40, on right: 26
-compMaiorIgual (52)
+    on left: 21 22 23, on right: 2 3
+atribuicao (44)
+    on left: 24 25 26, on right: 8 9
+comparacao (45)
+    on left: 27 28 29 30 31 32 33 34 35, on right: 45 46 53
+igualdade (46)
+    on left: 36, on right: 27
+diferenca (47)
+    on left: 37, on right: 28
+compMaiorIgual (48)
+    on left: 38, on right: 31
+compMenorIgual (49)
+    on left: 39, on right: 32
+compMenor (50)
+    on left: 40, on right: 30
+compMaior (51)
     on left: 41, on right: 29
-compMenorIgual (53)
-    on left: 42, on right: 30
-compMenor (54)
-    on left: 43, on right: 28
-compMaior (55)
-    on left: 44, on right: 27
-compAnd (56)
-    on left: 45, on right: 31
-compOr (57)
-    on left: 46, on right: 32
-compNot (58)
-    on left: 47, on right: 33
-if_comando (59)
-    on left: 48 49, on right: 4 5 23
-for_comando (60)
-    on left: 50, on right: 6 24
+compAnd (52)
+    on left: 42, on right: 33
+compOr (53)
+    on left: 43, on right: 34
+compNot (54)
+    on left: 44, on right: 35
+if_comando (55)
+    on left: 45 46, on right: 4 5 22
+paradaFor (56)
+    on left: 47 48 49, on right: 53
+atribuicaoFor (57)
+    on left: 50 51 52, on right: 53
+for_comando (58)
+    on left: 53, on right: 6 7 23
 
 
 state 0
@@ -199,30 +201,30 @@ state 0
     programa       go to state 7
     lista_comando  go to state 8
     bloco          go to state 9
-    atribuicao     go to state 10
-    comando        go to state 11
+    comando        go to state 10
+    atribuicao     go to state 11
     if_comando     go to state 12
     for_comando    go to state 13
 
 
 state 1
 
-   48 if_comando: IF . OPEN_BRACE comparacao CLOSE_BRACE bloco
-   49           | IF . OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
+   45 if_comando: IF . OPEN_BRACE comparacao CLOSE_BRACE bloco
+   46           | IF . OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
 
     OPEN_BRACE  shift, and go to state 14
 
 
 state 2
 
-   50 for_comando: FOR . OPEN_BRACE atribuicao EOL comparacao EOL atribuicao CLOSE_BRACE bloco
+   53 for_comando: FOR . OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BRACE bloco
 
     OPEN_BRACE  shift, and go to state 15
 
 
 state 3
 
-   19 atribuicao: INT . ident '=' exp
+   25 atribuicao: INT . ident '=' exp
 
     ID  shift, and go to state 16
 
@@ -231,7 +233,7 @@ state 3
 
 state 4
 
-   18 atribuicao: REAL . ident '=' exp
+   24 atribuicao: REAL . ident '=' exp
 
     ID  shift, and go to state 16
 
@@ -240,7 +242,7 @@ state 4
 
 state 5
 
-   20 atribuicao: CHAR . ident '=' exp
+   26 atribuicao: CHAR . ident '=' exp
 
     ID  shift, and go to state 16
 
@@ -249,7 +251,7 @@ state 5
 
 state 6
 
-    7 bloco: OPEN_BLOCK . lista_comando CLOSE_BLOCK
+   10 bloco: OPEN_BLOCK . lista_comando CLOSE_BLOCK
 
     IF          shift, and go to state 1
     FOR         shift, and go to state 2
@@ -260,8 +262,8 @@ state 6
 
     lista_comando  go to state 20
     bloco          go to state 9
-    atribuicao     go to state 10
-    comando        go to state 11
+    comando        go to state 10
+    atribuicao     go to state 11
     if_comando     go to state 12
     for_comando    go to state 13
 
@@ -282,19 +284,12 @@ state 8
 
 state 9
 
-   22 comando: bloco .
-
-    $default  reduce using rule 22 (comando)
-
-
-state 10
-
-   21 comando: atribuicao .
+   21 comando: bloco .
 
     $default  reduce using rule 21 (comando)
 
 
-state 11
+state 10
 
     2 lista_comando: comando . EOL lista_comando
     3              | comando . EOL
@@ -302,11 +297,45 @@ state 11
     EOL  shift, and go to state 22
 
 
+state 11
+
+    8 lista_comando: atribuicao . EOL lista_comando
+    9              | atribuicao .
+
+    EOL  shift, and go to state 23
+
+    $default  reduce using rule 9 (lista_comando)
+
+
 state 12
 
     4 lista_comando: if_comando . lista_comando
     5              | if_comando .
-   23 comando: if_comando .
+   22 comando: if_comando .
+
+    IF          shift, and go to state 1
+    FOR         shift, and go to state 2
+    INT         shift, and go to state 3
+    REAL        shift, and go to state 4
+    CHAR        shift, and go to state 5
+    OPEN_BLOCK  shift, and go to state 6
+
+    EOL       reduce using rule 22 (comando)
+    $default  reduce using rule 5 (lista_comando)
+
+    lista_comando  go to state 24
+    bloco          go to state 9
+    comando        go to state 10
+    atribuicao     go to state 11
+    if_comando     go to state 12
+    for_comando    go to state 13
+
+
+state 13
+
+    6 lista_comando: for_comando .
+    7              | for_comando . lista_comando
+   23 comando: for_comando .
 
     IF          shift, and go to state 1
     FOR         shift, and go to state 2
@@ -316,97 +345,83 @@ state 12
     OPEN_BLOCK  shift, and go to state 6
 
     EOL       reduce using rule 23 (comando)
-    $default  reduce using rule 5 (lista_comando)
+    $default  reduce using rule 6 (lista_comando)
 
-    lista_comando  go to state 23
+    lista_comando  go to state 25
     bloco          go to state 9
-    atribuicao     go to state 10
-    comando        go to state 11
+    comando        go to state 10
+    atribuicao     go to state 11
     if_comando     go to state 12
     for_comando    go to state 13
 
 
-state 13
-
-    6 lista_comando: for_comando .
-   24 comando: for_comando .
-
-    EOL       reduce using rule 24 (comando)
-    $default  reduce using rule 6 (lista_comando)
-
-
 state 14
 
-   48 if_comando: IF OPEN_BRACE . comparacao CLOSE_BRACE bloco
-   49           | IF OPEN_BRACE . comparacao CLOSE_BRACE bloco ELSE bloco
+   45 if_comando: IF OPEN_BRACE . comparacao CLOSE_BRACE bloco
+   46           | IF OPEN_BRACE . comparacao CLOSE_BRACE bloco ELSE bloco
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
-    NOT         shift, and go to state 27
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+    NOT         shift, and go to state 29
 
-    ident           go to state 28
-    exp             go to state 29
-    comparacao      go to state 30
-    soma            go to state 31
-    subtracao       go to state 32
-    divisao         go to state 33
-    multiplicacao   go to state 34
-    restoDiv        go to state 35
-    igualdade       go to state 36
-    diferenca       go to state 37
-    compMaiorIgual  go to state 38
-    compMenorIgual  go to state 39
-    compMenor       go to state 40
-    compMaior       go to state 41
-    compAnd         go to state 42
-    compOr          go to state 43
-    compNot         go to state 44
+    ident           go to state 30
+    exp             go to state 31
+    comparacao      go to state 32
+    igualdade       go to state 33
+    diferenca       go to state 34
+    compMaiorIgual  go to state 35
+    compMenorIgual  go to state 36
+    compMenor       go to state 37
+    compMaior       go to state 38
+    compAnd         go to state 39
+    compOr          go to state 40
+    compNot         go to state 41
 
 
 state 15
 
-   50 for_comando: FOR OPEN_BRACE . atribuicao EOL comparacao EOL atribuicao CLOSE_BRACE bloco
+   53 for_comando: FOR OPEN_BRACE . atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BRACE bloco
 
-    INT   shift, and go to state 3
-    REAL  shift, and go to state 4
-    CHAR  shift, and go to state 5
+    INT   shift, and go to state 42
+    REAL  shift, and go to state 43
+    CHAR  shift, and go to state 44
 
-    atribuicao  go to state 45
+    atribuicaoFor  go to state 45
 
 
 state 16
 
-    8 ident: ID .
+   11 ident: ID .
 
-    $default  reduce using rule 8 (ident)
+    $default  reduce using rule 11 (ident)
 
 
 state 17
 
-   19 atribuicao: INT ident . '=' exp
+   25 atribuicao: INT ident . '=' exp
 
     '='  shift, and go to state 46
 
 
 state 18
 
-   18 atribuicao: REAL ident . '=' exp
+   24 atribuicao: REAL ident . '=' exp
 
     '='  shift, and go to state 47
 
 
 state 19
 
-   20 atribuicao: CHAR ident . '=' exp
+   26 atribuicao: CHAR ident . '=' exp
 
     '='  shift, and go to state 48
 
 
 state 20
 
-    7 bloco: OPEN_BLOCK lista_comando . CLOSE_BLOCK
+   10 bloco: OPEN_BLOCK lista_comando . CLOSE_BLOCK
 
     CLOSE_BLOCK  shift, and go to state 49
 
@@ -434,268 +449,266 @@ state 22
 
     lista_comando  go to state 50
     bloco          go to state 9
-    atribuicao     go to state 10
-    comando        go to state 11
+    comando        go to state 10
+    atribuicao     go to state 11
     if_comando     go to state 12
     for_comando    go to state 13
 
 
 state 23
 
+    8 lista_comando: atribuicao EOL . lista_comando
+
+    IF          shift, and go to state 1
+    FOR         shift, and go to state 2
+    INT         shift, and go to state 3
+    REAL        shift, and go to state 4
+    CHAR        shift, and go to state 5
+    OPEN_BLOCK  shift, and go to state 6
+
+    lista_comando  go to state 51
+    bloco          go to state 9
+    comando        go to state 10
+    atribuicao     go to state 11
+    if_comando     go to state 12
+    for_comando    go to state 13
+
+
+state 24
+
     4 lista_comando: if_comando lista_comando .
 
     $default  reduce using rule 4 (lista_comando)
 
 
-state 24
-
-   10 exp: NUMINTEIRO .
-
-    $default  reduce using rule 10 (exp)
-
-
 state 25
 
-    9 exp: NUMREAL .
+    7 lista_comando: for_comando lista_comando .
 
-    $default  reduce using rule 9 (exp)
+    $default  reduce using rule 7 (lista_comando)
 
 
 state 26
 
-   11 exp: STRING .
+   13 exp: NUMINTEIRO .
 
-    $default  reduce using rule 11 (exp)
+    $default  reduce using rule 13 (exp)
 
 
 state 27
 
-   47 compNot: NOT . exp
+   12 exp: NUMREAL .
 
-    ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
-
-    ident          go to state 28
-    exp            go to state 51
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    $default  reduce using rule 12 (exp)
 
 
 state 28
 
-   17 exp: ident .
+   14 exp: STRING .
 
-    $default  reduce using rule 17 (exp)
+    $default  reduce using rule 14 (exp)
 
 
 state 29
 
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   39 igualdade: exp . EQ exp
-   40 diferenca: exp . NE exp
-   41 compMaiorIgual: exp . MAIORIGUAL exp
-   42 compMenorIgual: exp . MENORIGUAL exp
-   43 compMenor: exp . MENOR exp
-   44 compMaior: exp . MAIOR exp
-   45 compAnd: exp . AND exp
-   46 compOr: exp . OR exp
+   44 compNot: NOT . exp
 
-    MAIORIGUAL  shift, and go to state 52
-    MENORIGUAL  shift, and go to state 53
-    MENOR       shift, and go to state 54
-    MAIOR       shift, and go to state 55
-    AND         shift, and go to state 56
-    OR          shift, and go to state 57
-    MOD         shift, and go to state 58
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+
+    ident  go to state 30
+    exp    go to state 52
+
+
+state 30
+
+   20 exp: ident .
+
+    $default  reduce using rule 20 (exp)
+
+
+state 31
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   36 igualdade: exp . EQ exp
+   37 diferenca: exp . NE exp
+   38 compMaiorIgual: exp . MAIORIGUAL exp
+   39 compMenorIgual: exp . MENORIGUAL exp
+   40 compMenor: exp . MENOR exp
+   41 compMaior: exp . MAIOR exp
+   42 compAnd: exp . AND exp
+   43 compOr: exp . OR exp
+
+    MAIORIGUAL  shift, and go to state 53
+    MENORIGUAL  shift, and go to state 54
+    MENOR       shift, and go to state 55
+    MAIOR       shift, and go to state 56
+    AND         shift, and go to state 57
+    OR          shift, and go to state 58
     EQ          shift, and go to state 59
     NE          shift, and go to state 60
     '-'         shift, and go to state 61
     '+'         shift, and go to state 62
     '*'         shift, and go to state 63
     '/'         shift, and go to state 64
-
-
-state 30
-
-   48 if_comando: IF OPEN_BRACE comparacao . CLOSE_BRACE bloco
-   49           | IF OPEN_BRACE comparacao . CLOSE_BRACE bloco ELSE bloco
-
-    CLOSE_BRACE  shift, and go to state 65
-
-
-state 31
-
-   12 exp: soma .
-
-    $default  reduce using rule 12 (exp)
+    '%'         shift, and go to state 65
 
 
 state 32
 
-   13 exp: subtracao .
+   45 if_comando: IF OPEN_BRACE comparacao . CLOSE_BRACE bloco
+   46           | IF OPEN_BRACE comparacao . CLOSE_BRACE bloco ELSE bloco
 
-    $default  reduce using rule 13 (exp)
+    CLOSE_BRACE  shift, and go to state 66
 
 
 state 33
 
-   14 exp: divisao .
+   27 comparacao: igualdade .
 
-    $default  reduce using rule 14 (exp)
+    $default  reduce using rule 27 (comparacao)
 
 
 state 34
 
-   15 exp: multiplicacao .
+   28 comparacao: diferenca .
 
-    $default  reduce using rule 15 (exp)
+    $default  reduce using rule 28 (comparacao)
 
 
 state 35
 
-   16 exp: restoDiv .
+   31 comparacao: compMaiorIgual .
 
-    $default  reduce using rule 16 (exp)
+    $default  reduce using rule 31 (comparacao)
 
 
 state 36
 
-   25 comparacao: igualdade .
+   32 comparacao: compMenorIgual .
 
-    $default  reduce using rule 25 (comparacao)
+    $default  reduce using rule 32 (comparacao)
 
 
 state 37
 
-   26 comparacao: diferenca .
+   30 comparacao: compMenor .
 
-    $default  reduce using rule 26 (comparacao)
+    $default  reduce using rule 30 (comparacao)
 
 
 state 38
 
-   29 comparacao: compMaiorIgual .
+   29 comparacao: compMaior .
 
     $default  reduce using rule 29 (comparacao)
 
 
 state 39
 
-   30 comparacao: compMenorIgual .
-
-    $default  reduce using rule 30 (comparacao)
-
-
-state 40
-
-   28 comparacao: compMenor .
-
-    $default  reduce using rule 28 (comparacao)
-
-
-state 41
-
-   27 comparacao: compMaior .
-
-    $default  reduce using rule 27 (comparacao)
-
-
-state 42
-
-   31 comparacao: compAnd .
-
-    $default  reduce using rule 31 (comparacao)
-
-
-state 43
-
-   32 comparacao: compOr .
-
-    $default  reduce using rule 32 (comparacao)
-
-
-state 44
-
-   33 comparacao: compNot .
+   33 comparacao: compAnd .
 
     $default  reduce using rule 33 (comparacao)
 
 
+state 40
+
+   34 comparacao: compOr .
+
+    $default  reduce using rule 34 (comparacao)
+
+
+state 41
+
+   35 comparacao: compNot .
+
+    $default  reduce using rule 35 (comparacao)
+
+
+state 42
+
+   51 atribuicaoFor: INT . ident '=' exp
+
+    ID  shift, and go to state 16
+
+    ident  go to state 67
+
+
+state 43
+
+   50 atribuicaoFor: REAL . ident '=' exp
+
+    ID  shift, and go to state 16
+
+    ident  go to state 68
+
+
+state 44
+
+   52 atribuicaoFor: CHAR . ident '=' exp
+
+    ID  shift, and go to state 16
+
+    ident  go to state 69
+
+
 state 45
 
-   50 for_comando: FOR OPEN_BRACE atribuicao . EOL comparacao EOL atribuicao CLOSE_BRACE bloco
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor . EOL comparacao EOL paradaFor CLOSE_BRACE bloco
 
-    EOL  shift, and go to state 66
+    EOL  shift, and go to state 70
 
 
 state 46
 
-   19 atribuicao: INT ident '=' . exp
+   25 atribuicao: INT ident '=' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 67
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 71
 
 
 state 47
 
-   18 atribuicao: REAL ident '=' . exp
+   24 atribuicao: REAL ident '=' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 68
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 72
 
 
 state 48
 
-   20 atribuicao: CHAR ident '=' . exp
+   26 atribuicao: CHAR ident '=' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 69
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 73
 
 
 state 49
 
-    7 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK .
+   10 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK .
 
-    $default  reduce using rule 7 (bloco)
+    $default  reduce using rule 10 (bloco)
 
 
 state 50
@@ -707,642 +720,819 @@ state 50
 
 state 51
 
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   47 compNot: NOT exp .
+    8 lista_comando: atribuicao EOL lista_comando .
 
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 47 (compNot)
+    $default  reduce using rule 8 (lista_comando)
 
 
 state 52
 
-   41 compMaiorIgual: exp MAIORIGUAL . exp
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   44 compNot: NOT exp .
 
-    ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
 
-    ident          go to state 28
-    exp            go to state 70
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    $default  reduce using rule 44 (compNot)
 
 
 state 53
 
-   42 compMenorIgual: exp MENORIGUAL . exp
+   38 compMaiorIgual: exp MAIORIGUAL . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 71
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 74
 
 
 state 54
 
-   43 compMenor: exp MENOR . exp
+   39 compMenorIgual: exp MENORIGUAL . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 72
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 75
 
 
 state 55
 
-   44 compMaior: exp MAIOR . exp
+   40 compMenor: exp MENOR . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 73
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 76
 
 
 state 56
 
-   45 compAnd: exp AND . exp
+   41 compMaior: exp MAIOR . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 74
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 77
 
 
 state 57
 
-   46 compOr: exp OR . exp
+   42 compAnd: exp AND . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 75
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 78
 
 
 state 58
 
-   38 restoDiv: exp MOD . exp
+   43 compOr: exp OR . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 76
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 79
 
 
 state 59
 
-   39 igualdade: exp EQ . exp
+   36 igualdade: exp EQ . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 77
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 80
 
 
 state 60
 
-   40 diferenca: exp NE . exp
+   37 diferenca: exp NE . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 78
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 81
 
 
 state 61
 
-   35 subtracao: exp '-' . exp
+   16 exp: exp '-' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 79
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 82
 
 
 state 62
 
-   34 soma: exp '+' . exp
+   15 exp: exp '+' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 80
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 83
 
 
 state 63
 
-   37 multiplicacao: exp '*' . exp
+   18 exp: exp '*' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 81
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 84
 
 
 state 64
 
-   36 divisao: exp '/' . exp
+   17 exp: exp '/' . exp
 
     ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    ident          go to state 28
-    exp            go to state 82
-    soma           go to state 31
-    subtracao      go to state 32
-    divisao        go to state 33
-    multiplicacao  go to state 34
-    restoDiv       go to state 35
+    ident  go to state 30
+    exp    go to state 85
 
 
 state 65
 
-   48 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE . bloco
-   49           | IF OPEN_BRACE comparacao CLOSE_BRACE . bloco ELSE bloco
+   19 exp: exp '%' . exp
 
-    OPEN_BLOCK  shift, and go to state 6
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    bloco  go to state 83
+    ident  go to state 30
+    exp    go to state 86
 
 
 state 66
 
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL . comparacao EOL atribuicao CLOSE_BRACE bloco
-
-    ID          shift, and go to state 16
-    NUMINTEIRO  shift, and go to state 24
-    NUMREAL     shift, and go to state 25
-    STRING      shift, and go to state 26
-    NOT         shift, and go to state 27
-
-    ident           go to state 28
-    exp             go to state 29
-    comparacao      go to state 84
-    soma            go to state 31
-    subtracao       go to state 32
-    divisao         go to state 33
-    multiplicacao   go to state 34
-    restoDiv        go to state 35
-    igualdade       go to state 36
-    diferenca       go to state 37
-    compMaiorIgual  go to state 38
-    compMenorIgual  go to state 39
-    compMenor       go to state 40
-    compMaior       go to state 41
-    compAnd         go to state 42
-    compOr          go to state 43
-    compNot         go to state 44
-
-
-state 67
-
-   19 atribuicao: INT ident '=' exp .
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 19 (atribuicao)
-
-
-state 68
-
-   18 atribuicao: REAL ident '=' exp .
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 18 (atribuicao)
-
-
-state 69
-
-   20 atribuicao: CHAR ident '=' exp .
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 20 (atribuicao)
-
-
-state 70
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   41 compMaiorIgual: exp MAIORIGUAL exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 41 (compMaiorIgual)
-
-
-state 71
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   42 compMenorIgual: exp MENORIGUAL exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 42 (compMenorIgual)
-
-
-state 72
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   43 compMenor: exp MENOR exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 43 (compMenor)
-
-
-state 73
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   44 compMaior: exp MAIOR exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 44 (compMaior)
-
-
-state 74
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   45 compAnd: exp AND exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 45 (compAnd)
-
-
-state 75
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   46 compOr: exp OR exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 46 (compOr)
-
-
-state 76
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   38         | exp MOD exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    MOD       [reduce using rule 38 (restoDiv)]
-    '-'       [reduce using rule 38 (restoDiv)]
-    '+'       [reduce using rule 38 (restoDiv)]
-    '*'       [reduce using rule 38 (restoDiv)]
-    '/'       [reduce using rule 38 (restoDiv)]
-    $default  reduce using rule 38 (restoDiv)
-
-
-state 77
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   39 igualdade: exp EQ exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 39 (igualdade)
-
-
-state 78
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-   40 diferenca: exp NE exp .
-
-    MOD  shift, and go to state 58
-    '-'  shift, and go to state 61
-    '+'  shift, and go to state 62
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    $default  reduce using rule 40 (diferenca)
-
-
-state 79
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   35          | exp '-' exp .
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    MOD       [reduce using rule 35 (subtracao)]
-    $default  reduce using rule 35 (subtracao)
-
-
-state 80
-
-   34 soma: exp . '+' exp
-   34     | exp '+' exp .
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-    '*'  shift, and go to state 63
-    '/'  shift, and go to state 64
-
-    MOD       [reduce using rule 34 (soma)]
-    $default  reduce using rule 34 (soma)
-
-
-state 81
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   37 multiplicacao: exp . '*' exp
-   37              | exp '*' exp .
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-
-    MOD       [reduce using rule 37 (multiplicacao)]
-    $default  reduce using rule 37 (multiplicacao)
-
-
-state 82
-
-   34 soma: exp . '+' exp
-   35 subtracao: exp . '-' exp
-   36 divisao: exp . '/' exp
-   36        | exp '/' exp .
-   37 multiplicacao: exp . '*' exp
-   38 restoDiv: exp . MOD exp
-
-    MOD  shift, and go to state 58
-
-    MOD       [reduce using rule 36 (divisao)]
-    $default  reduce using rule 36 (divisao)
-
-
-state 83
-
-   48 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco .
-   49           | IF OPEN_BRACE comparacao CLOSE_BRACE bloco . ELSE bloco
-
-    ELSE  shift, and go to state 85
-
-    $default  reduce using rule 48 (if_comando)
-
-
-state 84
-
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL comparacao . EOL atribuicao CLOSE_BRACE bloco
-
-    EOL  shift, and go to state 86
-
-
-state 85
-
-   49 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE . bloco
+   45 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE . bloco
+   46           | IF OPEN_BRACE comparacao CLOSE_BRACE . bloco ELSE bloco
 
     OPEN_BLOCK  shift, and go to state 6
 
     bloco  go to state 87
 
 
+state 67
+
+   51 atribuicaoFor: INT ident . '=' exp
+
+    '='  shift, and go to state 88
+
+
+state 68
+
+   50 atribuicaoFor: REAL ident . '=' exp
+
+    '='  shift, and go to state 89
+
+
+state 69
+
+   52 atribuicaoFor: CHAR ident . '=' exp
+
+    '='  shift, and go to state 90
+
+
+state 70
+
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL . comparacao EOL paradaFor CLOSE_BRACE bloco
+
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+    NOT         shift, and go to state 29
+
+    ident           go to state 30
+    exp             go to state 31
+    comparacao      go to state 91
+    igualdade       go to state 33
+    diferenca       go to state 34
+    compMaiorIgual  go to state 35
+    compMenorIgual  go to state 36
+    compMenor       go to state 37
+    compMaior       go to state 38
+    compAnd         go to state 39
+    compOr          go to state 40
+    compNot         go to state 41
+
+
+state 71
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   25 atribuicao: INT ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 25 (atribuicao)
+
+
+state 72
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   24 atribuicao: REAL ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 24 (atribuicao)
+
+
+state 73
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   26 atribuicao: CHAR ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 26 (atribuicao)
+
+
+state 74
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   38 compMaiorIgual: exp MAIORIGUAL exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 38 (compMaiorIgual)
+
+
+state 75
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   39 compMenorIgual: exp MENORIGUAL exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 39 (compMenorIgual)
+
+
+state 76
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   40 compMenor: exp MENOR exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 40 (compMenor)
+
+
+state 77
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   41 compMaior: exp MAIOR exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 41 (compMaior)
+
+
+state 78
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   42 compAnd: exp AND exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 42 (compAnd)
+
+
+state 79
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   43 compOr: exp OR exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 43 (compOr)
+
+
+state 80
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   36 igualdade: exp EQ exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 36 (igualdade)
+
+
+state 81
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   37 diferenca: exp NE exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 37 (diferenca)
+
+
+state 82
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   16    | exp '-' exp .
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 16 (exp)
+
+
+state 83
+
+   15 exp: exp . '+' exp
+   15    | exp '+' exp .
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 15 (exp)
+
+
+state 84
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   18    | exp '*' exp .
+   19    | exp . '%' exp
+
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 18 (exp)
+
+
+state 85
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   17    | exp '/' exp .
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 17 (exp)
+
+
 state 86
 
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL comparacao EOL . atribuicao CLOSE_BRACE bloco
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   19    | exp '%' exp .
 
-    INT   shift, and go to state 3
-    REAL  shift, and go to state 4
-    CHAR  shift, and go to state 5
-
-    atribuicao  go to state 88
+    $default  reduce using rule 19 (exp)
 
 
 state 87
 
-   49 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco .
+   45 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco .
+   46           | IF OPEN_BRACE comparacao CLOSE_BRACE bloco . ELSE bloco
 
-    $default  reduce using rule 49 (if_comando)
+    ELSE  shift, and go to state 92
+
+    $default  reduce using rule 45 (if_comando)
 
 
 state 88
 
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL comparacao EOL atribuicao . CLOSE_BRACE bloco
+   51 atribuicaoFor: INT ident '=' . exp
 
-    CLOSE_BRACE  shift, and go to state 89
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+
+    ident  go to state 30
+    exp    go to state 93
 
 
 state 89
 
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL comparacao EOL atribuicao CLOSE_BRACE . bloco
+   50 atribuicaoFor: REAL ident '=' . exp
 
-    OPEN_BLOCK  shift, and go to state 6
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
 
-    bloco  go to state 90
+    ident  go to state 30
+    exp    go to state 94
 
 
 state 90
 
-   50 for_comando: FOR OPEN_BRACE atribuicao EOL comparacao EOL atribuicao CLOSE_BRACE bloco .
+   52 atribuicaoFor: CHAR ident '=' . exp
 
-    $default  reduce using rule 50 (for_comando)
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+
+    ident  go to state 30
+    exp    go to state 95
+
+
+state 91
+
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL comparacao . EOL paradaFor CLOSE_BRACE bloco
+
+    EOL  shift, and go to state 96
+
+
+state 92
+
+   46 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE . bloco
+
+    OPEN_BLOCK  shift, and go to state 6
+
+    bloco  go to state 97
+
+
+state 93
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   51 atribuicaoFor: INT ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 51 (atribuicaoFor)
+
+
+state 94
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   50 atribuicaoFor: REAL ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 50 (atribuicaoFor)
+
+
+state 95
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   52 atribuicaoFor: CHAR ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 52 (atribuicaoFor)
+
+
+state 96
+
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL . paradaFor CLOSE_BRACE bloco
+
+    INT   shift, and go to state 98
+    REAL  shift, and go to state 99
+    CHAR  shift, and go to state 100
+
+    paradaFor  go to state 101
+
+
+state 97
+
+   46 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco .
+
+    $default  reduce using rule 46 (if_comando)
+
+
+state 98
+
+   48 paradaFor: INT . ident '=' exp
+
+    ID  shift, and go to state 16
+
+    ident  go to state 102
+
+
+state 99
+
+   47 paradaFor: REAL . ident '=' exp
+
+    ID  shift, and go to state 16
+
+    ident  go to state 103
+
+
+state 100
+
+   49 paradaFor: CHAR . ident '=' exp
+
+    ID  shift, and go to state 16
+
+    ident  go to state 104
+
+
+state 101
+
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor . CLOSE_BRACE bloco
+
+    CLOSE_BRACE  shift, and go to state 105
+
+
+state 102
+
+   48 paradaFor: INT ident . '=' exp
+
+    '='  shift, and go to state 106
+
+
+state 103
+
+   47 paradaFor: REAL ident . '=' exp
+
+    '='  shift, and go to state 107
+
+
+state 104
+
+   49 paradaFor: CHAR ident . '=' exp
+
+    '='  shift, and go to state 108
+
+
+state 105
+
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BRACE . bloco
+
+    OPEN_BLOCK  shift, and go to state 6
+
+    bloco  go to state 109
+
+
+state 106
+
+   48 paradaFor: INT ident '=' . exp
+
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+
+    ident  go to state 30
+    exp    go to state 110
+
+
+state 107
+
+   47 paradaFor: REAL ident '=' . exp
+
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+
+    ident  go to state 30
+    exp    go to state 111
+
+
+state 108
+
+   49 paradaFor: CHAR ident '=' . exp
+
+    ID          shift, and go to state 16
+    NUMINTEIRO  shift, and go to state 26
+    NUMREAL     shift, and go to state 27
+    STRING      shift, and go to state 28
+
+    ident  go to state 30
+    exp    go to state 112
+
+
+state 109
+
+   53 for_comando: FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BRACE bloco .
+
+    $default  reduce using rule 53 (for_comando)
+
+
+state 110
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   48 paradaFor: INT ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 48 (paradaFor)
+
+
+state 111
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   47 paradaFor: REAL ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 47 (paradaFor)
+
+
+state 112
+
+   15 exp: exp . '+' exp
+   16    | exp . '-' exp
+   17    | exp . '/' exp
+   18    | exp . '*' exp
+   19    | exp . '%' exp
+   49 paradaFor: CHAR ident '=' exp .
+
+    '-'  shift, and go to state 61
+    '+'  shift, and go to state 62
+    '*'  shift, and go to state 63
+    '/'  shift, and go to state 64
+    '%'  shift, and go to state 65
+
+    $default  reduce using rule 49 (paradaFor)

@@ -43,7 +43,8 @@
                        return ID;
                      }
 
-"%"    { return MOD; }
+"print" { return PRINT; }
+"input" { return INPUT; }
 "!"    { return NOT; }
 "=="   { return EQ; }
 "!="   { return NE; }
@@ -55,7 +56,6 @@
 ")"    { return CLOSE_BRACE; }
 "{"    { return OPEN_BLOCK; }
 "}"    { return CLOSE_BLOCK; }
-","    { return COMMA; }
 ";"    { return EOL; }
 
 "="|"+"|"-"|"*"|"/"|"%" { return *yytext; }
