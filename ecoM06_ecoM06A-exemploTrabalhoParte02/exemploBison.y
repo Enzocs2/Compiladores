@@ -114,7 +114,7 @@ lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\
               |for_comando lista_comando{ $1->prox = $2; printf("lista_comanda\n");
 	                                         $$ = $1;
 	                                       }                                                        
-
+;
 
 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; printf("bloco\n"); } 
 
