@@ -59,6 +59,11 @@ char *var_nome;
 %token <pont> EQ /* == */ 
 %token <pont> NE
 
+%type <pont> soma
+%type <pont> subtracao
+%type <pont> multiplicacao
+%type <pont> divisao
+%type <pont> restoDiv
 %type <pont> programa
 %type <pont> lista_comando
 %type <pont> bloco
@@ -82,7 +87,6 @@ char *var_nome;
 %type <pont> atribuicaoFor
 
 %right '='
-%right NUMINTEIRO NUMREAL STRING
 %left  '-' '+'
 %left  '*' '/'
 %left  '%'
@@ -109,13 +113,7 @@ lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\
 	                                       }                                                                                  
               |for_comando lista_comando{ $1->prox = $2; printf("lista_comanda\n");
 	                                         $$ = $1;
-	                                       }
-              |atribuicao lista_comando{ $1->prox = $3; printf("lista_comanda\n");
-	                                         $$ = $1;
-	                                       }
-              |atribuicao  { $1->prox = NULL; printf("lista_comanda\n");
-	                                         $$ = $1;
-	                                       }                                                                    
+	                                       }                                                        
 
 
 bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; printf("bloco\n"); } 
@@ -135,11 +133,11 @@ exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | NUMINTEIRO '+' exp { $$ = (No*)malloc(sizeof(No)); printf("expInteiro\n");
+    | NUMINTEIRO { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->token = NUMINTEIRO;
       $$->ival = $1->ival;
       $$->esq = NULL;
-      $$->dir = $3;
+      $$->dir = NULL;
       $$->prox = NULL;
     }
     | STRING { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
@@ -149,59 +147,35 @@ exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | exp '+' exp { $$ = (No*)malloc(sizeof(No));
-          $$->token = '+';
-			    $$->esq = $1;
-			    $$->dir = $3;
-          $$->prox = NULL;
-      }
-    | exp '-' exp { $$ = (No*)malloc(sizeof(No));
-          $$->token = '-';
-			    $$->esq = $1;
-			    $$->dir = $3;
-          $$->prox = NULL;
-      }
-    | exp '/' exp { $$ = (No*)malloc(sizeof(No));
-          $$->token = '/';
-			    $$->esq = $1;
-			    $$->dir = $3;
-          $$->prox = NULL;
-      }
-    | exp '*' exp { $$ = (No*)malloc(sizeof(No));
-          $$->token = '*';
-			    $$->esq = $1;
-			    $$->dir = $3;
-          $$->prox = NULL;
-      }
-    | exp '%' exp { $$ = (No*)malloc(sizeof(No));
-          $$->token = '%';
-			    $$->esq = $1;
-			    $$->dir = $3;
-          $$->prox = NULL;
-      }   
     | ident {printf("expIdent\n");}
+    | soma {printf("exp\n");}
+    | subtracao {printf("exp\n");}
+    | divisao {printf("exp\n");}
+    | multiplicacao {printf("exp\n");}
+    | restoDiv {printf("exp\n");}
     ;
 
-comando: bloco {printf("comando\n");}
+comando: atribuicao {printf("comando\n");}
+        | bloco {printf("comando\n");}
         | if_comando {printf("comando\n");}
         | for_comando {printf("comando\n");}
 ;
 
-atribuicao: REAL ident '=' exp EOL{ $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    $$->token = '=';
           $$->type = REAL;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | INT ident '=' exp EOL{ $$ = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
 			    $$->token = '=';
           $$->type = INT;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | CHAR ident '=' exp EOL{ $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    $$->token = '=';
           $$->type = CHAR;
 			    $$->esq = $2;
@@ -220,6 +194,38 @@ comparacao: igualdade {printf("comparacao\n");}
           | compOr
           | compNot
 ;
+
+soma: exp '+' exp { $$ = (No*)malloc(sizeof(No));
+          $$->token = '+';
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+      }
+subtracao: exp '-' exp { $$ = (No*)malloc(sizeof(No));
+          $$->token = '-';
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+      }
+divisao: exp '/' exp { $$ = (No*)malloc(sizeof(No));
+          $$->token = '/';
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+      }
+multiplicacao: exp '*' exp { $$ = (No*)malloc(sizeof(No));
+          $$->token = '*';
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+      }
+
+restoDiv: exp '%' exp { $$ = (No*)malloc(sizeof(No));
+          $$->token = '%';
+			    $$->esq = $1;
+			    $$->dir = $3;
+          $$->prox = NULL;
+      } 
 
 igualdade: exp EQ exp     { $$ = (No*)malloc(sizeof(No)); printf("igualdade\n");
                             $$->token = EQ;

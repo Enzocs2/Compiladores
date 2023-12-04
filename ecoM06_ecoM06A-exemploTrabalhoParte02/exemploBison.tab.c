@@ -390,16 +390,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  21
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   119
+#define YYLAST   117
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  37
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  22
+#define YYNNTS  27
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  54
+#define YYNRULES  58
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  113
+#define YYNSTATES  116
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -448,46 +448,47 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     5,     9,    12,    15,    17,    19,    22,
-      26,    28,    32,    34,    36,    38,    40,    44,    48,    52,
-      56,    60,    62,    64,    66,    68,    73,    78,    83,    85,
-      87,    89,    91,    93,    95,    97,    99,   101,   105,   109,
-     113,   117,   121,   125,   129,   133,   136,   142,   150,   155,
-     160,   165,   170,   175,   180
+      26,    28,    30,    32,    34,    36,    38,    40,    42,    44,
+      46,    48,    50,    52,    54,    59,    64,    69,    71,    73,
+      75,    77,    79,    81,    83,    85,    87,    91,    95,    99,
+     103,   107,   111,   115,   119,   123,   127,   131,   135,   139,
+     142,   148,   156,   161,   166,   171,   176,   181,   186
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
       38,     0,    -1,    39,    -1,    43,    12,    39,    -1,    43,
-      12,    -1,    55,    39,    -1,    55,    -1,    58,    -1,    58,
-      39,    -1,    44,    12,    39,    -1,    44,    -1,    27,    39,
-      28,    -1,     8,    -1,    10,    -1,     9,    -1,    11,    -1,
-      42,    33,    42,    -1,    42,    32,    42,    -1,    42,    35,
-      42,    -1,    42,    34,    42,    -1,    42,    36,    42,    -1,
-      41,    -1,    40,    -1,    55,    -1,    58,    -1,    23,    41,
-      31,    42,    -1,    22,    41,    31,    42,    -1,    24,    41,
-      31,    42,    -1,    46,    -1,    47,    -1,    51,    -1,    50,
-      -1,    48,    -1,    49,    -1,    52,    -1,    53,    -1,    54,
-      -1,    42,    29,    42,    -1,    42,    30,    42,    -1,    42,
-      13,    42,    -1,    42,    14,    42,    -1,    42,    15,    42,
-      -1,    42,    16,    42,    -1,    42,    17,    42,    -1,    42,
-      18,    42,    -1,    19,    42,    -1,     5,    25,    45,    26,
-      40,    -1,     5,    25,    45,    26,    40,     6,    40,    -1,
-      23,    41,    31,    42,    -1,    22,    41,    31,    42,    -1,
-      24,    41,    31,    42,    -1,    23,    41,    31,    42,    -1,
-      22,    41,    31,    42,    -1,    24,    41,    31,    42,    -1,
-       7,    25,    57,    12,    45,    12,    56,    26,    40,    -1
+      12,    -1,    60,    39,    -1,    60,    -1,    63,    -1,    63,
+      39,    -1,    27,    39,    28,    -1,     8,    -1,    10,    -1,
+       9,    -1,    11,    -1,    41,    -1,    46,    -1,    47,    -1,
+      48,    -1,    49,    -1,    50,    -1,    44,    -1,    40,    -1,
+      60,    -1,    63,    -1,    23,    41,    31,    42,    -1,    22,
+      41,    31,    42,    -1,    24,    41,    31,    42,    -1,    51,
+      -1,    52,    -1,    56,    -1,    55,    -1,    53,    -1,    54,
+      -1,    57,    -1,    58,    -1,    59,    -1,    42,    33,    42,
+      -1,    42,    32,    42,    -1,    42,    35,    42,    -1,    42,
+      34,    42,    -1,    42,    36,    42,    -1,    42,    29,    42,
+      -1,    42,    30,    42,    -1,    42,    13,    42,    -1,    42,
+      14,    42,    -1,    42,    15,    42,    -1,    42,    16,    42,
+      -1,    42,    17,    42,    -1,    42,    18,    42,    -1,    19,
+      42,    -1,     5,    25,    45,    26,    40,    -1,     5,    25,
+      45,    26,    40,     6,    40,    -1,    23,    41,    31,    42,
+      -1,    22,    41,    31,    42,    -1,    24,    41,    31,    42,
+      -1,    23,    41,    31,    42,    -1,    22,    41,    31,    42,
+      -1,    24,    41,    31,    42,    -1,     7,    25,    62,    12,
+      45,    12,    61,    26,    40,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    93,    93,    95,    98,   101,   104,   107,   110,   113,
-     116,   121,   123,   131,   138,   145,   152,   158,   164,   170,
-     176,   182,   186,   187,   188,   191,   198,   205,   214,   215,
-     216,   217,   218,   219,   220,   221,   222,   225,   232,   239,
-     246,   253,   260,   267,   274,   281,   288,   296,   306,   313,
-     320,   329,   336,   343,   352
+       0,    97,    97,    99,   102,   105,   108,   111,   114,   119,
+     121,   129,   136,   143,   150,   151,   152,   153,   154,   155,
+     158,   159,   160,   161,   164,   171,   178,   187,   188,   189,
+     190,   191,   192,   193,   194,   195,   198,   204,   210,   216,
+     223,   230,   237,   244,   251,   258,   265,   272,   279,   286,
+     293,   301,   311,   318,   325,   334,   341,   348,   357
 };
 #endif
 
@@ -502,7 +503,8 @@ static const char *const yytname[] =
   "ATRIBUICAOFOR", "INT", "REAL", "CHAR", "OPEN_BRACE", "CLOSE_BRACE",
   "OPEN_BLOCK", "CLOSE_BLOCK", "EQ", "NE", "'='", "'-'", "'+'", "'*'",
   "'/'", "'%'", "$accept", "programa", "lista_comando", "bloco", "ident",
-  "exp", "comando", "atribuicao", "comparacao", "igualdade", "diferenca",
+  "exp", "comando", "atribuicao", "comparacao", "soma", "subtracao",
+  "divisao", "multiplicacao", "restoDiv", "igualdade", "diferenca",
   "compMaiorIgual", "compMenorIgual", "compMenor", "compMaior", "compAnd",
   "compOr", "compNot", "if_comando", "paradaFor", "atribuicaoFor",
   "for_comando", 0
@@ -524,23 +526,23 @@ static const yytype_uint16 yytoknum[] =
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    37,    38,    39,    39,    39,    39,    39,    39,    39,
-      39,    40,    41,    42,    42,    42,    42,    42,    42,    42,
-      42,    42,    43,    43,    43,    44,    44,    44,    45,    45,
-      45,    45,    45,    45,    45,    45,    45,    46,    47,    48,
-      49,    50,    51,    52,    53,    54,    55,    55,    56,    56,
-      56,    57,    57,    57,    58
+       0,    37,    38,    39,    39,    39,    39,    39,    39,    40,
+      41,    42,    42,    42,    42,    42,    42,    42,    42,    42,
+      43,    43,    43,    43,    44,    44,    44,    45,    45,    45,
+      45,    45,    45,    45,    45,    45,    46,    47,    48,    49,
+      50,    51,    52,    53,    54,    55,    56,    57,    58,    59,
+      60,    60,    61,    61,    61,    62,    62,    62,    63
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     3,     2,     2,     1,     1,     2,     3,
-       1,     3,     1,     1,     1,     1,     3,     3,     3,     3,
-       3,     1,     1,     1,     1,     4,     4,     4,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     3,     3,     3,
-       3,     3,     3,     3,     3,     2,     5,     7,     4,     4,
-       4,     4,     4,     4,     9
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     4,     4,     4,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     2,
+       5,     7,     4,     4,     4,     4,     4,     4,     9
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -548,90 +550,90 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     0,     0,     2,    22,
-       0,    10,     6,     7,     0,     0,    12,     0,     0,     0,
-       0,     1,     4,     0,     5,     8,    14,    13,    15,     0,
-      21,     0,     0,    28,    29,    32,    33,    31,    30,    34,
-      35,    36,     0,     0,     0,     0,     0,     0,     0,    11,
-       3,     9,    45,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     2,    21,
+       0,    20,     6,     7,     0,     0,    10,     0,     0,     0,
+       0,     1,     4,     5,     8,    12,    11,    13,     0,    14,
+       0,     0,    15,    16,    17,    18,    19,    27,    28,    31,
+      32,    30,    29,    33,    34,    35,     0,     0,     0,     0,
+       0,     0,     0,     9,     3,    49,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    26,    25,    27,    39,    40,    41,    42,    43,    44,
-      37,    38,    17,    16,    19,    18,    20,    46,     0,     0,
-       0,     0,     0,    52,    51,    53,     0,    47,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    54,
-      49,    48,    50
+       0,     0,     0,     0,    25,    24,    26,    43,    44,    45,
+      46,    47,    48,    41,    42,    37,    36,    39,    38,    40,
+      50,     0,     0,     0,     0,     0,    56,    55,    57,     0,
+      51,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,    58,    53,    52,    54
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     7,     8,     9,    30,    31,    10,    11,    32,    33,
-      34,    35,    36,    37,    38,    39,    40,    41,    12,   101,
-      45,    13
+      -1,     7,     8,     9,    29,    30,    10,    11,    31,    32,
+      33,    34,    35,    36,    37,    38,    39,    40,    41,    42,
+      43,    44,    45,    12,   104,    49,    13
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -61
+#define YYPACT_NINF -67
 static const yytype_int8 yypact[] =
 {
-      11,    -8,     6,    28,    28,    28,    11,    19,   -61,   -61,
-      25,    34,    65,    86,    55,   -19,   -61,    16,    17,    36,
-      43,   -61,    11,    11,   -61,   -61,   -61,   -61,   -61,    72,
-     -61,    -6,    47,   -61,   -61,   -61,   -61,   -61,   -61,   -61,
-     -61,   -61,    28,    28,    28,    63,    72,    72,    72,   -61,
-     -61,   -61,    82,    72,    72,    72,    72,    72,    72,    72,
-      72,    72,    72,    72,    72,    72,    49,    59,    68,    69,
-      55,    82,    82,    82,    82,    82,    82,    82,    82,    82,
-      82,    82,   -21,   -21,    58,    58,   -61,    95,    72,    72,
-      72,    93,    49,    82,    82,    82,    -2,   -61,    28,    28,
-      28,    80,    76,    81,    88,    49,    72,    72,    72,   -61,
-      82,    82,    82
+      -1,   -20,    -8,     2,     2,     2,    -1,    19,   -67,   -67,
+      26,   -67,    13,    68,    58,   -15,   -67,     8,    10,    39,
+      46,   -67,    -1,   -67,   -67,   -67,   -67,   -67,    93,   -67,
+      -2,    52,   -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,
+     -67,   -67,   -67,   -67,   -67,   -67,     2,     2,     2,    64,
+      93,    93,    93,   -67,   -67,    50,    93,    93,    93,    93,
+      93,    93,    93,    93,    93,    93,    93,    93,    93,    66,
+      48,    63,    65,    58,    50,    50,    50,    50,    50,    50,
+      50,    50,    50,    50,    50,    15,    15,    61,    61,   -67,
+     105,    93,    93,    93,   100,    66,    50,    50,    50,    86,
+     -67,     2,     2,     2,    87,    83,    84,    85,    66,    93,
+      93,    93,   -67,    50,    50,    50
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -61,   -61,    56,   -60,    -3,    -4,   -61,   -61,    41,   -61,
-     -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,   -61,
-     -61,   -61
+     -67,   -67,    59,   -66,    -3,    -4,   -67,   -67,    44,   -67,
+     -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,
+     -67,   -67,   -67,   -67,   -67,   -67,   -67
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
    positive, shift that token.  If negative, reduce the rule which
    number is the opposite.  If zero, do what YYDEFACT says.
    If YYTABLE_NINF, syntax error.  */
-#define YYTABLE_NINF -25
+#define YYTABLE_NINF -24
 static const yytype_int8 yytable[] =
 {
-      17,    18,    19,    42,    43,    44,    87,    53,    54,    55,
-      56,    57,    58,    63,    64,    65,     1,    14,     2,    21,
-      98,    99,   100,    59,    60,    52,    61,    62,    63,    64,
-      65,    15,    97,     3,     4,     5,    16,    22,     6,    67,
-      68,    69,    71,    72,    73,   109,    23,    46,    47,    74,
-      75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
-      85,    86,    20,    16,    26,    27,    28,    48,    24,    25,
-       1,    49,     2,    66,    29,    70,     6,   -23,    50,    51,
-      16,    26,    27,    28,    93,    94,    95,     3,     4,     5,
-      88,     1,     6,     2,    65,   102,   103,   104,   -24,    89,
-      90,    92,   110,   111,   112,    96,   105,   106,     3,     4,
-       5,    91,   107,     6,    61,    62,    63,    64,    65,   108
+      17,    18,    19,    90,     1,    14,     2,    46,    47,    48,
+      16,    56,    57,    58,    59,    60,    61,    15,     1,    21,
+       2,     3,     4,     5,    55,   -22,     6,    62,    63,   100,
+      64,    65,    66,    67,    68,     3,     4,     5,    22,    50,
+       6,    51,   112,    70,    71,    72,    74,    75,    76,    66,
+      67,    68,    77,    78,    79,    80,    81,    82,    83,    84,
+      85,    86,    87,    88,    89,    20,    16,    25,    26,    27,
+      52,    23,    24,     1,    53,     2,    73,    28,    69,    91,
+     -23,    54,    64,    65,    66,    67,    68,    96,    97,    98,
+       3,     4,     5,     6,    92,     6,    93,    68,   105,   106,
+     107,    16,    25,    26,    27,   113,   114,   115,   101,   102,
+     103,    95,    99,   108,   109,   110,   111,    94
 };
 
 static const yytype_uint8 yycheck[] =
 {
-       3,     4,     5,    22,    23,    24,    66,    13,    14,    15,
-      16,    17,    18,    34,    35,    36,     5,    25,     7,     0,
-      22,    23,    24,    29,    30,    29,    32,    33,    34,    35,
-      36,    25,    92,    22,    23,    24,     8,    12,    27,    42,
-      43,    44,    46,    47,    48,   105,    12,    31,    31,    53,
-      54,    55,    56,    57,    58,    59,    60,    61,    62,    63,
-      64,    65,     6,     8,     9,    10,    11,    31,    12,    13,
-       5,    28,     7,    26,    19,    12,    27,    12,    22,    23,
-       8,     9,    10,    11,    88,    89,    90,    22,    23,    24,
-      31,     5,    27,     7,    36,    98,    99,   100,    12,    31,
-      31,     6,   106,   107,   108,    12,    26,    31,    22,    23,
-      24,    70,    31,    27,    32,    33,    34,    35,    36,    31
+       3,     4,     5,    69,     5,    25,     7,    22,    23,    24,
+       8,    13,    14,    15,    16,    17,    18,    25,     5,     0,
+       7,    22,    23,    24,    28,    12,    27,    29,    30,    95,
+      32,    33,    34,    35,    36,    22,    23,    24,    12,    31,
+      27,    31,   108,    46,    47,    48,    50,    51,    52,    34,
+      35,    36,    56,    57,    58,    59,    60,    61,    62,    63,
+      64,    65,    66,    67,    68,     6,     8,     9,    10,    11,
+      31,    12,    13,     5,    28,     7,    12,    19,    26,    31,
+      12,    22,    32,    33,    34,    35,    36,    91,    92,    93,
+      22,    23,    24,    27,    31,    27,    31,    36,   101,   102,
+     103,     8,     9,    10,    11,   109,   110,   111,    22,    23,
+      24,     6,    12,    26,    31,    31,    31,    73
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -639,17 +641,17 @@ static const yytype_uint8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,     5,     7,    22,    23,    24,    27,    38,    39,    40,
-      43,    44,    55,    58,    25,    25,     8,    41,    41,    41,
-      39,     0,    12,    12,    39,    39,     9,    10,    11,    19,
-      41,    42,    45,    46,    47,    48,    49,    50,    51,    52,
-      53,    54,    22,    23,    24,    57,    31,    31,    31,    28,
-      39,    39,    42,    13,    14,    15,    16,    17,    18,    29,
-      30,    32,    33,    34,    35,    36,    26,    41,    41,    41,
-      12,    42,    42,    42,    42,    42,    42,    42,    42,    42,
-      42,    42,    42,    42,    42,    42,    42,    40,    31,    31,
-      31,    45,     6,    42,    42,    42,    12,    40,    22,    23,
-      24,    56,    41,    41,    41,    26,    31,    31,    31,    40,
-      42,    42,    42
+      43,    44,    60,    63,    25,    25,     8,    41,    41,    41,
+      39,     0,    12,    39,    39,     9,    10,    11,    19,    41,
+      42,    45,    46,    47,    48,    49,    50,    51,    52,    53,
+      54,    55,    56,    57,    58,    59,    22,    23,    24,    62,
+      31,    31,    31,    28,    39,    42,    13,    14,    15,    16,
+      17,    18,    29,    30,    32,    33,    34,    35,    36,    26,
+      41,    41,    41,    12,    42,    42,    42,    42,    42,    42,
+      42,    42,    42,    42,    42,    42,    42,    42,    42,    42,
+      40,    31,    31,    31,    45,     6,    42,    42,    42,    12,
+      40,    22,    23,    24,    61,    41,    41,    41,    26,    31,
+      31,    31,    40,    42,    42,    42
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1472,14 +1474,14 @@ yyreduce:
         case 2:
 
 /* Line 1464 of yacc.c  */
-#line 93 "exemploBison.y"
+#line 97 "exemploBison.y"
     { root = (yyvsp[(1) - (1)].pont); printf("root\n");;}
     break;
 
   case 3:
 
 /* Line 1464 of yacc.c  */
-#line 95 "exemploBison.y"
+#line 99 "exemploBison.y"
     { (yyvsp[(1) - (3)].pont)->prox = (yyvsp[(3) - (3)].pont); printf("lista_comanda\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (3)].pont);
 	                                       ;}
@@ -1488,7 +1490,7 @@ yyreduce:
   case 4:
 
 /* Line 1464 of yacc.c  */
-#line 98 "exemploBison.y"
+#line 102 "exemploBison.y"
     { (yyvsp[(1) - (2)].pont)->prox = 0; printf("lista_comandoFim\n");
                                    (yyval.pont) = (yyvsp[(1) - (2)].pont);
                                  ;}
@@ -1497,7 +1499,7 @@ yyreduce:
   case 5:
 
 /* Line 1464 of yacc.c  */
-#line 101 "exemploBison.y"
+#line 105 "exemploBison.y"
     { (yyvsp[(1) - (2)].pont)->prox = (yyvsp[(2) - (2)].pont); printf("lista_comanda\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (2)].pont);
 	                                       ;}
@@ -1506,7 +1508,7 @@ yyreduce:
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 104 "exemploBison.y"
+#line 108 "exemploBison.y"
     { (yyvsp[(1) - (1)].pont)->prox = 0; printf("lista_comanda\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (1)].pont);
 	                                       ;}
@@ -1515,7 +1517,7 @@ yyreduce:
   case 7:
 
 /* Line 1464 of yacc.c  */
-#line 107 "exemploBison.y"
+#line 111 "exemploBison.y"
     { (yyvsp[(1) - (1)].pont)->prox = 0; printf("lista_comanda\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (1)].pont);
 	                                       ;}
@@ -1524,7 +1526,7 @@ yyreduce:
   case 8:
 
 /* Line 1464 of yacc.c  */
-#line 110 "exemploBison.y"
+#line 114 "exemploBison.y"
     { (yyvsp[(1) - (2)].pont)->prox = (yyvsp[(2) - (2)].pont); printf("lista_comanda\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (2)].pont);
 	                                       ;}
@@ -1533,32 +1535,14 @@ yyreduce:
   case 9:
 
 /* Line 1464 of yacc.c  */
-#line 113 "exemploBison.y"
-    { (yyvsp[(1) - (3)].pont)->prox = (yyvsp[(3) - (3)].pont); printf("lista_comanda\n");
-	                                         (yyval.pont) = (yyvsp[(1) - (3)].pont);
-	                                       ;}
+#line 119 "exemploBison.y"
+    { (yyval.pont) = (yyvsp[(2) - (3)].pont); printf("bloco\n"); ;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
-#line 116 "exemploBison.y"
-    { (yyvsp[(1) - (1)].pont)->prox = NULL; printf("lista_comanda\n");
-	                                         (yyval.pont) = (yyvsp[(1) - (1)].pont);
-	                                       ;}
-    break;
-
-  case 11:
-
-/* Line 1464 of yacc.c  */
 #line 121 "exemploBison.y"
-    { (yyval.pont) = (yyvsp[(2) - (3)].pont); printf("bloco\n"); ;}
-    break;
-
-  case 12:
-
-/* Line 1464 of yacc.c  */
-#line 123 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("ident\n");
           (yyval.pont)->token = ID;
 		      strcpy((yyval.pont)->nome, yylval.pont->nome);
@@ -1568,10 +1552,10 @@ yyreduce:
                     ;}
     break;
 
-  case 13:
+  case 11:
 
 /* Line 1464 of yacc.c  */
-#line 131 "exemploBison.y"
+#line 129 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("exp\n");
       (yyval.pont)->token = NUMREAL;
       (yyval.pont)->rval = (yyvsp[(1) - (1)].pont)->rval;
@@ -1581,11 +1565,11 @@ yyreduce:
     ;}
     break;
 
-  case 14:
+  case 12:
 
 /* Line 1464 of yacc.c  */
-#line 138 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("expInteiro\n");
+#line 136 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("exp\n");
       (yyval.pont)->token = NUMINTEIRO;
       (yyval.pont)->ival = (yyvsp[(1) - (1)].pont)->ival;
       (yyval.pont)->esq = NULL;
@@ -1594,10 +1578,10 @@ yyreduce:
     ;}
     break;
 
-  case 15:
+  case 13:
 
 /* Line 1464 of yacc.c  */
-#line 145 "exemploBison.y"
+#line 143 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("exp\n");
       (yyval.pont)->token = STRING;
       strcpy((yyval.pont)->string, (yyvsp[(1) - (1)].pont)->string);
@@ -1607,98 +1591,80 @@ yyreduce:
     ;}
     break;
 
+  case 14:
+
+/* Line 1464 of yacc.c  */
+#line 150 "exemploBison.y"
+    {printf("expIdent\n");;}
+    break;
+
+  case 15:
+
+/* Line 1464 of yacc.c  */
+#line 151 "exemploBison.y"
+    {printf("exp\n");;}
+    break;
+
   case 16:
 
 /* Line 1464 of yacc.c  */
 #line 152 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
-          (yyval.pont)->token = '+';
-			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
-			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
-          (yyval.pont)->prox = NULL;
-      ;}
+    {printf("exp\n");;}
     break;
 
   case 17:
 
 /* Line 1464 of yacc.c  */
-#line 158 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
-          (yyval.pont)->token = '-';
-			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
-			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
-          (yyval.pont)->prox = NULL;
-      ;}
+#line 153 "exemploBison.y"
+    {printf("exp\n");;}
     break;
 
   case 18:
 
 /* Line 1464 of yacc.c  */
-#line 164 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
-          (yyval.pont)->token = '/';
-			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
-			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
-          (yyval.pont)->prox = NULL;
-      ;}
+#line 154 "exemploBison.y"
+    {printf("exp\n");;}
     break;
 
   case 19:
 
 /* Line 1464 of yacc.c  */
-#line 170 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
-          (yyval.pont)->token = '*';
-			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
-			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
-          (yyval.pont)->prox = NULL;
-      ;}
+#line 155 "exemploBison.y"
+    {printf("exp\n");;}
     break;
 
   case 20:
 
 /* Line 1464 of yacc.c  */
-#line 176 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
-          (yyval.pont)->token = '%';
-			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
-			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
-          (yyval.pont)->prox = NULL;
-      ;}
+#line 158 "exemploBison.y"
+    {printf("comando\n");;}
     break;
 
   case 21:
 
 /* Line 1464 of yacc.c  */
-#line 182 "exemploBison.y"
-    {printf("expIdent\n");;}
+#line 159 "exemploBison.y"
+    {printf("comando\n");;}
     break;
 
   case 22:
 
 /* Line 1464 of yacc.c  */
-#line 186 "exemploBison.y"
+#line 160 "exemploBison.y"
     {printf("comando\n");;}
     break;
 
   case 23:
 
 /* Line 1464 of yacc.c  */
-#line 187 "exemploBison.y"
+#line 161 "exemploBison.y"
     {printf("comando\n");;}
     break;
 
   case 24:
 
 /* Line 1464 of yacc.c  */
-#line 188 "exemploBison.y"
-    {printf("comando\n");;}
-    break;
-
-  case 25:
-
-/* Line 1464 of yacc.c  */
-#line 191 "exemploBison.y"
+#line 164 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    (yyval.pont)->token = '=';
           (yyval.pont)->type = REAL;
@@ -1708,10 +1674,10 @@ yyreduce:
                           ;}
     break;
 
-  case 26:
+  case 25:
 
 /* Line 1464 of yacc.c  */
-#line 198 "exemploBison.y"
+#line 171 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
 			    (yyval.pont)->token = '=';
           (yyval.pont)->type = INT;
@@ -1721,10 +1687,10 @@ yyreduce:
                           ;}
     break;
 
-  case 27:
+  case 26:
 
 /* Line 1464 of yacc.c  */
-#line 205 "exemploBison.y"
+#line 178 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicao\n");
 			    (yyval.pont)->token = '=';
           (yyval.pont)->type = CHAR;
@@ -1734,102 +1700,114 @@ yyreduce:
                           ;}
     break;
 
+  case 27:
+
+/* Line 1464 of yacc.c  */
+#line 187 "exemploBison.y"
+    {printf("comparacao\n");;}
+    break;
+
   case 28:
 
 /* Line 1464 of yacc.c  */
-#line 214 "exemploBison.y"
+#line 188 "exemploBison.y"
     {printf("comparacao\n");;}
     break;
 
   case 29:
 
 /* Line 1464 of yacc.c  */
-#line 215 "exemploBison.y"
+#line 189 "exemploBison.y"
     {printf("comparacao\n");;}
     break;
 
   case 30:
 
 /* Line 1464 of yacc.c  */
-#line 216 "exemploBison.y"
+#line 190 "exemploBison.y"
     {printf("comparacao\n");;}
     break;
 
   case 31:
 
 /* Line 1464 of yacc.c  */
-#line 217 "exemploBison.y"
+#line 191 "exemploBison.y"
     {printf("comparacao\n");;}
     break;
 
   case 32:
 
 /* Line 1464 of yacc.c  */
-#line 218 "exemploBison.y"
+#line 192 "exemploBison.y"
     {printf("comparacao\n");;}
     break;
 
-  case 33:
+  case 36:
 
 /* Line 1464 of yacc.c  */
-#line 219 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 198 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No));
+          (yyval.pont)->token = '+';
+			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
+			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
+          (yyval.pont)->prox = NULL;
+      ;}
     break;
 
   case 37:
 
 /* Line 1464 of yacc.c  */
-#line 225 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("igualdade\n");
-                            (yyval.pont)->token = EQ;
+#line 204 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No));
+          (yyval.pont)->token = '-';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
-                          ;}
+      ;}
     break;
 
   case 38:
 
 /* Line 1464 of yacc.c  */
-#line 232 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = NE;
+#line 210 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No));
+          (yyval.pont)->token = '/';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
-                          ;}
+      ;}
     break;
 
   case 39:
 
 /* Line 1464 of yacc.c  */
-#line 239 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = MAIORIGUAL;
+#line 216 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No));
+          (yyval.pont)->token = '*';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
-                          ;}
+      ;}
     break;
 
   case 40:
 
 /* Line 1464 of yacc.c  */
-#line 246 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = MENORIGUAL;
+#line 223 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No));
+          (yyval.pont)->token = '%';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
-                          ;}
+      ;}
     break;
 
   case 41:
 
 /* Line 1464 of yacc.c  */
-#line 253 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = MENOR;
+#line 230 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("igualdade\n");
+                            (yyval.pont)->token = EQ;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
@@ -1839,9 +1817,9 @@ yyreduce:
   case 42:
 
 /* Line 1464 of yacc.c  */
-#line 260 "exemploBison.y"
+#line 237 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = MAIOR;
+                            (yyval.pont)->token = NE;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
@@ -1851,9 +1829,9 @@ yyreduce:
   case 43:
 
 /* Line 1464 of yacc.c  */
-#line 267 "exemploBison.y"
+#line 244 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = AND;
+                            (yyval.pont)->token = MAIORIGUAL;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
@@ -1863,9 +1841,9 @@ yyreduce:
   case 44:
 
 /* Line 1464 of yacc.c  */
-#line 274 "exemploBison.y"
+#line 251 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
-                            (yyval.pont)->token = OR;
+                            (yyval.pont)->token = MENORIGUAL;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
           (yyval.pont)->prox = NULL;
@@ -1875,7 +1853,55 @@ yyreduce:
   case 45:
 
 /* Line 1464 of yacc.c  */
-#line 281 "exemploBison.y"
+#line 258 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            (yyval.pont)->token = MENOR;
+			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
+			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 46:
+
+/* Line 1464 of yacc.c  */
+#line 265 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            (yyval.pont)->token = MAIOR;
+			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
+			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 47:
+
+/* Line 1464 of yacc.c  */
+#line 272 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            (yyval.pont)->token = AND;
+			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
+			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 48:
+
+/* Line 1464 of yacc.c  */
+#line 279 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+                            (yyval.pont)->token = OR;
+			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
+			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 49:
+
+/* Line 1464 of yacc.c  */
+#line 286 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
                             (yyval.pont)->token = NOT;
 			    (yyval.pont)->esq = NULL;
@@ -1884,10 +1910,10 @@ yyreduce:
                           ;}
     break;
 
-  case 46:
+  case 50:
 
 /* Line 1464 of yacc.c  */
-#line 289 "exemploBison.y"
+#line 294 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("IF\n");
 		  (yyval.pont)->token = IF;
 		  (yyval.pont)->lookahead = (yyvsp[(3) - (5)].pont);
@@ -1897,10 +1923,10 @@ yyreduce:
                 ;}
     break;
 
-  case 47:
+  case 51:
 
 /* Line 1464 of yacc.c  */
-#line 297 "exemploBison.y"
+#line 302 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("if else\n");
 		  (yyval.pont)->token = IF;
 		  (yyval.pont)->lookahead = (yyvsp[(3) - (7)].pont);
@@ -1910,65 +1936,13 @@ yyreduce:
                 ;}
     break;
 
-  case 48:
-
-/* Line 1464 of yacc.c  */
-#line 306 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
-			    (yyval.pont)->token = PARADAFOR;
-          (yyval.pont)->type = REAL;
-			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
-			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
-          (yyval.pont)->prox = NULL;
-                          ;}
-    break;
-
-  case 49:
-
-/* Line 1464 of yacc.c  */
-#line 313 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
-			    (yyval.pont)->token = PARADAFOR;
-          (yyval.pont)->type = INT;
-			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
-			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
-          (yyval.pont)->prox = NULL;
-                          ;}
-    break;
-
-  case 50:
-
-/* Line 1464 of yacc.c  */
-#line 320 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
-			    (yyval.pont)->token = PARADAFOR;
-          (yyval.pont)->type = CHAR;
-			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
-			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
-          (yyval.pont)->prox = NULL;
-                          ;}
-    break;
-
-  case 51:
-
-/* Line 1464 of yacc.c  */
-#line 329 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
-			    (yyval.pont)->token = ATRIBUICAOFOR;
-          (yyval.pont)->type = REAL;
-			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
-			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
-          (yyval.pont)->prox = NULL;
-                          ;}
-    break;
-
   case 52:
 
 /* Line 1464 of yacc.c  */
-#line 336 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
-			    (yyval.pont)->token = ATRIBUICAOFOR;
-          (yyval.pont)->type = INT;
+#line 311 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+			    (yyval.pont)->token = PARADAFOR;
+          (yyval.pont)->type = REAL;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
 			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
           (yyval.pont)->prox = NULL;
@@ -1978,10 +1952,10 @@ yyreduce:
   case 53:
 
 /* Line 1464 of yacc.c  */
-#line 343 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
-			    (yyval.pont)->token = ATRIBUICAOFOR;
-          (yyval.pont)->type = CHAR;
+#line 318 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+			    (yyval.pont)->token = PARADAFOR;
+          (yyval.pont)->type = INT;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
 			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
           (yyval.pont)->prox = NULL;
@@ -1991,7 +1965,59 @@ yyreduce:
   case 54:
 
 /* Line 1464 of yacc.c  */
-#line 353 "exemploBison.y"
+#line 325 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+			    (yyval.pont)->token = PARADAFOR;
+          (yyval.pont)->type = CHAR;
+			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
+			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 55:
+
+/* Line 1464 of yacc.c  */
+#line 334 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+			    (yyval.pont)->token = ATRIBUICAOFOR;
+          (yyval.pont)->type = REAL;
+			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
+			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 56:
+
+/* Line 1464 of yacc.c  */
+#line 341 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+			    (yyval.pont)->token = ATRIBUICAOFOR;
+          (yyval.pont)->type = INT;
+			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
+			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 57:
+
+/* Line 1464 of yacc.c  */
+#line 348 "exemploBison.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+			    (yyval.pont)->token = ATRIBUICAOFOR;
+          (yyval.pont)->type = CHAR;
+			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
+			    (yyval.pont)->dir = (yyvsp[(4) - (4)].pont);
+          (yyval.pont)->prox = NULL;
+                          ;}
+    break;
+
+  case 58:
+
+/* Line 1464 of yacc.c  */
+#line 358 "exemploBison.y"
     { (yyval.pont) = (No*)malloc(sizeof(No)); printf("for\n");
 		       (yyval.pont)->token = FOR;
 		       (yyval.pont)->lookahead = (yyvsp[(3) - (9)].pont);
@@ -2005,7 +2031,7 @@ yyreduce:
 
 
 /* Line 1464 of yacc.c  */
-#line 2009 "exemploBison.tab.c"
+#line 2035 "exemploBison.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2217,7 +2243,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 367 "exemploBison.y"
+#line 372 "exemploBison.y"
 
 
 void yyerror(char *s) {
