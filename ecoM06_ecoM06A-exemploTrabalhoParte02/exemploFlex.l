@@ -26,7 +26,12 @@
 "char"       { return CHAR; }
 
 "and"  { return AND; }
+
 "or"   { return OR; }
+
+
+"print" { return PRINT; }
+"input" { return INPUT; }
 
 [-|+]?[0-9]+(\.[0-9]+) { yylval.pont->rval = atof(yytext);
                                            return NUMREAL;
@@ -43,8 +48,6 @@
                        return ID;
                      }
 
-"print" { return PRINT; }
-"input" { return INPUT; }
 "!"    { return NOT; }
 "=="   { return EQ; }
 "!="   { return NE; }

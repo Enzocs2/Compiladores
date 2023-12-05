@@ -85,6 +85,10 @@ char *var_nome;
 %type <pont> compNot
 %type <pont> paradaFor
 %type <pont> atribuicaoFor
+%type <pont> comandoInput
+%type <pont> comandoPrintint
+%type <pont> comandoPrintstring
+%type <pont> comandoPrintreal
 
 %right '='
 %left  '-' '+'
@@ -96,12 +100,14 @@ char *var_nome;
 
 programa: lista_comando { root = $1; printf("root\n");} 
 
-lista_comando: comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\n");
-	                                         $$ = $1;
-	                                       }
-              |comando EOL { $1->prox = 0; printf("lista_comandoFim\n");
+lista_comando: comando EOL { $1->prox = 0; printf("lista_comandoFim\n");
                                    $$ = $1;
                                  }
+
+              |comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\n");
+	                                         $$ = $1;
+	                                       }
+
               |if_comando lista_comando{ $1->prox = $2; printf("lista_comanda\n");
 	                                         $$ = $1;
 	                                       }
@@ -155,10 +161,14 @@ exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
     | restoDiv {printf("exp\n");}
     ;
 
-comando: atribuicao {printf("comando\n");}
+comando: atribuicao {printf("comandoAtrib\n");}
         | bloco {printf("comando\n");}
         | if_comando {printf("comando\n");}
         | for_comando {printf("comando\n");}
+        | comandoPrintint
+        | comandoPrintreal
+        | comandoPrintstring
+        | comandoInput
 ;
 
 atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
@@ -365,10 +375,53 @@ for_comando:  FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BR
                      }
           ;
 
-comandoPrint: PRINT OPEN_BRACE 
+comandoPrintint: PRINT OPEN_BRACE INT ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("print\n");
+		       $$->token = PRINT;
+           $$->type = INT;
+		       $$->esq = $4;
+           $$->prox = NULL;
+                     }
+          ;
 
-comandoInput: INPUT OPEN_BLOCK 
+comandoPrintreal: PRINT OPEN_BRACE REAL ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("print\n");
+		       $$->token = PRINT;
+           $$->type = REAL;
+		       $$->esq = $4;
+           $$->prox = NULL;
+                     }
+          ;
 
+comandoPrintstring: PRINT OPEN_BRACE CHAR ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("print\n");
+		       $$->token = PRINT;
+           $$->type = CHAR;
+		       $$->esq = $4;
+           $$->prox = NULL;
+                     }
+          ;
+
+
+comandoInput : REAL ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+			    $$->token = INPUT;
+          $$->type = REAL;
+			    $$->esq = $2;
+			    $$->dir = NULL;
+          $$->prox = NULL;
+                          }
+          | INT ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("input\n");
+			    $$->token = INPUT;
+          $$->type = INT;
+			    $$->esq = $2;
+			    $$->dir = NULL;
+          $$->prox = NULL;
+                          }
+          | CHAR ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+			    $$->token = INPUT;
+          $$->type = CHAR;
+			    $$->esq = $2;
+			    $$->dir = NULL;
+          $$->prox = NULL;
+                          }
+          ;
 %%
 
 void yyerror(char *s) {
@@ -411,6 +464,28 @@ void imprima(No *root){
         imprima(root->dir);
         fprintf(saida,";\n");
         break;
+
+        case INPUT:
+
+        if (insere_var(root->esq->nome) == 0){
+          if(root->type==INT){fprintf(saida,"int %s;\n", root->esq->nome);}
+          if(root->type==REAL){fprintf(saida,"double %s;\n", root->esq->nome);}
+          if(root->type==CHAR){fprintf(saida,"char* %s;\n", root->esq->nome );}
+        }
+
+        if(root->type == INT){
+          fprintf(saida, "scanf(\"%%d\", &");          
+        }
+        if(root->type == CHAR){
+          fprintf(saida, "scanf(\"%%s\", &");          
+        }
+        if(root->type == REAL){
+          fprintf(saida, "scanf(\"%%f\", &");          
+        }
+
+        imprima(root->esq);
+        fprintf(saida, ");\n");
+        break;  
 
       case PARADAFOR:
         if (insere_var(root->esq->nome) == 0){
@@ -555,6 +630,21 @@ void imprima(No *root){
         imprima(root->dir);
         fprintf(saida,"}");
         break;
+      
+      case PRINT:
+        if(root->type == INT){
+          fprintf(saida, "printf(\"%%d\", ");          
+        }
+        if(root->type == CHAR){
+          fprintf(saida, "printf(\"%%s\", *");          
+        }
+        if(root->type == REAL){
+          fprintf(saida, "printf(\"%%f\", ");          
+        }
+        imprima(root->esq);
+        fprintf(saida, ");\n");
+        break;
+           
 
     default: 
       fprintf(saida,"Desconhecido ! Token = %d (%c) \n", root->token, root->token);

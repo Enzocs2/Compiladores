@@ -380,12 +380,12 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[65] =
     {   0,
         0,    0,   32,   30,    2,    1,   17,   30,   29,   24,
-       25,   29,   12,   28,   22,   29,   23,   14,   14,   14,
-       14,   14,   14,   14,   14,   14,   26,   30,   27,   19,
-        0,   13,   12,    0,   20,   18,   21,   14,   14,   14,
-       14,   14,    3,   14,   10,   14,   14,   11,    9,   14,
-       14,    5,   14,    6,   14,   14,    8,    4,   14,   14,
-        7,   14,   14,    0
+       25,   29,   14,   28,   22,   29,   23,   16,   16,   16,
+       16,   16,   16,   16,   16,   16,   26,   30,   27,   19,
+        0,   15,   14,    0,   20,   18,   21,   16,   16,   16,
+       16,   16,    3,   16,   10,   16,   16,   13,    9,   16,
+       16,    5,   16,    6,   16,   16,    8,    4,   16,   16,
+        7,   12,   11,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -828,120 +828,120 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 29 "exemploFlex.l"
+#line 30 "exemploFlex.l"
 { return OR; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 31 "exemploFlex.l"
+#line 33 "exemploFlex.l"
+{ return PRINT; }
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 34 "exemploFlex.l"
+{ return INPUT; }
+	YY_BREAK
+case 13:
+YY_RULE_SETUP
+#line 36 "exemploFlex.l"
 { yylval.pont->rval = atof(yytext);
                                            return NUMREAL;
                                          }
 	YY_BREAK
-case 12:
+case 14:
 YY_RULE_SETUP
-#line 35 "exemploFlex.l"
+#line 40 "exemploFlex.l"
 { yylval.pont->ival = atoi(yytext);
                                            return NUMINTEIRO;
                                          }
 	YY_BREAK
-case 13:
+case 15:
 YY_RULE_SETUP
-#line 38 "exemploFlex.l"
+#line 43 "exemploFlex.l"
 { strncpy(yylval.pont->string, yytext, 256);
                                            return STRING;
                                          }                                         
 	YY_BREAK
-case 14:
+case 16:
 YY_RULE_SETUP
-#line 42 "exemploFlex.l"
+#line 47 "exemploFlex.l"
 { strncpy(yylval.pont->nome, yytext, 256);
                        return ID;
                      }
 	YY_BREAK
-case 15:
-YY_RULE_SETUP
-#line 46 "exemploFlex.l"
-{ return PRINT; }
-	YY_BREAK
-case 16:
-YY_RULE_SETUP
-#line 47 "exemploFlex.l"
-{ return INPUT; }
-	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 48 "exemploFlex.l"
+#line 51 "exemploFlex.l"
 { return NOT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 49 "exemploFlex.l"
+#line 52 "exemploFlex.l"
 { return EQ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 50 "exemploFlex.l"
+#line 53 "exemploFlex.l"
 { return NE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 51 "exemploFlex.l"
+#line 54 "exemploFlex.l"
 { return MENORIGUAL; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 52 "exemploFlex.l"
+#line 55 "exemploFlex.l"
 { return MAIORIGUAL; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 53 "exemploFlex.l"
+#line 56 "exemploFlex.l"
 { return MENOR; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 54 "exemploFlex.l"
+#line 57 "exemploFlex.l"
 { return MAIOR; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 55 "exemploFlex.l"
+#line 58 "exemploFlex.l"
 { return OPEN_BRACE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 56 "exemploFlex.l"
+#line 59 "exemploFlex.l"
 { return CLOSE_BRACE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 57 "exemploFlex.l"
+#line 60 "exemploFlex.l"
 { return OPEN_BLOCK; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 58 "exemploFlex.l"
+#line 61 "exemploFlex.l"
 { return CLOSE_BLOCK; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 59 "exemploFlex.l"
+#line 62 "exemploFlex.l"
 { return EOL; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 61 "exemploFlex.l"
+#line 64 "exemploFlex.l"
 { return *yytext; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 63 "exemploFlex.l"
+#line 66 "exemploFlex.l"
 { return *yytext; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 65 "exemploFlex.l"
+#line 68 "exemploFlex.l"
 ECHO;
 	YY_BREAK
 #line 948 "lex.yy.c"
@@ -1942,7 +1942,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 65 "exemploFlex.l"
+#line 68 "exemploFlex.l"
 
 
 int yywrap(void){
