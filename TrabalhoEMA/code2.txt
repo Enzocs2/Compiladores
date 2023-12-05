@@ -1,0 +1,7 @@
+int numeroVoltas = 4;
+
+for(int i = 0; i < numeroVoltas; int i = i + 1){
+    char fraseMotivacional = "\nJá correu essas voltas: ";
+    print(char fraseMotivacional);
+    print(int i);
+}

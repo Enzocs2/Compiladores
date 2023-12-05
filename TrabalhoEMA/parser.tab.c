@@ -67,7 +67,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 2 "exemploBison.y"
+#line 2 "parser.y"
 
 #include<stdio.h>
 #include<math.h> 
@@ -92,7 +92,7 @@ char *var_nome;
 
 
 /* Line 189 of yacc.c  */
-#line 96 "exemploBison.tab.c"
+#line 96 "parser.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -157,14 +157,14 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 25 "exemploBison.y"
+#line 25 "parser.y"
 
   No *pont;
 
 
 
 /* Line 214 of yacc.c  */
-#line 168 "exemploBison.tab.c"
+#line 168 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -176,7 +176,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 180 "exemploBison.tab.c"
+#line 180 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -1501,14 +1501,14 @@ yyreduce:
         case 2:
 
 /* Line 1464 of yacc.c  */
-#line 102 "exemploBison.y"
+#line 102 "parser.y"
     { root = (yyvsp[(1) - (1)].pont); fprintf(tokens, "ROOT\n");;}
     break;
 
   case 3:
 
 /* Line 1464 of yacc.c  */
-#line 104 "exemploBison.y"
+#line 104 "parser.y"
     { (yyvsp[(1) - (2)].pont)->prox = 0; fprintf(tokens, "COMANDO EOL\n");
                                    (yyval.pont) = (yyvsp[(1) - (2)].pont);
                                  ;}
@@ -1517,8 +1517,8 @@ yyreduce:
   case 4:
 
 /* Line 1464 of yacc.c  */
-#line 108 "exemploBison.y"
-    { (yyvsp[(1) - (3)].pont)->prox = (yyvsp[(3) - (3)].pont); printf("COMANDO EOL LISTA_COMANDO\n");
+#line 108 "parser.y"
+    { (yyvsp[(1) - (3)].pont)->prox = (yyvsp[(3) - (3)].pont); fprintf(tokens, "COMANDO EOL LISTA_COMANDO\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (3)].pont);
 	                                       ;}
     break;
@@ -1526,8 +1526,8 @@ yyreduce:
   case 5:
 
 /* Line 1464 of yacc.c  */
-#line 112 "exemploBison.y"
-    { (yyvsp[(1) - (2)].pont)->prox = (yyvsp[(2) - (2)].pont); printf("lista_comanda\n");
+#line 112 "parser.y"
+    { (yyvsp[(1) - (2)].pont)->prox = (yyvsp[(2) - (2)].pont); fprintf(tokens, "IF_COMANDO LISTA_COMANDO\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (2)].pont);
 	                                       ;}
     break;
@@ -1535,8 +1535,8 @@ yyreduce:
   case 6:
 
 /* Line 1464 of yacc.c  */
-#line 115 "exemploBison.y"
-    { (yyvsp[(1) - (1)].pont)->prox = 0; printf("lista_comanda\n");
+#line 115 "parser.y"
+    { (yyvsp[(1) - (1)].pont)->prox = 0; fprintf(tokens, "IF_COMANDO\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (1)].pont);
 	                                       ;}
     break;
@@ -1544,8 +1544,8 @@ yyreduce:
   case 7:
 
 /* Line 1464 of yacc.c  */
-#line 118 "exemploBison.y"
-    { (yyvsp[(1) - (1)].pont)->prox = 0; printf("lista_comanda\n");
+#line 118 "parser.y"
+    { (yyvsp[(1) - (1)].pont)->prox = 0; fprintf(tokens, "FOR_COMANDO\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (1)].pont);
 	                                       ;}
     break;
@@ -1553,8 +1553,8 @@ yyreduce:
   case 8:
 
 /* Line 1464 of yacc.c  */
-#line 121 "exemploBison.y"
-    { (yyvsp[(1) - (2)].pont)->prox = (yyvsp[(2) - (2)].pont); printf("lista_comanda\n");
+#line 121 "parser.y"
+    { (yyvsp[(1) - (2)].pont)->prox = (yyvsp[(2) - (2)].pont); fprintf(tokens, "FOR_COMANDO LISTA_COMANDO\n");
 	                                         (yyval.pont) = (yyvsp[(1) - (2)].pont);
 	                                       ;}
     break;
@@ -1562,15 +1562,15 @@ yyreduce:
   case 9:
 
 /* Line 1464 of yacc.c  */
-#line 126 "exemploBison.y"
-    { (yyval.pont) = (yyvsp[(2) - (3)].pont); printf("bloco\n"); ;}
+#line 126 "parser.y"
+    { (yyval.pont) = (yyvsp[(2) - (3)].pont); fprintf(tokens, "OPEN_BLOCK LISTA_COMANDO CLOSE_BLOCK\n"); ;}
     break;
 
   case 10:
 
 /* Line 1464 of yacc.c  */
-#line 128 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("ident\n");
+#line 128 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens, "ID\n");
           (yyval.pont)->token = ID;
 		      strcpy((yyval.pont)->nome, yylval.pont->nome);
 		      (yyval.pont)->esq = NULL;
@@ -1582,8 +1582,8 @@ yyreduce:
   case 11:
 
 /* Line 1464 of yacc.c  */
-#line 136 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("exp\n");
+#line 136 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens, "NUMREAL\n");
       (yyval.pont)->token = NUMREAL;
       (yyval.pont)->rval = (yyvsp[(1) - (1)].pont)->rval;
       (yyval.pont)->esq = NULL;
@@ -1595,8 +1595,8 @@ yyreduce:
   case 12:
 
 /* Line 1464 of yacc.c  */
-#line 143 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("exp\n");
+#line 143 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens, "NUMINTEIRO\n");
       (yyval.pont)->token = NUMINTEIRO;
       (yyval.pont)->ival = (yyvsp[(1) - (1)].pont)->ival;
       (yyval.pont)->esq = NULL;
@@ -1608,8 +1608,8 @@ yyreduce:
   case 13:
 
 /* Line 1464 of yacc.c  */
-#line 150 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("exp\n");
+#line 150 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens, "STRING\n");
       (yyval.pont)->token = STRING;
       strcpy((yyval.pont)->string, (yyvsp[(1) - (1)].pont)->string);
       (yyval.pont)->esq = NULL;
@@ -1621,78 +1621,106 @@ yyreduce:
   case 14:
 
 /* Line 1464 of yacc.c  */
-#line 157 "exemploBison.y"
-    {printf("expIdent\n");;}
+#line 157 "parser.y"
+    {fprintf(tokens, "IDENT\n");;}
     break;
 
   case 15:
 
 /* Line 1464 of yacc.c  */
-#line 158 "exemploBison.y"
-    {printf("exp\n");;}
+#line 158 "parser.y"
+    {fprintf(tokens, "SOMA\n");;}
     break;
 
   case 16:
 
 /* Line 1464 of yacc.c  */
-#line 159 "exemploBison.y"
-    {printf("exp\n");;}
+#line 159 "parser.y"
+    {fprintf(tokens, "SUBTRACAO\n");;}
     break;
 
   case 17:
 
 /* Line 1464 of yacc.c  */
-#line 160 "exemploBison.y"
-    {printf("exp\n");;}
+#line 160 "parser.y"
+    {fprintf(tokens,"DIVISAO\n");;}
     break;
 
   case 18:
 
 /* Line 1464 of yacc.c  */
-#line 161 "exemploBison.y"
-    {printf("exp\n");;}
+#line 161 "parser.y"
+    {fprintf(tokens,"MULTIPLICACAO\n");;}
     break;
 
   case 19:
 
 /* Line 1464 of yacc.c  */
-#line 162 "exemploBison.y"
-    {printf("exp\n");;}
+#line 162 "parser.y"
+    {fprintf(tokens,"RESTODIV\n");;}
     break;
 
   case 20:
 
 /* Line 1464 of yacc.c  */
-#line 165 "exemploBison.y"
-    {printf("comandoAtrib\n");;}
+#line 165 "parser.y"
+    {fprintf(tokens,"ATRIBUICAO\n");;}
     break;
 
   case 21:
 
 /* Line 1464 of yacc.c  */
-#line 166 "exemploBison.y"
-    {printf("comando\n");;}
+#line 166 "parser.y"
+    {fprintf(tokens,"BLOCO\n");;}
     break;
 
   case 22:
 
 /* Line 1464 of yacc.c  */
-#line 167 "exemploBison.y"
-    {printf("comando\n");;}
+#line 167 "parser.y"
+    {fprintf(tokens,"IF_COMANDO\n");;}
     break;
 
   case 23:
 
 /* Line 1464 of yacc.c  */
-#line 168 "exemploBison.y"
-    {printf("comando\n");;}
+#line 168 "parser.y"
+    {fprintf(tokens,"FOR_COMANDO\n");;}
+    break;
+
+  case 24:
+
+/* Line 1464 of yacc.c  */
+#line 169 "parser.y"
+    {fprintf(tokens,"COMANDOPRINTINT\n");;}
+    break;
+
+  case 25:
+
+/* Line 1464 of yacc.c  */
+#line 170 "parser.y"
+    {fprintf(tokens,"COMANDOPRINTREAL\n");;}
+    break;
+
+  case 26:
+
+/* Line 1464 of yacc.c  */
+#line 171 "parser.y"
+    {fprintf(tokens,"COMANDOPRINTSTRING\n");;}
+    break;
+
+  case 27:
+
+/* Line 1464 of yacc.c  */
+#line 172 "parser.y"
+    {fprintf(tokens,"COMANDOINPUT\n");;}
     break;
 
   case 28:
 
 /* Line 1464 of yacc.c  */
-#line 175 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+#line 175 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' EXP\n");
 			    (yyval.pont)->token = '=';
           (yyval.pont)->type = REAL;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -1704,8 +1732,8 @@ yyreduce:
   case 29:
 
 /* Line 1464 of yacc.c  */
-#line 182 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
+#line 182 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens," INT IDENT '=' EXP\n");
 			    (yyval.pont)->token = '=';
           (yyval.pont)->type = INT;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -1717,8 +1745,8 @@ yyreduce:
   case 30:
 
 /* Line 1464 of yacc.c  */
-#line 189 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+#line 189 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"CHAR IDENT '=' EXP\n");
 			    (yyval.pont)->token = '=';
           (yyval.pont)->type = CHAR;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -1730,50 +1758,71 @@ yyreduce:
   case 31:
 
 /* Line 1464 of yacc.c  */
-#line 198 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 198 "parser.y"
+    { fprintf(tokens,"IGUALDADE\n");;}
     break;
 
   case 32:
 
 /* Line 1464 of yacc.c  */
-#line 199 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 199 "parser.y"
+    { fprintf(tokens,"DIFERENCA\n");;}
     break;
 
   case 33:
 
 /* Line 1464 of yacc.c  */
-#line 200 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 200 "parser.y"
+    { fprintf(tokens,"COMPMAIOR\n");;}
     break;
 
   case 34:
 
 /* Line 1464 of yacc.c  */
-#line 201 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 201 "parser.y"
+    { fprintf(tokens,"COMPMENOR\n");;}
     break;
 
   case 35:
 
 /* Line 1464 of yacc.c  */
-#line 202 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 202 "parser.y"
+    { fprintf(tokens,"COMPMAIORIGUAL\n");;}
     break;
 
   case 36:
 
 /* Line 1464 of yacc.c  */
-#line 203 "exemploBison.y"
-    {printf("comparacao\n");;}
+#line 203 "parser.y"
+    { fprintf(tokens,"COMPMENORIGUAL\n");;}
+    break;
+
+  case 37:
+
+/* Line 1464 of yacc.c  */
+#line 204 "parser.y"
+    { fprintf(tokens,"COMPAND\n");;}
+    break;
+
+  case 38:
+
+/* Line 1464 of yacc.c  */
+#line 205 "parser.y"
+    { fprintf(tokens,"COMPOR\n");;}
+    break;
+
+  case 39:
+
+/* Line 1464 of yacc.c  */
+#line 206 "parser.y"
+    { fprintf(tokens,"COMPNOT\n");;}
     break;
 
   case 40:
 
 /* Line 1464 of yacc.c  */
-#line 209 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
+#line 209 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '+' EXP\n");
           (yyval.pont)->token = '+';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1784,8 +1833,8 @@ yyreduce:
   case 41:
 
 /* Line 1464 of yacc.c  */
-#line 215 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
+#line 215 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '-' EXP\n");
           (yyval.pont)->token = '-';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1796,8 +1845,8 @@ yyreduce:
   case 42:
 
 /* Line 1464 of yacc.c  */
-#line 221 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
+#line 221 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '/' EXP\n");
           (yyval.pont)->token = '/';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1808,8 +1857,8 @@ yyreduce:
   case 43:
 
 /* Line 1464 of yacc.c  */
-#line 227 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
+#line 227 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '*' EXP\n");
           (yyval.pont)->token = '*';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1820,8 +1869,8 @@ yyreduce:
   case 44:
 
 /* Line 1464 of yacc.c  */
-#line 234 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No));
+#line 234 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '%' EXP\n");
           (yyval.pont)->token = '%';
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1832,8 +1881,8 @@ yyreduce:
   case 45:
 
 /* Line 1464 of yacc.c  */
-#line 241 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("igualdade\n");
+#line 241 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP EQ EXP\n");
                             (yyval.pont)->token = EQ;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1844,8 +1893,8 @@ yyreduce:
   case 46:
 
 /* Line 1464 of yacc.c  */
-#line 248 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 248 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP NE EXP\n");
                             (yyval.pont)->token = NE;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1856,8 +1905,8 @@ yyreduce:
   case 47:
 
 /* Line 1464 of yacc.c  */
-#line 255 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 255 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MAIORIGUAL EXP\n");
                             (yyval.pont)->token = MAIORIGUAL;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1868,8 +1917,8 @@ yyreduce:
   case 48:
 
 /* Line 1464 of yacc.c  */
-#line 262 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 262 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MENORIGUAL EXP\n");
                             (yyval.pont)->token = MENORIGUAL;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1880,8 +1929,8 @@ yyreduce:
   case 49:
 
 /* Line 1464 of yacc.c  */
-#line 269 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 269 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MENOR EXP\n");
                             (yyval.pont)->token = MENOR;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1892,8 +1941,8 @@ yyreduce:
   case 50:
 
 /* Line 1464 of yacc.c  */
-#line 276 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 276 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MAIOR EXP\n");
                             (yyval.pont)->token = MAIOR;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1904,8 +1953,8 @@ yyreduce:
   case 51:
 
 /* Line 1464 of yacc.c  */
-#line 283 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 283 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP AND EXP\n");
                             (yyval.pont)->token = AND;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1916,8 +1965,8 @@ yyreduce:
   case 52:
 
 /* Line 1464 of yacc.c  */
-#line 290 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 290 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP OR EXP\n");
                             (yyval.pont)->token = OR;
 			    (yyval.pont)->esq = (yyvsp[(1) - (3)].pont);
 			    (yyval.pont)->dir = (yyvsp[(3) - (3)].pont);
@@ -1928,8 +1977,8 @@ yyreduce:
   case 53:
 
 /* Line 1464 of yacc.c  */
-#line 297 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("diferenca\n");
+#line 297 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"NOT EXP\n");
                             (yyval.pont)->token = NOT;
 			    (yyval.pont)->esq = NULL;
 			    (yyval.pont)->dir = (yyvsp[(2) - (2)].pont);
@@ -1940,8 +1989,8 @@ yyreduce:
   case 54:
 
 /* Line 1464 of yacc.c  */
-#line 305 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("IF\n");
+#line 305 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No));  fprintf(tokens,"IF OPEN_BRACE COMPARACAO CLOSE_BRACE BLOCO\n");
 		  (yyval.pont)->token = IF;
 		  (yyval.pont)->lookahead = (yyvsp[(3) - (5)].pont);
 		  (yyval.pont)->esq = (yyvsp[(5) - (5)].pont);
@@ -1953,8 +2002,8 @@ yyreduce:
   case 55:
 
 /* Line 1464 of yacc.c  */
-#line 313 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("if else\n");
+#line 313 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"IF OPEN_BRACE COMPARACAO CLOSE_BRACE BLOCO\n");
 		  (yyval.pont)->token = IF;
 		  (yyval.pont)->lookahead = (yyvsp[(3) - (7)].pont);
 		  (yyval.pont)->esq = (yyvsp[(5) - (7)].pont);
@@ -1966,8 +2015,8 @@ yyreduce:
   case 56:
 
 /* Line 1464 of yacc.c  */
-#line 322 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+#line 322 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' EXP\n");
 			    (yyval.pont)->token = PARADAFOR;
           (yyval.pont)->type = REAL;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -1979,8 +2028,8 @@ yyreduce:
   case 57:
 
 /* Line 1464 of yacc.c  */
-#line 329 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+#line 329 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"INT IDENT '=' EXP\n");
 			    (yyval.pont)->token = PARADAFOR;
           (yyval.pont)->type = INT;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -1992,8 +2041,8 @@ yyreduce:
   case 58:
 
 /* Line 1464 of yacc.c  */
-#line 336 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+#line 336 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"CHAR IDENT '=' EXP\n");
 			    (yyval.pont)->token = PARADAFOR;
           (yyval.pont)->type = CHAR;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -2005,8 +2054,8 @@ yyreduce:
   case 59:
 
 /* Line 1464 of yacc.c  */
-#line 345 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+#line 345 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' EXP\n");
 			    (yyval.pont)->token = ATRIBUICAOFOR;
           (yyval.pont)->type = REAL;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -2018,8 +2067,8 @@ yyreduce:
   case 60:
 
 /* Line 1464 of yacc.c  */
-#line 352 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+#line 352 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"INT IDENT '=' EXP\n");
 			    (yyval.pont)->token = ATRIBUICAOFOR;
           (yyval.pont)->type = INT;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -2031,8 +2080,8 @@ yyreduce:
   case 61:
 
 /* Line 1464 of yacc.c  */
-#line 359 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+#line 359 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"CHAR IDENT '=' EXP\n");
 			    (yyval.pont)->token = ATRIBUICAOFOR;
           (yyval.pont)->type = CHAR;
 			    (yyval.pont)->esq = (yyvsp[(2) - (4)].pont);
@@ -2044,8 +2093,8 @@ yyreduce:
   case 62:
 
 /* Line 1464 of yacc.c  */
-#line 369 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("for\n");
+#line 369 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"FOR OPEN_BRACE ATRIBUICAOFOR EOL COMPARCAO EOL PARADAFOR CLOSE_BRACE BLOCO\n");
 		       (yyval.pont)->token = FOR;
 		       (yyval.pont)->lookahead = (yyvsp[(3) - (9)].pont);
 		       (yyval.pont)->lookahead1 = (yyvsp[(5) - (9)].pont);
@@ -2058,8 +2107,8 @@ yyreduce:
   case 63:
 
 /* Line 1464 of yacc.c  */
-#line 379 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("print\n");
+#line 379 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"PRINT OPEN_BRACE INT IDENT CLOSE_BRACE\n");
 		       (yyval.pont)->token = PRINT;
            (yyval.pont)->type = INT;
 		       (yyval.pont)->esq = (yyvsp[(4) - (5)].pont);
@@ -2070,8 +2119,8 @@ yyreduce:
   case 64:
 
 /* Line 1464 of yacc.c  */
-#line 387 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("print\n");
+#line 387 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"PRINT OPEN_BRACE REAL IDENT CLOSE_BRACE\n");
 		       (yyval.pont)->token = PRINT;
            (yyval.pont)->type = REAL;
 		       (yyval.pont)->esq = (yyvsp[(4) - (5)].pont);
@@ -2082,8 +2131,8 @@ yyreduce:
   case 65:
 
 /* Line 1464 of yacc.c  */
-#line 395 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("print\n");
+#line 395 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"PRINT OPEN_BRACE CHAR IDENT CLOSE_BRACE\n");
 		       (yyval.pont)->token = PRINT;
            (yyval.pont)->type = CHAR;
 		       (yyval.pont)->esq = (yyvsp[(4) - (5)].pont);
@@ -2094,8 +2143,8 @@ yyreduce:
   case 66:
 
 /* Line 1464 of yacc.c  */
-#line 404 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+#line 404 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' INPUT OPEN_BRACE CLOSE_BRACE\n");
 			    (yyval.pont)->token = INPUT;
           (yyval.pont)->type = REAL;
 			    (yyval.pont)->esq = (yyvsp[(2) - (6)].pont);
@@ -2107,8 +2156,8 @@ yyreduce:
   case 67:
 
 /* Line 1464 of yacc.c  */
-#line 411 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("input\n");
+#line 411 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens,"INT IDENT '=' INPUT OPEN_BRACE CLOSE_BRACE\n");
 			    (yyval.pont)->token = INPUT;
           (yyval.pont)->type = INT;
 			    (yyval.pont)->esq = (yyvsp[(2) - (6)].pont);
@@ -2120,8 +2169,8 @@ yyreduce:
   case 68:
 
 /* Line 1464 of yacc.c  */
-#line 418 "exemploBison.y"
-    { (yyval.pont) = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+#line 418 "parser.y"
+    { (yyval.pont) = (No*)malloc(sizeof(No)); fprintf(tokens," CHAR IDENT '=' INPUT OPEN_BRACE CLOSE_BRACE\n");
 			    (yyval.pont)->token = INPUT;
           (yyval.pont)->type = CHAR;
 			    (yyval.pont)->esq = (yyvsp[(2) - (6)].pont);
@@ -2133,7 +2182,7 @@ yyreduce:
 
 
 /* Line 1464 of yacc.c  */
-#line 2137 "exemploBison.tab.c"
+#line 2186 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2345,7 +2394,7 @@ yyreturn:
 
 
 /* Line 1684 of yacc.c  */
-#line 426 "exemploBison.y"
+#line 426 "parser.y"
 
 
 void yyerror(char *s) {
@@ -2560,7 +2609,7 @@ void imprima(No *root){
           fprintf(saida, "printf(\"%%d\", ");          
         }
         if(root->type == CHAR){
-          fprintf(saida, "printf(\"%%s\", *");          
+          fprintf(saida, "printf(\"%%s\", ");          
         }
         if(root->type == REAL){
           fprintf(saida, "printf(\"%%f\", ");          
@@ -2605,7 +2654,7 @@ int main(int argc, char *argv[]){
   yyin = entrada;
 
   strcpy(buffer,argv[1]);
-  strcat(buffer,".cc");
+  strcat(buffer,".c");
   
   saida = fopen(buffer,"w");
   if(!saida || !tokens){
@@ -2615,7 +2664,6 @@ int main(int argc, char *argv[]){
 
   yyparse();
 
-  fprintf(saida,"#include<iostream>\n");
   fprintf(saida,"#include<stdio.h>\n");
   fprintf(saida,"#include<math.h>\n");
   fprintf(saida,"\nint main(int argc, char *argv[]){\n");
@@ -2627,4 +2675,3 @@ int main(int argc, char *argv[]){
   fclose(entrada);
   fclose(saida);
 }
-

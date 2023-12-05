@@ -105,27 +105,27 @@ lista_comando: comando EOL { $1->prox = 0; fprintf(tokens, "COMANDO EOL\n");
                                    $$ = $1;
                                  }
 
-              |comando EOL lista_comando { $1->prox = $3; printf("COMANDO EOL LISTA_COMANDO\n");
+              |comando EOL lista_comando { $1->prox = $3; fprintf(tokens, "COMANDO EOL LISTA_COMANDO\n");
 	                                         $$ = $1;
 	                                       }
 
-              |if_comando lista_comando{ $1->prox = $2; printf("lista_comanda\n");
+              |if_comando lista_comando{ $1->prox = $2; fprintf(tokens, "IF_COMANDO LISTA_COMANDO\n");
 	                                         $$ = $1;
 	                                       }
-              |if_comando{ $1->prox = 0; printf("lista_comanda\n");
+              |if_comando{ $1->prox = 0; fprintf(tokens, "IF_COMANDO\n");
 	                                         $$ = $1;
 	                                       }  
-              |for_comando{ $1->prox = 0; printf("lista_comanda\n");
+              |for_comando{ $1->prox = 0; fprintf(tokens, "FOR_COMANDO\n");
 	                                         $$ = $1;
 	                                       }                                                                                  
-              |for_comando lista_comando{ $1->prox = $2; printf("lista_comanda\n");
+              |for_comando lista_comando{ $1->prox = $2; fprintf(tokens, "FOR_COMANDO LISTA_COMANDO\n");
 	                                         $$ = $1;
 	                                       }                                                        
 ;
 
-bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; printf("bloco\n"); } 
+bloco: OPEN_BLOCK lista_comando CLOSE_BLOCK { $$ = $2; fprintf(tokens, "OPEN_BLOCK LISTA_COMANDO CLOSE_BLOCK\n"); } 
 
-ident: ID        { $$ = (No*)malloc(sizeof(No)); printf("ident\n");
+ident: ID        { $$ = (No*)malloc(sizeof(No)); fprintf(tokens, "ID\n");
           $$->token = ID;
 		      strcpy($$->nome, yylval.pont->nome);
 		      $$->esq = NULL;
@@ -133,60 +133,60 @@ ident: ID        { $$ = (No*)malloc(sizeof(No)); printf("ident\n");
           $$->prox = NULL;
                     }  
 
-exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
+exp: NUMREAL { $$ = (No*)malloc(sizeof(No)); fprintf(tokens, "NUMREAL\n");
       $$->token = NUMREAL;
       $$->rval = $1->rval;
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | NUMINTEIRO { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
+    | NUMINTEIRO { $$ = (No*)malloc(sizeof(No)); fprintf(tokens, "NUMINTEIRO\n");
       $$->token = NUMINTEIRO;
       $$->ival = $1->ival;
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | STRING { $$ = (No*)malloc(sizeof(No)); printf("exp\n");
+    | STRING { $$ = (No*)malloc(sizeof(No)); fprintf(tokens, "STRING\n");
       $$->token = STRING;
       strcpy($$->string, $1->string);
       $$->esq = NULL;
       $$->dir = NULL;
       $$->prox = NULL;
     }
-    | ident {printf("expIdent\n");}
-    | soma {printf("exp\n");}
-    | subtracao {printf("exp\n");}
-    | divisao {printf("exp\n");}
-    | multiplicacao {printf("exp\n");}
-    | restoDiv {printf("exp\n");}
+    | ident {fprintf(tokens, "IDENT\n");}
+    | soma {fprintf(tokens, "SOMA\n");}
+    | subtracao {fprintf(tokens, "SUBTRACAO\n");}
+    | divisao {fprintf(tokens,"DIVISAO\n");}
+    | multiplicacao {fprintf(tokens,"MULTIPLICACAO\n");}
+    | restoDiv {fprintf(tokens,"RESTODIV\n");}
     ;
 
-comando: atribuicao {printf("comandoAtrib\n");}
-        | bloco {printf("comando\n");}
-        | if_comando {printf("comando\n");}
-        | for_comando {printf("comando\n");}
-        | comandoPrintint
-        | comandoPrintreal
-        | comandoPrintstring
-        | comandoInput
+comando: atribuicao {fprintf(tokens,"ATRIBUICAO\n");}
+        | bloco {fprintf(tokens,"BLOCO\n");}
+        | if_comando {fprintf(tokens,"IF_COMANDO\n");}
+        | for_comando {fprintf(tokens,"FOR_COMANDO\n");}
+        | comandoPrintint {fprintf(tokens,"COMANDOPRINTINT\n");}
+        | comandoPrintreal {fprintf(tokens,"COMANDOPRINTREAL\n");}
+        | comandoPrintstring {fprintf(tokens,"COMANDOPRINTSTRING\n");}
+        | comandoInput {fprintf(tokens,"COMANDOINPUT\n");}
 ;
 
-atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' EXP\n");
 			    $$->token = '=';
           $$->type = REAL;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoINTEIRO\n");
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens," INT IDENT '=' EXP\n");
 			    $$->token = '=';
           $$->type = INT;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"CHAR IDENT '=' EXP\n");
 			    $$->token = '=';
           $$->type = CHAR;
 			    $$->esq = $2;
@@ -195,106 +195,106 @@ atribuicao: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuica
                           }
           ;
 
-comparacao: igualdade {printf("comparacao\n");}
-          | diferenca {printf("comparacao\n");}
-          | compMaior {printf("comparacao\n");}
-          | compMenor {printf("comparacao\n");}
-          | compMaiorIgual {printf("comparacao\n");}
-          | compMenorIgual {printf("comparacao\n");}
-          | compAnd
-          | compOr
-          | compNot
+comparacao: igualdade { fprintf(tokens,"IGUALDADE\n");}
+          | diferenca { fprintf(tokens,"DIFERENCA\n");}
+          | compMaior { fprintf(tokens,"COMPMAIOR\n");}
+          | compMenor { fprintf(tokens,"COMPMENOR\n");}
+          | compMaiorIgual { fprintf(tokens,"COMPMAIORIGUAL\n");}
+          | compMenorIgual { fprintf(tokens,"COMPMENORIGUAL\n");}
+          | compAnd { fprintf(tokens,"COMPAND\n");}
+          | compOr { fprintf(tokens,"COMPOR\n");}
+          | compNot { fprintf(tokens,"COMPNOT\n");}
 ;
 
-soma: exp '+' exp { $$ = (No*)malloc(sizeof(No));
+soma: exp '+' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '+' EXP\n");
           $$->token = '+';
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
       }
-subtracao: exp '-' exp { $$ = (No*)malloc(sizeof(No));
+subtracao: exp '-' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '-' EXP\n");
           $$->token = '-';
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
       }
-divisao: exp '/' exp { $$ = (No*)malloc(sizeof(No));
+divisao: exp '/' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '/' EXP\n");
           $$->token = '/';
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
       }
-multiplicacao: exp '*' exp { $$ = (No*)malloc(sizeof(No));
+multiplicacao: exp '*' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '*' EXP\n");
           $$->token = '*';
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
       }
 
-restoDiv: exp '%' exp { $$ = (No*)malloc(sizeof(No));
+restoDiv: exp '%' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP '%' EXP\n");
           $$->token = '%';
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
       } 
 
-igualdade: exp EQ exp     { $$ = (No*)malloc(sizeof(No)); printf("igualdade\n");
+igualdade: exp EQ exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP EQ EXP\n");
                             $$->token = EQ;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+diferenca: exp NE exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP NE EXP\n");
                             $$->token = NE;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-compMaiorIgual: exp MAIORIGUAL exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compMaiorIgual: exp MAIORIGUAL exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MAIORIGUAL EXP\n");
                             $$->token = MAIORIGUAL;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-compMenorIgual: exp MENORIGUAL exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compMenorIgual: exp MENORIGUAL exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MENORIGUAL EXP\n");
                             $$->token = MENORIGUAL;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-compMenor: exp MENOR exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compMenor: exp MENOR exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MENOR EXP\n");
                             $$->token = MENOR;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-compMaior: exp MAIOR exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compMaior: exp MAIOR exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP MAIOR EXP\n");
                             $$->token = MAIOR;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }                                                                                                        
 
-compAnd: exp AND exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compAnd: exp AND exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP AND EXP\n");
                             $$->token = AND;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           }
 
-compOr: exp OR exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compOr: exp OR exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"EXP OR EXP\n");
                             $$->token = OR;
 			    $$->esq = $1;
 			    $$->dir = $3;
           $$->prox = NULL;
                           } 
 
-compNot: NOT exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
+compNot: NOT exp     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"NOT EXP\n");
                             $$->token = NOT;
 			    $$->esq = NULL;
 			    $$->dir = $2;
@@ -302,7 +302,7 @@ compNot: NOT exp     { $$ = (No*)malloc(sizeof(No)); printf("diferenca\n");
                           }                                                       
 
 if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
-                { $$ = (No*)malloc(sizeof(No)); printf("IF\n");
+                { $$ = (No*)malloc(sizeof(No));  fprintf(tokens,"IF OPEN_BRACE COMPARACAO CLOSE_BRACE BLOCO\n");
 		  $$->token = IF;
 		  $$->lookahead = $3;
 		  $$->esq = $5;
@@ -310,7 +310,7 @@ if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
       $$->prox = NULL;
                 }
            | IF OPEN_BRACE comparacao CLOSE_BRACE bloco ELSE bloco
-                { $$ = (No*)malloc(sizeof(No)); printf("if else\n");
+                { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"IF OPEN_BRACE COMPARACAO CLOSE_BRACE BLOCO\n");
 		  $$->token = IF;
 		  $$->lookahead = $3;
 		  $$->esq = $5;
@@ -319,21 +319,21 @@ if_comando: IF OPEN_BRACE comparacao CLOSE_BRACE bloco
                 }
            ;
 
-paradaFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+paradaFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' EXP\n");
 			    $$->token = PARADAFOR;
           $$->type = REAL;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"INT IDENT '=' EXP\n");
 			    $$->token = PARADAFOR;
           $$->type = INT;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("paradaFor\n");
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"CHAR IDENT '=' EXP\n");
 			    $$->token = PARADAFOR;
           $$->type = CHAR;
 			    $$->esq = $2;
@@ -342,21 +342,21 @@ paradaFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("paradaFor\
                           }
           ;
 
-atribuicaoFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+atribuicaoFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' EXP\n");
 			    $$->token = ATRIBUICAOFOR;
           $$->type = REAL;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+          | INT ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"INT IDENT '=' EXP\n");
 			    $$->token = ATRIBUICAOFOR;
           $$->type = INT;
 			    $$->esq = $2;
 			    $$->dir = $4;
           $$->prox = NULL;
                           }
-          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribuicaoFOR\n");
+          | CHAR ident '=' exp { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"CHAR IDENT '=' EXP\n");
 			    $$->token = ATRIBUICAOFOR;
           $$->type = CHAR;
 			    $$->esq = $2;
@@ -366,7 +366,7 @@ atribuicaoFor: REAL ident '=' exp { $$ = (No*)malloc(sizeof(No)); printf("atribu
           ;
 
 for_comando:  FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BRACE bloco
-                     { $$ = (No*)malloc(sizeof(No)); printf("for\n");
+                     { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"FOR OPEN_BRACE ATRIBUICAOFOR EOL COMPARCAO EOL PARADAFOR CLOSE_BRACE BLOCO\n");
 		       $$->token = FOR;
 		       $$->lookahead = $3;
 		       $$->lookahead1 = $5;
@@ -376,7 +376,7 @@ for_comando:  FOR OPEN_BRACE atribuicaoFor EOL comparacao EOL paradaFor CLOSE_BR
                      }
           ;
 
-comandoPrintint: PRINT OPEN_BRACE INT ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("print\n");
+comandoPrintint: PRINT OPEN_BRACE INT ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"PRINT OPEN_BRACE INT IDENT CLOSE_BRACE\n");
 		       $$->token = PRINT;
            $$->type = INT;
 		       $$->esq = $4;
@@ -384,7 +384,7 @@ comandoPrintint: PRINT OPEN_BRACE INT ident CLOSE_BRACE { $$ = (No*)malloc(sizeo
                      }
           ;
 
-comandoPrintreal: PRINT OPEN_BRACE REAL ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("print\n");
+comandoPrintreal: PRINT OPEN_BRACE REAL ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"PRINT OPEN_BRACE REAL IDENT CLOSE_BRACE\n");
 		       $$->token = PRINT;
            $$->type = REAL;
 		       $$->esq = $4;
@@ -392,7 +392,7 @@ comandoPrintreal: PRINT OPEN_BRACE REAL ident CLOSE_BRACE { $$ = (No*)malloc(siz
                      }
           ;
 
-comandoPrintstring: PRINT OPEN_BRACE CHAR ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("print\n");
+comandoPrintstring: PRINT OPEN_BRACE CHAR ident CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"PRINT OPEN_BRACE CHAR IDENT CLOSE_BRACE\n");
 		       $$->token = PRINT;
            $$->type = CHAR;
 		       $$->esq = $4;
@@ -401,21 +401,21 @@ comandoPrintstring: PRINT OPEN_BRACE CHAR ident CLOSE_BRACE { $$ = (No*)malloc(s
           ;
 
 
-comandoInput : REAL ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+comandoInput : REAL ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"REAL IDENT '=' INPUT OPEN_BRACE CLOSE_BRACE\n");
 			    $$->token = INPUT;
           $$->type = REAL;
 			    $$->esq = $2;
 			    $$->dir = NULL;
           $$->prox = NULL;
                           }
-          | INT ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("input\n");
+          | INT ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); fprintf(tokens,"INT IDENT '=' INPUT OPEN_BRACE CLOSE_BRACE\n");
 			    $$->token = INPUT;
           $$->type = INT;
 			    $$->esq = $2;
 			    $$->dir = NULL;
           $$->prox = NULL;
                           }
-          | CHAR ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); printf("atribuicao\n");
+          | CHAR ident '=' INPUT OPEN_BRACE CLOSE_BRACE { $$ = (No*)malloc(sizeof(No)); fprintf(tokens," CHAR IDENT '=' INPUT OPEN_BRACE CLOSE_BRACE\n");
 			    $$->token = INPUT;
           $$->type = CHAR;
 			    $$->esq = $2;
@@ -637,7 +637,7 @@ void imprima(No *root){
           fprintf(saida, "printf(\"%%d\", ");          
         }
         if(root->type == CHAR){
-          fprintf(saida, "printf(\"%%s\", *");          
+          fprintf(saida, "printf(\"%%s\", ");          
         }
         if(root->type == REAL){
           fprintf(saida, "printf(\"%%f\", ");          
@@ -682,7 +682,7 @@ int main(int argc, char *argv[]){
   yyin = entrada;
 
   strcpy(buffer,argv[1]);
-  strcat(buffer,".cc");
+  strcat(buffer,".c");
   
   saida = fopen(buffer,"w");
   if(!saida || !tokens){
@@ -692,7 +692,6 @@ int main(int argc, char *argv[]){
 
   yyparse();
 
-  fprintf(saida,"#include<iostream>\n");
   fprintf(saida,"#include<stdio.h>\n");
   fprintf(saida,"#include<math.h>\n");
   fprintf(saida,"\nint main(int argc, char *argv[]){\n");

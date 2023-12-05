@@ -76,14 +76,14 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 25 "exemploBison.y"
+#line 25 "parser.y"
 
   No *pont;
 
 
 
 /* Line 1685 of yacc.c  */
-#line 87 "exemploBison.tab.h"
+#line 87 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

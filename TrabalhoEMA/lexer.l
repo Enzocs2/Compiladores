@@ -5,7 +5,7 @@
 #include<string.h>
 
 #include "linguagem.h"
-#include "exemploBison.tab.h"
+#include "parser.tab.h"
 
 %}
 

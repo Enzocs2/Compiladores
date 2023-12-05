@@ -1,0 +1,25 @@
+int notaA = 5;
+int notaB = 8;
+int media = notaA+notaB;
+int media = media/2;
+
+int sub = 7;
+if(notaA<sub){
+    int notaA = sub;
+} else { 
+    if(notaB<sub) {
+        int notaB = sub;
+    } else {
+    char a = "(nota da sub menor)";
+    print(char a);
+} 
+}
+
+int mediaNova = notaA+notaB;
+int mediaNova = mediaNova/2;
+int mediaNova = mediaNova*100;
+int mediaNova = mediaNova/media;
+int mediaNova = mediaNova - 100;
+char b ="A media subiu:";
+print(char b);
+print(int mediaNova);

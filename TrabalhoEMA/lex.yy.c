@@ -498,15 +498,15 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "exemploFlex.l"
-#line 2 "exemploFlex.l"
+#line 1 "lexer.l"
+#line 2 "lexer.l"
 #include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 
 #include "linguagem.h"
-#include "exemploBison.tab.h"
+#include "parser.tab.h"
 
 #line 512 "lex.yy.c"
 
@@ -695,7 +695,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 12 "exemploFlex.l"
+#line 12 "lexer.l"
 
 #line 701 "lex.yy.c"
 
@@ -783,165 +783,165 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 13 "exemploFlex.l"
+#line 13 "lexer.l"
 {}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 14 "exemploFlex.l"
+#line 14 "lexer.l"
 ; // ignore whitespace
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "exemploFlex.l"
+#line 16 "lexer.l"
 { return IF; printf("if\n"); } 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 18 "exemploFlex.l"
+#line 18 "lexer.l"
 { return ELSE; printf("else\n"); } 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 "exemploFlex.l"
+#line 20 "lexer.l"
 { return FOR; printf("while\n"); } 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 22 "exemploFlex.l"
+#line 22 "lexer.l"
 { return INT; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "exemploFlex.l"
+#line 24 "lexer.l"
 { return REAL; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "exemploFlex.l"
+#line 26 "lexer.l"
 { return CHAR; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 28 "exemploFlex.l"
+#line 28 "lexer.l"
 { return AND; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 30 "exemploFlex.l"
+#line 30 "lexer.l"
 { return OR; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 33 "exemploFlex.l"
+#line 33 "lexer.l"
 { return PRINT; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 34 "exemploFlex.l"
+#line 34 "lexer.l"
 { return INPUT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 36 "exemploFlex.l"
+#line 36 "lexer.l"
 { yylval.pont->rval = atof(yytext);
                                            return NUMREAL;
                                          }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 40 "exemploFlex.l"
+#line 40 "lexer.l"
 { yylval.pont->ival = atoi(yytext);
                                            return NUMINTEIRO;
                                          }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 43 "exemploFlex.l"
+#line 43 "lexer.l"
 { strncpy(yylval.pont->string, yytext, 256);
                                            return STRING;
                                          }                                         
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 47 "exemploFlex.l"
+#line 47 "lexer.l"
 { strncpy(yylval.pont->nome, yytext, 256);
                        return ID;
                      }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 51 "exemploFlex.l"
+#line 51 "lexer.l"
 { return NOT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 52 "exemploFlex.l"
+#line 52 "lexer.l"
 { return EQ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 53 "exemploFlex.l"
+#line 53 "lexer.l"
 { return NE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 54 "exemploFlex.l"
+#line 54 "lexer.l"
 { return MENORIGUAL; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 55 "exemploFlex.l"
+#line 55 "lexer.l"
 { return MAIORIGUAL; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 56 "exemploFlex.l"
+#line 56 "lexer.l"
 { return MENOR; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 57 "exemploFlex.l"
+#line 57 "lexer.l"
 { return MAIOR; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 58 "exemploFlex.l"
+#line 58 "lexer.l"
 { return OPEN_BRACE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 59 "exemploFlex.l"
+#line 59 "lexer.l"
 { return CLOSE_BRACE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 60 "exemploFlex.l"
+#line 60 "lexer.l"
 { return OPEN_BLOCK; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 61 "exemploFlex.l"
+#line 61 "lexer.l"
 { return CLOSE_BLOCK; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 62 "exemploFlex.l"
+#line 62 "lexer.l"
 { return EOL; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 64 "exemploFlex.l"
+#line 64 "lexer.l"
 { return *yytext; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 66 "exemploFlex.l"
+#line 66 "lexer.l"
 { return *yytext; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 68 "exemploFlex.l"
+#line 68 "lexer.l"
 ECHO;
 	YY_BREAK
 #line 948 "lex.yy.c"
@@ -1942,7 +1942,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 68 "exemploFlex.l"
+#line 68 "lexer.l"
 
 
 int yywrap(void){

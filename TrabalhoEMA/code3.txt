@@ -1,0 +1,17 @@
+int gaveta = 0;
+int mexer = 1;
+
+if(mexer != 0){
+    if(gaveta != 0){
+        int gaveta = 0;
+        char frase = "Gaveta fechada";
+        print(char frase);
+    } else{
+        int gaveta = 1;
+        char frase1 = "Gaveta aberta";
+        print(char frase1);
+    }
+} else { 
+    char frase2 = "Melhor deixar do jeito que ta mesmo";
+    print(char frase2);
+}
