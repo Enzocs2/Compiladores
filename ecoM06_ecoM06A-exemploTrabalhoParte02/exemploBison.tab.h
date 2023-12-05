@@ -76,7 +76,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1685 of yacc.c  */
-#line 24 "exemploBison.y"
+#line 25 "exemploBison.y"
 
   No *pont;
 

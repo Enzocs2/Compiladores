@@ -15,6 +15,7 @@ void yyerror(char *s);
 void imprima(No *root);
 
 FILE *entrada, *saida;
+FILE *tokens = NULL;
 
 No *root;
 char *var_nome;   
@@ -98,13 +99,13 @@ char *var_nome;
 /* Declaracao BISON - regras de gramatica */
 %%
 
-programa: lista_comando { root = $1; printf("root\n");} 
+programa: lista_comando { root = $1; fprintf(tokens, "ROOT\n");} 
 
-lista_comando: comando EOL { $1->prox = 0; printf("lista_comandoFim\n");
+lista_comando: comando EOL { $1->prox = 0; fprintf(tokens, "COMANDO EOL\n");
                                    $$ = $1;
                                  }
 
-              |comando EOL lista_comando { $1->prox = $3; printf("lista_comanda\n");
+              |comando EOL lista_comando { $1->prox = $3; printf("COMANDO EOL LISTA_COMANDO\n");
 	                                         $$ = $1;
 	                                       }
 
@@ -660,6 +661,7 @@ void imprima(No *root){
 int main(int argc, char *argv[]){
   
   char buffer[256];
+  char bufferT[256];
 
   extern FILE *yyin;
 
@@ -670,6 +672,7 @@ int main(int argc, char *argv[]){
     exit(1);
   }
   
+  tokens = fopen("tokens.txt", "w");
   entrada = fopen(argv[1],"r");
   if(!entrada){
     printf("Erro! O arquivo nao pode ser aberto! \n");
@@ -682,7 +685,7 @@ int main(int argc, char *argv[]){
   strcat(buffer,".cc");
   
   saida = fopen(buffer,"w");
-  if(!saida){
+  if(!saida || !tokens){
     printf("Erro! O arquivo nao pode ser aberto! \n");
     exit(1);
   }
@@ -697,6 +700,7 @@ int main(int argc, char *argv[]){
   imprima(root);
   fprintf(saida,"\n}\n");
 
+  fclose(tokens);
   fclose(entrada);
   fclose(saida);
 }
